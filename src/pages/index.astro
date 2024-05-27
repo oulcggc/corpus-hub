@@ -1,6 +1,8 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Card from '../components/Card.astro';
+import ConcordancePreviewCard from '../components/ConcordancerCard.astro';
+import { CONCORDANCERS } from '../data';
 ---
 
 <Layout title="Welcome to CorpusHub">
@@ -34,6 +36,13 @@ import Card from '../components/Card.astro';
 			</defs>
 		</svg>
 		<h1>Welcome to <span class="text-gradient">CorpusHub</span></h1>
+
+		<output>
+			{CONCORDANCERS.map((concordancer) => (
+				<ConcordancePreviewCard concordancer={concordancer} />
+			))}
+		</output>
+
 		<p style="text-align: center;">The Meta-Corpus of All Corporas</p>
 		<p class="instructions">
 			To get started, open the directory <code>src/pages</code> in your project.<br />
@@ -120,5 +129,11 @@ import Card from '../components/Card.astro';
 		grid-template-columns: repeat(auto-fit, minmax(24ch, 1fr));
 		gap: 2rem;
 		padding: 0;
+	}
+
+	output {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+		gap: 1rem;
 	}
 </style>
