@@ -1,13 +1,13 @@
 ---
-import Tag from "../../components/Tag.astro";
-import { CORPORA, CONCORDANCERS } from "../../data";
+// import Tag from "../../components/Tag.astro";
+import { CONCORDANCERS } from "../../data";
 import Layout from "../../layouts/Layout.astro";
 const { id } = Astro.params;
 if (!CONCORDANCERS.some(c => c.id === id)) {
   Astro.response.status = 404;
   Astro.response.statusText = "Concordancer not found";
 }
-const concordancer = CONCORDANCERS.find(c => c.id === id);
+const concordancer = CONCORDANCERS.find(c => c.id === id)!;
 ---
 
 <Layout title={`Concordance: ${concordancer.name.en}`}>
