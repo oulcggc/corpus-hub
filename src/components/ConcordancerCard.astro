@@ -19,7 +19,7 @@ import { CORPORA } from '../data'
     <ul>
         {concordancer.corpora.map((corpus) => (
             <li>
-                <a href={`#${corpus}`}>{CORPORA.find((c) => c.id === corpus)?.name?.ja ?? corpus}</a>
+                <a href={`/corpora/${corpus}`}>{CORPORA.find((c) => c.id === corpus)?.name?.ja ?? corpus}</a>
             </li>
         ))}
     </ul>

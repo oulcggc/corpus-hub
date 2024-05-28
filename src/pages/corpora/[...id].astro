@@ -1,0 +1,71 @@
+---
+import Tag from "../../components/Tag.astro";
+import { CORPORA, CONCORDANCERS } from "../../data";
+import Layout from "../../layouts/Layout.astro";
+const { id } = Astro.params;
+if (!CORPORA.some(c => c.id === id)) {
+  Astro.response.status = 404;
+  Astro.response.statusText = "Corpus not found";
+}
+
+const corpus = CORPORA.find(c => c.id === id)!;
+---
+
+<Layout title="Corpus: {corpus.name.en}">
+  <main class="text-cyan-200 w-full max-w-2xl mx-auto p-4">
+    <h1>
+      <a href={corpus.link}>
+      {Object.entries(corpus.name).map(([lang, name]) => (
+        <span lang={lang}>{name} </span>
+      ))}
+      </a>
+    </h1>
+    <p>{corpus.lang}</p>
+    
+    <div
+      class="tags"
+    >
+      {corpus.tags.map(
+        tag => (
+          <Tag>{tag}</Tag>
+        )
+      )}
+    </div>
+    
+    <p>{corpus.author.abbr}</p>
+    
+    <a class="visit" href={corpus.link}>Visit corpus description page</a>
+    
+    <h2>Concordancers</h2>
+    <ul>
+      {CONCORDANCERS.filter(c => c.corpora.includes(corpus.id)).map(c => (
+        <li>
+          <a href={`/concordancers/${c.id}`}>{c.name}</a>
+        </li>
+      ))}
+    </ul>
+  </main>
+
+</Layout>
+
+
+<style>
+  h1 {
+    margin-bottom: 0;
+  }
+  p {
+    margin-top: 0;
+  }
+  .visit {
+    display: block;
+    margin-top: 1em;
+    padding: 0.5em;
+    border-radius: 0.5em;
+    text-align: center;
+    border: 1px solid #ccc;
+  }
+
+  .tags {
+    @apply flex flex-wrap gap-2;
+  }
+</style>
