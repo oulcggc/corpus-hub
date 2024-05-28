@@ -1,0 +1,67 @@
+<header>
+    <span>CorpusHub</span>
+    <nav>
+        <ul>
+          {[{
+              path: '/',
+              name: 'Home'
+            },{
+              path: '/corpora',
+              name: 'Corpora'
+            },{
+              path: '/concordancers',
+              name: 'Concordancers'
+            },{
+              path: '/about',
+              name: 'About'
+            }
+          ].map(({path, name}) => (
+            <li><a href={path}
+              class={path === Astro.url.pathname ? 'active' : ''}
+            >
+              {name}
+            </a></li>
+          ))}
+        </ul>
+    </nav>
+    <span
+      class="flex-grow"
+    ></span>
+    <span>
+      Login
+    </span>
+</header>
+
+<style>
+    header {
+        background-color: #333;
+        color: white;
+        padding: 10px;
+        display: flex;
+        gap: 2em
+    }
+
+    nav ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    nav ul li {
+        display: inline;
+        margin-right: 10px;
+    }
+
+    nav ul li a {
+        color: white;
+        text-decoration: none;
+    }
+
+    nav ul li a:hover {
+        text-decoration: underline;
+    }
+
+    nav ul li a.active {
+        font-weight: bold;
+    }
+</style>
