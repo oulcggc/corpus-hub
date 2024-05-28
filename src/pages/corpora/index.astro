@@ -1,0 +1,22 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { CORPORA } from "../../data";
+---
+
+<Layout title="Corpora">
+  <main>
+    <ul>
+      {CORPORA.map((corpus) => (
+        <li>
+          <a href={`/corpora/${corpus.id}`}>{corpus.name.en}</a>
+        </li>
+      ))}
+    </ul>
+  </main>
+</Layout>
+
+<style>
+  main {
+    @apply text-gray-100 w-full max-w-2xl mx-auto p-4;
+  }
+</style>
