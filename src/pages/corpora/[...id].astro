@@ -40,7 +40,7 @@ const corpus = CORPORA.find(c => c.id === id)!;
     <ul>
       {CONCORDANCERS.filter(c => c.corpora.includes(corpus.id)).map(c => (
         <li>
-          <a href={`/concordancers/${c.id}`}>{c.name}</a>
+          <a href={`/concordancers/${c.id}`}>{c.name.en}</a>
         </li>
       ))}
     </ul>

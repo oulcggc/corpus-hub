@@ -14,7 +14,10 @@ export const CONCORDANCERS: Concordancer[] = [
   {
     id: "ja@ninjal/shonagon",
     lang: "ja",
-    name: "少納言",
+    name: {
+      ja: "少納言",
+      en: "Shonagon",
+    },
     author: AUTHORS.ninjal,
     link: "https://shonagon.ninjal.ac.jp",
     usage: {
@@ -29,7 +32,10 @@ export const CONCORDANCERS: Concordancer[] = [
   {
     id: "ja@ninjal/chunagon",
     lang: "ja",
-    name: "中納言",
+    name: {
+      ja: "中納言",
+      en: "Chunagon",
+    },
     author: AUTHORS.ninjal,
     link: "https://chunagon.ninjal.ac.jp/",
     usage: {
