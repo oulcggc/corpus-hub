@@ -47,6 +47,24 @@ export const CONCORDANCERS: Concordancer[] = [
     },
     corpora: ["ja@ninjal/bccwj", "ja@ninjal/chj"],
   },
+  {
+    id: "ja@ninjal/himawari",
+    lang: "ja",
+    name: {
+      ja: "ひまわり",
+      en: "Himawari",
+    },
+    author: AUTHORS.ninjal,
+    link: "https://csd.ninjal.ac.jp/lrc/index.php",
+    usage: {
+      online: false,
+      free: true,
+      freemium: false,
+      registration: false,
+      application: false,
+    },
+    corpora: [],
+  },
 ];
 
 export const CORPORA = [
