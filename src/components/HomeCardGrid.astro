@@ -1,0 +1,26 @@
+---
+import Card from './Card.astro';
+---
+
+<ul role="list" class="grid gap-4 p-0 grid-cols-[repeat(auto-fit,minmax(24ch,1fr))]" aria-label="List of resources" class="link-card-grid">
+  <Card
+    href="/concordancers"
+    title="Concordancers"
+    body="A concordancer can show word usage in context, often with search."
+  />
+  <Card
+    href="/corpora"
+    title="Corpora"
+    body="A corpus is a collection of texts, often with metadata and annotations."
+  />
+  <Card
+    href="/datasets"
+    title="Datasets"
+    body="A dataset or database is a structured collection of language data."
+  />
+  <Card
+    href="/dictionaries"
+    title="Dictionaries"
+    body="A dictionary or lexicon is a collection of words and their meanings."
+  />
+</ul>
