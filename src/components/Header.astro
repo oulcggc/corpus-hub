@@ -1,7 +1,7 @@
-<header>
-    <span>CorpusHub</span>
+<header class="p-6">
+    <span class="font-black">CorpusHub</span>
     <nav>
-        <ul>
+        <ul class="flex gap-4">
           {[{
               path: '/',
               name: 'Home'
@@ -27,9 +27,7 @@
           ].map(({path, name}) => (
             <li><a href={path}
               class={path === Astro.url.pathname ? 'active' : ''}
-            >
-              {name}
-            </a></li>
+            >{name}</a></li>
           ))}
         </ul>
     </nav>
@@ -43,9 +41,7 @@
 
 <style>
     header {
-        background-color: #333;
         color: white;
-        padding: 10px;
         display: flex;
         gap: 2em
     }
@@ -58,7 +54,6 @@
 
     nav ul li {
         display: inline;
-        margin-right: 10px;
     }
 
     nav ul li a {
