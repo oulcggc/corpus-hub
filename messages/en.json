@@ -1,4 +1,8 @@
 {
   "$schema": "https://inlang.com/schema/inlang-message-format",
-  "login": "Sign in"
+  "login": "Sign in",
+  "concordancers": "Concordancers",
+  "corpora": "Corpora",
+  "datasets": "Datasets",
+  "dictionaries": "Dictionaries"
 }

@@ -11,16 +11,16 @@ import * as m from '../paraglide/messages'
         <ul class="flex gap-4">
           {[{
               path: '/concordancers',
-              name: 'Concordancers'
+              name: m.concordancers()
             },{
               path: '/corpora',
-              name: 'Corpora'
+              name: m.corpora()
             },{
               path: '/datasets',
-              name: 'Datasets'
+              name: m.datasets()
             },{
               path: '/dictionaries',
-              name: 'Dictionaries'
+              name: m.dictionaries()
             }
           ].map(({path, name}) => (
             <li><a href={path}
