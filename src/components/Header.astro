@@ -1,4 +1,8 @@
-<header class="p-6">
+---
+import LanguagePicker from './LanguagePicker.astro'
+import * as m from '../paraglide/messages'
+---
+<header class="p-6 v-center">
     <span class="font-black">CorpusHub</span>
     <nav>
         <ul class="flex gap-4">
@@ -17,9 +21,6 @@
             },{
               path: '/dictionaries',
               name: 'Dictionaries'
-            },{
-              path: '/about',
-              name: 'About'
             }
           ].map(({path, name}) => (
             <li><a href={path}
@@ -32,8 +33,9 @@
       class="flex-grow"
     ></span>
     <span>
-      Login
+      {m.login()}
     </span>
+    <LanguagePicker />
 </header>
 
 <style>
