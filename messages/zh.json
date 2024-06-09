@@ -1,4 +1,8 @@
 {
   "$schema": "https://inlang.com/schema/inlang-message-format",
-  "login": "登陸"
+  "login": "登陸",
+  "concordancers": "語料索引",
+  "corpora": "語料庫",
+  "datasets": "數據集",
+  "dictionaries": "詞典"
 }

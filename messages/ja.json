@@ -1,4 +1,8 @@
 {
   "$schema": "https://inlang.com/schema/inlang-message-format",
-  "login": "ログイン"
+  "login": "ログイン",
+  "concordancers": "コンコーダンサー",
+  "corpora": "コーパス",
+  "datasets": "データセット",
+  "dictionaries": "辞書"
 }

@@ -1,4 +1,8 @@
 {
   "$schema": "https://inlang.com/schema/inlang-message-format",
-  "login": "Connexion"
+  "login": "Connexion",
+  "concordancers": "Concordanciers",
+  "corpora": "Corpus",
+  "datasets": "Ensembles de Données",
+  "dictionaries": "Dictionnaires"
 }
