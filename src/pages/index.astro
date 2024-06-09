@@ -37,13 +37,14 @@ import { CONCORDANCERS } from '../data';
 		</svg>
 		<h1>Welcome to <span class="text-gradient">CorpusHub</span></h1>
 
+    <p class="text-center m-4">The Meta-Corpus of All Corporas and Other Language Resources</p>
+
 		<output>
 			{CONCORDANCERS.map((concordancer) => (
 				<ConcordancePreviewCard concordancer={concordancer} />
 			))}
 		</output>
 
-		<p style="text-align: center;">The Meta-Corpus of All Corporas</p>
 		<p class="instructions">
 			To get started, open the directory <code>src/pages</code> in your project.<br />
 			<strong>Code Challenge:</strong> Tweak the "Welcome to Astro" message above.
