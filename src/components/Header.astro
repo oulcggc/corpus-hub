@@ -3,13 +3,13 @@ import LanguagePicker from './LanguagePicker.astro'
 import * as m from '../paraglide/messages'
 ---
 <header class="p-6 v-center">
-    <span class="font-black">CorpusHub</span>
+    <a
+      href="/"
+      class="font-black text-white"
+    >CorpusHub</a>
     <nav>
         <ul class="flex gap-4">
           {[{
-              path: '/',
-              name: 'Home'
-            },{
               path: '/concordancers',
               name: 'Concordancers'
             },{
