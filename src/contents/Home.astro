@@ -4,13 +4,19 @@ import Layout from '../layouts/Layout.astro';
 import ConcordancePreviewCard from '../components/ConcordancerCard.astro';
 import { CONCORDANCERS } from '../data';
 import CardGrid from '../components/HomeCardGrid.astro';
+import * as m from '../paraglide/messages';
+
+const APP_NAME = 'CorpusHub';
+
+const [beforeWelcome, afterWelcome] = m.welcome({name: "{name}"}).split('{name}');
 ---
 
 <Layout title="Welcome to CorpusHub" top>
-	<main>
-		<h1 class="m-4">Welcome to <span class="text-gradient">CorpusHub</span></h1>
-
-    <p class="text-center m-4">The Meta-Corpus of All Corporas and Other Language Resources</p>
+	<main class="py-10">
+		<h1 class="m-4">{beforeWelcome}<span class="text-gradient">{APP_NAME}</span>{afterWelcome}</h1>
+    <p class="text-center m-4 mb-10
+      text-2xl
+    ">{m.slogan()}</p>
 
 		<output>
 			{CONCORDANCERS.map((concordancer) => (
@@ -18,9 +24,7 @@ import CardGrid from '../components/HomeCardGrid.astro';
 			))}
 		</output>
 
-		<p class="instructions">
-			To get started, open the directory <code>src/pages</code> in your project.<br />
-			<strong>Code Challenge:</strong> Tweak the "Welcome to Astro" message above.
+		<p class="instructions my-10" set:html={m.description()}>
 		</p>
 
     <CardGrid/>
@@ -31,7 +35,6 @@ import CardGrid from '../components/HomeCardGrid.astro';
 <style>
 	main {
 		margin: auto;
-		padding: 1rem;
 		width: 800px;
 		max-width: calc(100% - 2rem);
 		color: white;
@@ -68,7 +71,7 @@ import CardGrid from '../components/HomeCardGrid.astro';
 		padding: 1.5rem;
 		border-radius: 8px;
 	}
-	.instructions code {
+	.instructions :global(code) {
 		font-size: 0.8em;
 		font-weight: bold;
 		background: rgba(var(--accent-light), 12%);
@@ -76,7 +79,7 @@ import CardGrid from '../components/HomeCardGrid.astro';
 		border-radius: 4px;
 		padding: 0.3em 0.4em;
 	}
-	.instructions strong {
+	.instructions :global(strong) {
 		color: rgb(var(--accent-light));
 	}
 
