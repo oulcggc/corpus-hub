@@ -37,7 +37,7 @@ const [beforeWelcome, afterWelcome] = m.welcome({name: "{name}"}).split('{name}'
 		margin: auto;
 		width: 800px;
 		max-width: calc(100% - 2rem);
-		color: white;
+    @apply  text-[#020305] dark:text-white transition-colors;
 		font-size: 20px;
 		line-height: 1.6;
 	}
@@ -67,20 +67,19 @@ const [beforeWelcome, afterWelcome] = m.welcome({name: "{name}"}).split('{name}'
 	.instructions {
 		margin-bottom: 2rem;
 		border: 1px solid rgba(var(--accent-light), 25%);
-		background: linear-gradient(rgba(var(--accent-dark), 66%), rgba(var(--accent-dark), 33%));
+    @apply bg-gradient-to-r dark:from-accent-dark/60 dark:to-accent-dark/30 from-accent-light/60 to-accent-light/30;
 		padding: 1.5rem;
 		border-radius: 8px;
 	}
 	.instructions :global(code) {
 		font-size: 0.8em;
 		font-weight: bold;
-		background: rgba(var(--accent-light), 12%);
-		color: rgb(var(--accent-light));
+    @apply dark:bg-accent-light/10 dark:text-accent-light bg-accent-dark/10 text-accent-dark;
 		border-radius: 4px;
 		padding: 0.3em 0.4em;
 	}
 	.instructions :global(strong) {
-		color: rgb(var(--accent-light));
+    @apply dark:text-accent-light text-accent-dark;
 	}
 
 	output {

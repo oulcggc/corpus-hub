@@ -26,15 +26,15 @@
     footer {
         text-align: center;
         padding: 2em 1em;
-        color: white;
-        background: rgb(0, 0, 0, 0.8);
+        @apply bg-gray-200 dark:bg-gray-950;
+        @apply text-gray-900 dark:text-gray-50;
         display: flex;
         flex-direction: column;
         gap: 1em;
     }
 
     a {
-        color: white;
+        @apply text-inherit;
         text-decoration: underline;
     }
     

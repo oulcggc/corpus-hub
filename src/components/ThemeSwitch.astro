@@ -1,0 +1,100 @@
+---
+import { Icon } from 'astro-icon/components';
+---
+
+<div class="flex md:order-2 relative">
+  <button
+    id="theme-toggle"
+    type="button"
+    class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 relative"
+  >
+    <Icon name="hugeicons:moon-02" class="absolute inset-0 w-5 h-5 text-gray-500 dark:text-gray-400 transition-opacity duration-300 opacity-0" id="theme-toggle-dark-icon"/>
+    <Icon name="hugeicons:sun-03" class="absolute inset-0 w-5 h-5 text-yellow-500 dark:text-yellow-300 transition-opacity duration-300 opacity-100" id="theme-toggle-light-icon"/>
+  </button>
+</div>
+
+<script is:inline>
+  function applyTheme() {
+    const theme = localStorage.getItem("color-theme");
+
+    if (theme === "dark" || (!theme && window.matchMedia("(prefers-color-scheme: dark)").matches)) {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+  }
+
+  function enableThemeToggle() {
+    const themeToggleDarkIcon = document.querySelector("#theme-toggle-dark-icon");
+    const themeToggleLightIcon = document.querySelector("#theme-toggle-light-icon");
+
+    if (
+      localStorage.getItem("color-theme") === "dark" ||
+      (!("color-theme" in localStorage) &&
+        window.matchMedia("(prefers-color-scheme: dark)").matches)
+    ) {
+      themeToggleLightIcon.classList.add("opacity-100");
+      themeToggleLightIcon.classList.remove("opacity-0");
+      themeToggleDarkIcon.classList.add("opacity-0");
+      themeToggleDarkIcon.classList.remove("opacity-100");
+    } else {
+      themeToggleDarkIcon.classList.add("opacity-100");
+      themeToggleDarkIcon.classList.remove("opacity-0");
+      themeToggleLightIcon.classList.add("opacity-0");
+      themeToggleLightIcon.classList.remove("opacity-100");
+    }
+
+    const themeToggleBtn = document.querySelector("#theme-toggle");
+
+    themeToggleBtn.addEventListener("click", function () {
+      if (themeToggleDarkIcon.classList.contains("opacity-100")) {
+        themeToggleDarkIcon.classList.add("opacity-0");
+        themeToggleDarkIcon.classList.remove("opacity-100");
+
+        setTimeout(() => {
+          themeToggleLightIcon.classList.add("opacity-100");
+          themeToggleLightIcon.classList.remove("opacity-0");
+        }, 150);
+      } else {
+        themeToggleLightIcon.classList.add("opacity-0");
+        themeToggleLightIcon.classList.remove("opacity-100");
+
+        setTimeout(() => {
+          themeToggleDarkIcon.classList.add("opacity-100");
+          themeToggleDarkIcon.classList.remove("opacity-0");
+        }, 150);
+      }
+
+      if (localStorage.getItem("color-theme")) {
+        if (localStorage.getItem("color-theme") === "light") {
+          document.documentElement.classList.add("dark");
+          localStorage.setItem("color-theme", "dark");
+        } else {
+          document.documentElement.classList.remove("dark");
+          localStorage.setItem("color-theme", "light");
+        }
+      } else {
+        if (document.documentElement.classList.contains("dark")) {
+          document.documentElement.classList.remove("dark");
+          localStorage.setItem("color-theme", "light");
+        } else {
+          document.documentElement.classList.add("dark");
+          localStorage.setItem("color-theme", "dark");
+        }
+      }
+    });
+  }
+
+  applyTheme();
+  enableThemeToggle();
+  document.addEventListener("astro:after-swap", () => {
+    applyTheme();
+    enableThemeToggle();
+  });
+</script>
+
+<style>
+  .transition-opacity {
+    transition: opacity 0.3s ease-in-out;
+  }
+</style>

@@ -10,7 +10,10 @@ console.log(availableLanguageTags, languageTag());
 >
   <Icon name="hugeicons:language-skill" class="w-6 h-6" />
   <select
-    class="block w-full px-3 py-2 bg-gray-800 text-white border border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+    class="block w-full px-3 py-2
+     bg-white dark:bg-gray-800
+      text-gray-900 dark:text-gray-100
+      border border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
     aria-label="Language"
   >
     {availableLanguageTags.map((tag) => (
