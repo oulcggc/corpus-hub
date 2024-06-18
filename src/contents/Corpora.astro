@@ -5,18 +5,17 @@ import { CORPORA } from "../data";
 import * as m from "../paraglide/messages";
 ---
 
-<Layout title="Corpora">
+<Layout title={m.corpora()}>
   <main>
     <h1>{m.corpora()}</h1>
-    <ul>
-      {
-        CORPORA.map((corpus) => (
-          <li>
-            <a href={`/corpora/${corpus.id}`}>{corpus.name.en}</a>
-          </li>
-        ))
-      }
-    </ul>
+    <ul></ul>
+    {
+      CORPORA.map((corpus) => (
+        <li>
+          <a href={`/corpora/${corpus.id}`}>{corpus.name.en}</a>
+        </li>
+      ))
+    }
   </main>
 </Layout>
 
