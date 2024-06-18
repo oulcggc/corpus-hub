@@ -86,12 +86,11 @@ export default async function seed() {
   }
   console.log(await db.select().from(CorporaTags).all());
 
-  for (const [id, { corpora }] of Object.entries(CONCORDANCERS)) {
-    await db.insert(ConcordancerCorpora).values(
-      corpora.map((corporaId) => ({
-        concordancerId: id,
-        corporaId,
-      })),
-    );
-  }
+  const CONCORDANCER_CORPORA = Object.entries(CONCORDANCERS)
+    .map(([id, { corpora }]) =>
+      corpora.map((corporaId) => ({ concordancerId: id, corporaId })),
+    )
+    .flat();
+  console.log("ConcordancerCorpora:", CONCORDANCER_CORPORA);
+  await db.insert(ConcordancerCorpora).values(CONCORDANCER_CORPORA);
 }
