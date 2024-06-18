@@ -5,71 +5,88 @@ import * as m from "../paraglide/messages";
 ---
 
 <header
-  class="p-6 align-middle flex items-center text-[#020305] dark:text-white transition-colors;"
+  class="p-6 align-middle flex justify-between md:justify-normal items-center text-[#020305] dark:text-white transition-colors gap-4
+    md:flex-row flex-col"
 >
-  <a href="/" class="font-black text-current">CorpusHub</a>
-  <nav>
-    <ul class="flex gap-4">
-      {
-        [
-          {
-            path: "/concordancers",
-            name: m.concordancers(),
-          },
-          {
-            path: "/corpora",
-            name: m.corpora(),
-          },
-          {
-            path: "/datasets",
-            name: m.datasets(),
-          },
-          {
-            path: "/dictionaries",
-            name: m.dictionaries(),
-          },
-        ].map(({ path, name }) => (
-          <li>
-            <a href={path} class={path === Astro.url.pathname ? "active" : ""}>
-              {name}
-            </a>
-          </li>
-        ))
-      }
-    </ul>
-  </nav>
-  <span class="flex-grow"></span>
-  <span>
-    {m.login()}
-  </span>
-  <ThemeSwitcher />
-  <LanguagePicker />
+  <div class="flex justify-between items-center w-full md:w-auto">
+    <a href="/" class="font-black text-current">CorpusHub</a>
+    <button
+      aria-label="Main Navigation Toggle"
+      class="tham tham-e-squeeze tham-w-6 md:hidden"
+      id="navigation-toggle"
+    >
+      <div class="tham-box">
+        <div class="tham-inner bg-[#020305] dark:bg-white"></div>
+      </div>
+    </button>
+  </div>
+  <div
+    id="navbar-menu"
+    class="hidden md:flex flex-col md:flex-row justify-between gap-6 md:gap-4 w-full md:p-0 p-6"
+  >
+    <nav class="flex w-full items-center gap-4 flex-wrap md:flex-nowrap">
+      <ul class="contents list-none m-0 p-0">
+        {
+          [
+            {
+              path: "/concordancers",
+              name: m.concordancers(),
+            },
+            {
+              path: "/corpora",
+              name: m.corpora(),
+            },
+            {
+              path: "/datasets",
+              name: m.datasets(),
+            },
+            {
+              path: "/dictionaries",
+              name: m.dictionaries(),
+            },
+          ].map(({ path, name }) => (
+            <li>
+              <a
+                href={path}
+                class:list={[
+                  {
+                    active: path === Astro.url.pathname,
+                  },
+                  "hover:underline",
+                ]}
+              >
+                {name}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+    <div class="flex gap-4 items-center justify-end flex-wrap md:flex-nowrap">
+      <span class="whitespace-nowrap">
+        {m.login()}
+      </span>
+      <ThemeSwitcher />
+      <LanguagePicker />
+    </div>
+  </div>
+
+  <script is:inline lang="ts">
+    const navigationToggle = document.getElementById("navigation-toggle");
+    const navbarMenu = document.getElementById("navbar-menu");
+
+    function toggleMenu() {
+      navbarMenu.classList.toggle("hidden");
+      navbarMenu.classList.toggle("flex");
+      navigationToggle.classList.toggle("tham-active");
+    }
+    // toggleMenu();
+
+    navigationToggle.addEventListener("click", () => toggleMenu());
+  </script>
 </header>
 
 <style>
-  header {
-    display: flex;
-    gap: 2em;
-  }
-
-  nav ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-  }
-
-  nav ul li {
-    display: inline;
-  }
-
-  nav ul li a {
-    text-decoration: none;
-  }
-
-  nav ul li a:hover {
-    text-decoration: underline;
-  }
-
   nav ul li a.active {
     font-weight: bold;
   }
