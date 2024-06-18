@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "build": "paraglide-js compile --project ./project.inlang --outdir ./src/paraglide && astro check && astro build",
+    "build": "paraglide-js compile --project ./project.inlang --outdir ./src/paraglide && astro check && astro build --remote",
     "preview": "astro preview",
     "astro": "astro",
     "postinstall": "paraglide-js compile --project ./project.inlang --outdir ./src/paraglide"
