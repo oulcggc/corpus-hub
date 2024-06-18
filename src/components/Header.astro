@@ -1,70 +1,76 @@
 ---
-import LanguagePicker from './LanguagePicker.astro'
-import ThemeSwitcher from './ThemeSwitch.astro'
-import * as m from '../paraglide/messages'
+import LanguagePicker from "./LanguagePicker.astro";
+import ThemeSwitcher from "./ThemeSwitch.astro";
+import * as m from "../paraglide/messages";
 ---
-<header class="p-6 align-middle flex items-center text-[#020305] dark:text-white transition-colors;">
-    <a
-      href="/"
-      class="font-black text-current"
-    >CorpusHub</a>
-    <nav>
-        <ul class="flex gap-4">
-          {[{
-              path: '/concordancers',
-              name: m.concordancers()
-            },{
-              path: '/corpora',
-              name: m.corpora()
-            },{
-              path: '/datasets',
-              name: m.datasets()
-            },{
-              path: '/dictionaries',
-              name: m.dictionaries()
-            }
-          ].map(({path, name}) => (
-            <li><a href={path}
-              class={path === Astro.url.pathname ? 'active' : ''}
-            >{name}</a></li>
-          ))}
-        </ul>
-    </nav>
-    <span
-      class="flex-grow"
-    ></span>
-    <span>
-      {m.login()}
-    </span>
-    <ThemeSwitcher />
-    <LanguagePicker />
+
+<header
+  class="p-6 align-middle flex items-center text-[#020305] dark:text-white transition-colors;"
+>
+  <a href="/" class="font-black text-current">CorpusHub</a>
+  <nav>
+    <ul class="flex gap-4">
+      {
+        [
+          {
+            path: "/concordancers",
+            name: m.concordancers(),
+          },
+          {
+            path: "/corpora",
+            name: m.corpora(),
+          },
+          {
+            path: "/datasets",
+            name: m.datasets(),
+          },
+          {
+            path: "/dictionaries",
+            name: m.dictionaries(),
+          },
+        ].map(({ path, name }) => (
+          <li>
+            <a href={path} class={path === Astro.url.pathname ? "active" : ""}>
+              {name}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
+  <span class="flex-grow"></span>
+  <span>
+    {m.login()}
+  </span>
+  <ThemeSwitcher />
+  <LanguagePicker />
 </header>
 
 <style>
-    header {
-        display: flex;
-        gap: 2em
-    }
+  header {
+    display: flex;
+    gap: 2em;
+  }
 
-    nav ul {
-        list-style-type: none;
-        margin: 0;
-        padding: 0;
-    }
+  nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
 
-    nav ul li {
-        display: inline;
-    }
+  nav ul li {
+    display: inline;
+  }
 
-    nav ul li a {
-        text-decoration: none;
-    }
+  nav ul li a {
+    text-decoration: none;
+  }
 
-    nav ul li a:hover {
-        text-decoration: underline;
-    }
+  nav ul li a:hover {
+    text-decoration: underline;
+  }
 
-    nav ul li a.active {
-        font-weight: bold;
-    }
+  nav ul li a.active {
+    font-weight: bold;
+  }
 </style>

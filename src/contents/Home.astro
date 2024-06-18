@@ -1,91 +1,94 @@
 ---
-import Layout from '../layouts/Layout.astro';
+import Layout from "../layouts/Layout.astro";
 
-import ConcordancePreviewCard from '../components/ConcordancerCard.astro';
-import { CONCORDANCERS } from '../data';
-import CardGrid from '../components/HomeCardGrid.astro';
-import * as m from '../paraglide/messages';
+import ConcordancePreviewCard from "../components/ConcordancerCard.astro";
+import { CONCORDANCERS } from "../data";
+import CardGrid from "../components/HomeCardGrid.astro";
+import * as m from "../paraglide/messages";
 
-const APP_NAME = 'CorpusHub';
+const APP_NAME = "CorpusHub";
 
-const [beforeWelcome, afterWelcome] = m.welcome({name: "{name}"}).split('{name}');
+const [beforeWelcome, afterWelcome] = m
+  .welcome({ name: "{name}" })
+  .split("{name}");
 ---
 
 <Layout title="Welcome to CorpusHub" top>
-	<main class="py-10">
-		<h1 class="m-4">{beforeWelcome}<span class="text-gradient">{APP_NAME}</span>{afterWelcome}</h1>
+  <main class="py-10">
+    <h1 class="m-4">
+      {beforeWelcome}<span class="text-gradient">{APP_NAME}</span>{afterWelcome}
+    </h1>
     <p class="text-center m-4 mb-10
-      text-2xl
-    ">{m.slogan()}</p>
+      text-2xl">{m.slogan()}</p>
 
-		<output>
-			{CONCORDANCERS.map((concordancer) => (
-				<ConcordancePreviewCard concordancer={concordancer} />
-			))}
-		</output>
+    <output>
+      {
+        CONCORDANCERS.map((concordancer) => (
+          <ConcordancePreviewCard concordancer={concordancer} />
+        ))
+      }
+    </output>
 
-		<p class="instructions my-10" set:html={m.description()}>
-		</p>
+    <p class="instructions my-10" set:html={m.description()} />
 
-    <CardGrid/>
-
-	</main>
+    <CardGrid />
+  </main>
 </Layout>
 
 <style>
-	main {
-		margin: auto;
-		width: 800px;
-		max-width: calc(100% - 2rem);
-    @apply  text-[#020305] dark:text-white transition-colors;
-		font-size: 20px;
-		line-height: 1.6;
-	}
-	.astro-a {
-		position: absolute;
-		top: -32px;
-		left: 50%;
-		transform: translatex(-50%);
-		width: 220px;
-		height: auto;
-		z-index: -1;
-	}
-	h1 {
-		font-size: 4rem;
-		font-weight: 700;
-		line-height: 1;
-		text-align: center;
-		margin-bottom: 1em;
-	}
-	.text-gradient {
-		background-image: var(--accent-gradient);
-		-webkit-background-clip: text;
-		-webkit-text-fill-color: transparent;
-		background-size: 400%;
-		background-position: 0%;
-	}
-	.instructions {
-		margin-bottom: 2rem;
-		border: 1px solid rgba(var(--accent-light), 25%);
+  main {
+    margin: auto;
+    width: 800px;
+    max-width: calc(100% - 2rem);
+    @apply text-[#020305] dark:text-white transition-colors;
+    font-size: 20px;
+    line-height: 1.6;
+  }
+  .astro-a {
+    position: absolute;
+    top: -32px;
+    left: 50%;
+    transform: translatex(-50%);
+    width: 220px;
+    height: auto;
+    z-index: -1;
+  }
+  h1 {
+    font-size: 4rem;
+    font-weight: 700;
+    line-height: 1;
+    text-align: center;
+    margin-bottom: 1em;
+  }
+  .text-gradient {
+    background-image: var(--accent-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-size: 400%;
+    background-position: 0%;
+  }
+  .instructions {
+    margin-bottom: 2rem;
+    border: 1px solid rgba(var(--accent-light), 25%);
     @apply bg-gradient-to-r dark:from-accent-dark/60 dark:to-accent-dark/30 from-accent-light/60 to-accent-light/30;
-		padding: 1.5rem;
-		border-radius: 8px;
-	}
-	.instructions :global(code) {
-		font-size: 0.8em;
-		font-weight: bold;
+    padding: 1.5rem;
+    border-radius: 8px;
+  }
+  .instructions :global(code) {
+    font-size: 0.8em;
+    font-weight: bold;
     @apply dark:bg-accent-light/10 dark:text-accent-light bg-accent-dark/10 text-accent-dark;
-		border-radius: 4px;
-		padding: 0.3em 0.4em;
-	}
-	.instructions :global(strong) {
+    border-radius: 4px;
+    padding: 0.3em 0.4em;
+  }
+  .instructions :global(strong) {
     @apply dark:text-accent-light text-accent-dark;
-	}
+  }
 
-	output {
-		display: grid;
-		grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-		gap: 1rem;
+  output {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1rem;
     grid-template-rows: 1fr auto;
-	}
+  }
 </style>

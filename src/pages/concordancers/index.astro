@@ -6,11 +6,13 @@ import { CONCORDANCERS } from "../../data";
 <Layout title="Concordancers">
   <main>
     <ul>
-      {CONCORDANCERS.map((corpus) => (
-        <li>
-          <a href={`/corpora/${corpus.id}`}>{corpus.name.en}</a>
-        </li>
-      ))}
+      {
+        CONCORDANCERS.map((corpus) => (
+          <li>
+            <a href={`/corpora/${corpus.id}`}>{corpus.name.en}</a>
+          </li>
+        ))
+      }
     </ul>
   </main>
 </Layout>

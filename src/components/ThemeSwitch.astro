@@ -1,5 +1,5 @@
 ---
-import { Icon } from 'astro-icon/components';
+import { Icon } from "astro-icon/components";
 ---
 
 <div class="flex md:order-2 relative">
@@ -8,8 +8,16 @@ import { Icon } from 'astro-icon/components';
     type="button"
     class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 relative"
   >
-    <Icon name="hugeicons:moon-02" class="absolute inset-0 w-5 h-5 text-gray-500 dark:text-gray-400 transition-opacity duration-300 opacity-0" id="theme-toggle-dark-icon"/>
-    <Icon name="hugeicons:sun-03" class="absolute inset-0 w-5 h-5 text-yellow-500 dark:text-yellow-300 transition-opacity duration-300 opacity-100" id="theme-toggle-light-icon"/>
+    <Icon
+      name="hugeicons:moon-02"
+      class="absolute inset-0 w-5 h-5 text-gray-500 dark:text-gray-400 transition-opacity duration-300 opacity-0"
+      id="theme-toggle-dark-icon"
+    />
+    <Icon
+      name="hugeicons:sun-03"
+      class="absolute inset-0 w-5 h-5 text-yellow-500 dark:text-yellow-300 transition-opacity duration-300 opacity-100"
+      id="theme-toggle-light-icon"
+    />
   </button>
 </div>
 
@@ -17,7 +25,10 @@ import { Icon } from 'astro-icon/components';
   function applyTheme() {
     const theme = localStorage.getItem("color-theme");
 
-    if (theme === "dark" || (!theme && window.matchMedia("(prefers-color-scheme: dark)").matches)) {
+    if (
+      theme === "dark" ||
+      (!theme && window.matchMedia("(prefers-color-scheme: dark)").matches)
+    ) {
       document.documentElement.classList.add("dark");
     } else {
       document.documentElement.classList.remove("dark");
@@ -25,8 +36,12 @@ import { Icon } from 'astro-icon/components';
   }
 
   function enableThemeToggle() {
-    const themeToggleDarkIcon = document.querySelector("#theme-toggle-dark-icon");
-    const themeToggleLightIcon = document.querySelector("#theme-toggle-light-icon");
+    const themeToggleDarkIcon = document.querySelector(
+      "#theme-toggle-dark-icon",
+    );
+    const themeToggleLightIcon = document.querySelector(
+      "#theme-toggle-light-icon",
+    );
 
     if (
       localStorage.getItem("color-theme") === "dark" ||

@@ -6,11 +6,13 @@ import { CORPORA } from "../../data";
 <Layout title="Corpora">
   <main>
     <ul>
-      {CORPORA.map((corpus) => (
-        <li>
-          <a href={`/corpora/${corpus.id}`}>{corpus.name.en}</a>
-        </li>
-      ))}
+      {
+        CORPORA.map((corpus) => (
+          <li>
+            <a href={`/corpora/${corpus.id}`}>{corpus.name.en}</a>
+          </li>
+        ))
+      }
     </ul>
   </main>
 </Layout>

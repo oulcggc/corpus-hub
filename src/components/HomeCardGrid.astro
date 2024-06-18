@@ -1,24 +1,21 @@
 ---
-import Card from './Card.astro';
-import * as m from '../paraglide/messages';
+import Card from "./Card.astro";
+import * as m from "../paraglide/messages";
 ---
 
-<ul role="list" class="grid gap-4 p-0 grid-cols-[repeat(auto-fit,minmax(24ch,1fr))]" aria-label="List of resources" class="link-card-grid">
+<ul
+  role="list"
+  class="grid gap-4 p-0 grid-cols-[repeat(auto-fit,minmax(24ch,1fr))]"
+  aria-label="List of resources"
+  class="link-card-grid"
+>
   <Card
     href="/concordancers"
     title={m.concordancers()}
     body={m.concordancersDesc()}
   />
-  <Card
-    href="/corpora"
-    title={m.corpora()}
-    body={m.corporaDesc()}
-  />
-  <Card
-    href="/datasets"
-    title={m.datasets()}
-    body={m.datasetsDesc()}
-  />
+  <Card href="/corpora" title={m.corpora()} body={m.corporaDesc()} />
+  <Card href="/datasets" title={m.datasets()} body={m.datasetsDesc()} />
   <Card
     href="/dictionaries"
     title={m.dictionaries()}

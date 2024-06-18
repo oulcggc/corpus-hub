@@ -1,13 +1,11 @@
 ---
-import { Icon } from 'astro-icon/components';
-import { availableLanguageTags, languageTag } from '../paraglide/runtime';
+import { Icon } from "astro-icon/components";
+import { availableLanguageTags, languageTag } from "../paraglide/runtime";
 
 console.log(availableLanguageTags, languageTag());
 ---
 
-<div
-  class="flex items-center justify-center gap-2"
->
+<div class="flex items-center justify-center gap-2">
   <Icon name="hugeicons:language-skill" class="w-6 h-6" />
   <select
     class="block w-full px-3 py-2
@@ -16,20 +14,22 @@ console.log(availableLanguageTags, languageTag());
       border border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
     aria-label="Language"
   >
-    {availableLanguageTags.map((tag) => (
-      <option
-        selected={tag === languageTag()}
-        value={tag}>{new Intl.DisplayNames([tag], { type: 'language' }).of(tag)}</option>
-    ))}
+    {
+      availableLanguageTags.map((tag) => (
+        <option selected={tag === languageTag()} value={tag}>
+          {new Intl.DisplayNames([tag], { type: "language" }).of(tag)}
+        </option>
+      ))
+    }
   </select>
 </div>
 
 <script>
-  const select = document.querySelector('select');
-  select?.addEventListener('change', (e) => {
+  const select = document.querySelector("select");
+  select?.addEventListener("change", (e) => {
     const lang = (e.currentTarget as HTMLSelectElement).value;
-    const relative = window.location.pathname.replace(/^\/[a-z]{2}($|\/)/, '/');
-    const url = '/' + lang + relative;
+    const relative = window.location.pathname.replace(/^\/[a-z]{2}($|\/)/, "/");
+    const url = "/" + lang + relative;
     window.location.href = url;
   });
 </script>

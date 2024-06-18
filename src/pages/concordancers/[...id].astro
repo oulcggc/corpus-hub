@@ -3,11 +3,11 @@
 import { CONCORDANCERS } from "../../data";
 import Layout from "../../layouts/Layout.astro";
 const { id } = Astro.params;
-if (!CONCORDANCERS.some(c => c.id === id)) {
+if (!CONCORDANCERS.some((c) => c.id === id)) {
   Astro.response.status = 404;
   Astro.response.statusText = "Concordancer not found";
 }
-const concordancer = CONCORDANCERS.find(c => c.id === id)!;
+const concordancer = CONCORDANCERS.find((c) => c.id === id)!;
 ---
 
 <Layout title={`Concordance: ${concordancer.name.en}`}>
@@ -15,13 +15,15 @@ const concordancer = CONCORDANCERS.find(c => c.id === id)!;
    w-full max-w-2xl mx-auto p-4">
     <h1>
       <a href={concordancer.link}>
-      {Object.entries(concordancer.name).map(([lang, name]) => (
-        <span lang={lang}>{name} </span>
-      ))}
+        {
+          Object.entries(concordancer.name).map(([lang, name]) => (
+            <span lang={lang}>{name} </span>
+          ))
+        }
       </a>
     </h1>
     <p>{concordancer.lang}</p>
-    
+
     <!-- <div
       class="tags"
     >
@@ -33,26 +35,24 @@ const concordancer = CONCORDANCERS.find(c => c.id === id)!;
     </div>
      -->
     <p>{concordancer.author.abbr}</p>
-    
-    <a class="visit" href={concordancer.link}>Visit Concordancer Official Website</a>
-    
+
+    <a class="visit" href={concordancer.link}
+      >Visit Concordancer Official Website</a
+    >
+
     <h2>Corpora</h2>
     <ul>
-      {concordancer.corpora.map(
-        corpus => (
+      {
+        concordancer.corpora.map((corpus) => (
           <li>
-            <a href={`/corpora/${corpus}`}>
-              {corpus}
-            </a>
+            <a href={`/corpora/${corpus}`}>{corpus}</a>
             {/* TODO: Add corpus card */}
           </li>
-        )
-      )}
+        ))
+      }
     </ul>
   </main>
-
 </Layout>
-
 
 <style>
   h1 {
