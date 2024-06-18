@@ -23,7 +23,7 @@ export async function getConcordancers(
       eq(Concordancers.id, ConcordancerCorpora.concordancerId),
     )
     .leftJoin(Corpora, eq(ConcordancerCorpora.corporaId, Corpora.id))
-    .innerJoin(
+    .leftJoin(
       alias(Authors, "CorporaAuthors"),
       eq(Corpora.authorId, Authors.id),
     )
@@ -67,7 +67,7 @@ export async function getConcordancers(
       });
     }
 
-    if (p && ca) {
+    if (p && ca && pa) {
       if (!concordancersMap.get(c.id)!.corpora.some((x) => x.id === p.id)) {
         concordancersMap.get(c.id)!.corpora.push({
           id: p.id,
@@ -268,7 +268,7 @@ export async function getConcordancer(
       eq(Concordancers.id, ConcordancerCorpora.concordancerId),
     )
     .leftJoin(Corpora, eq(ConcordancerCorpora.corporaId, Corpora.id))
-    .innerJoin(
+    .leftJoin(
       alias(Authors, "CorporaAuthors"),
       eq(Corpora.authorId, Authors.id),
     )
