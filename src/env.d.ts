@@ -45,6 +45,10 @@ type Concordancer = {
    */
   name: LocalizedString;
   /**
+   * The abbreviation of the concordancer's name.
+   */
+  abbr: LocalizedString;
+  /**
    * The author of the concordancer.
    */
   author: Author;

@@ -18,6 +18,7 @@ const Concordancers = defineTable({
     id: column.text({ primaryKey: true }),
     lang: column.text(),
     name: column.json(),
+    abbr: column.json(),
     authorId: column.text({
       // name: "author_id",
       references: () => Authors.columns.id,

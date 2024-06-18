@@ -29,6 +29,7 @@ export default async function seed() {
         {
           lang,
           name,
+          abbr,
           authorId,
           link,
           usage: { online, free, freemium, registration, application },
@@ -37,6 +38,7 @@ export default async function seed() {
         id,
         lang,
         name,
+        abbr,
         authorId,
         link,
         usageOnline: online,
