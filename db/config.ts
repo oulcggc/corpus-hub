@@ -17,9 +17,11 @@ const Concordancers = defineTable({
   columns: {
     id: column.text({ primaryKey: true }),
     lang: column.text(),
-    nameJa: column.text(),
-    nameEn: column.text(),
-    authorId: column.text(),
+    name: column.json(),
+    authorId: column.text({
+      // name: "author_id",
+      references: () => Authors.columns.id,
+    }),
     link: column.text(),
     usageOnline: column.boolean(),
     usageFree: column.boolean(),
@@ -34,9 +36,8 @@ const Corpora = defineTable({
     id: column.text({ primaryKey: true }),
     lang: column.text(),
     authorId: column.text(),
-    nameJa: column.text(),
-    nameEn: column.text(),
-    abbr: column.text(),
+    name: column.json(),
+    abbr: column.json(),
     link: column.text(),
   },
 });
@@ -45,6 +46,13 @@ const ConcordancerCorpora = defineTable({
   columns: {
     concordancerId: column.text(),
     corporaId: column.text(),
+  },
+});
+
+const Tags = defineTable({
+  columns: {
+    id: column.text({ primaryKey: true }),
+    // name: column.json(),
   },
 });
 
@@ -57,5 +65,12 @@ const CorporaTags = defineTable({
 
 // https://astro.build/db/config
 export default defineDb({
-  tables: { Authors, Concordancers, Corpora, ConcordancerCorpora, CorporaTags },
+  tables: {
+    Authors,
+    Concordancers,
+    Corpora,
+    ConcordancerCorpora,
+    CorporaTags,
+    Tags,
+  },
 });

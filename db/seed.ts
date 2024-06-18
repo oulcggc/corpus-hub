@@ -1,18 +1,93 @@
-import { db, Authors } from "astro:db";
+import {
+  db,
+  Authors,
+  Concordancers,
+  ConcordancerCorpora,
+  Corpora,
+  Tags,
+  CorporaTags,
+} from "astro:db";
 
+import { AUTHORS, CONCORDANCERS, CORPORA } from "./dummy";
 // https://astro.build/db/seed
 export default async function seed() {
-  // TODO
-  await db.insert(Authors).values([
+  await db.insert(Authors).values(
+    Object.entries(AUTHORS).map(([id, { name, abbr, link, location }]) => ({
+      id,
+      name,
+      abbr,
+      link,
+      location,
+    })),
+  );
+  console.log("Authors:", await db.select().from(Authors).all());
+
+  await db.insert(Concordancers).values(
+    Object.entries(CONCORDANCERS).map(
+      ([
+        id,
+        {
+          lang,
+          name,
+          authorId,
+          link,
+          usage: { online, free, freemium, registration, application },
+        },
+      ]) => ({
+        id,
+        lang,
+        name,
+        authorId,
+        link,
+        usageOnline: online,
+        usageFree: free,
+        usageFreemium: freemium,
+        usageRegistration: registration,
+        usageApplication: application,
+      }),
+    ),
+  );
+  console.log("Concordancers:", await db.select().from(Concordancers).all());
+
+  await db.insert(Corpora).values(
+    Object.entries(CORPORA).map(
+      ([id, { lang, name, authorId, abbr, link }]) => ({
+        id,
+        lang,
+        name,
+        authorId,
+        abbr,
+        link,
+      }),
+    ),
+  );
+  console.log("Corpora:", await db.select().from(Corpora).all());
+
+  await db.insert(Tags).values(
+    [
+      ...new Set(
+        Object.values(CORPORA)
+          .map(({ tags }) => tags)
+          .flat(),
+      ),
+    ].map((tag) => ({ id: tag })),
+  );
+  console.log("Tags:", await db.select().from(Tags).all());
+
+  for (const [id, { tags }] of Object.entries(CORPORA)) {
+    await db.insert(CorporaTags).values(
+      tags.map((tag) => ({
+        corporaId: id,
+        tag,
+      })),
+    );
+  }
+  console.log(await db.select().from(CorporaTags).all());
+
+  await db.insert(ConcordancerCorpora).values([
     {
-      id: "JP@ninjal",
-      name: {
-        ja: "国立国語研究所",
-        en: "National Institute for Japanese Language and Linguistics",
-      },
-      abbr: { ja: "国語研", en: "NINJAL" },
-      link: "https://www.ninjal.ac.jp",
-      location: "JP",
+      concordancerId: "ja@ninjal/shonagon",
+      corporaId: "ja@ninjal/bccwj",
     },
   ]);
 }
