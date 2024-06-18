@@ -1,8 +1,12 @@
 ---
 import Layout from "../layouts/Layout.astro";
 
-import { CORPORA } from "../data";
 import * as m from "../paraglide/messages";
+
+import { db } from "astro:db";
+import { getCorpora } from "../data";
+
+const corpora = await getCorpora(db);
 ---
 
 <Layout title={m.corpora()}>
@@ -10,7 +14,7 @@ import * as m from "../paraglide/messages";
     <h1>{m.corpora()}</h1>
     <ul></ul>
     {
-      CORPORA.map((corpus) => (
+      corpora.map((corpus) => (
         <li>
           <a href={`/corpora/${corpus.id}`}>{corpus.name.en}</a>
         </li>

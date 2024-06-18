@@ -1,13 +1,21 @@
 ---
 // import Tag from "../../components/Tag.astro";
-import { CONCORDANCERS } from "../data";
+
+import { db } from "astro:db";
+import { getConcordancer } from "../data";
 import Layout from "../layouts/Layout.astro";
 const { id } = Astro.params;
-if (!CONCORDANCERS.some((c) => c.id === id)) {
-  Astro.response.status = 404;
-  Astro.response.statusText = "Concordancer not found";
+if (!id) {
+  Astro.response.status = 400;
+  Astro.response.statusText = "Corpus ID is required";
 }
-const concordancer = CONCORDANCERS.find((c) => c.id === id)!;
+
+const c = await getConcordancer(db, id!);
+if (!c) {
+  Astro.response.status = 404;
+  Astro.response.statusText = "Corpus not found";
+}
+const concordancer = c!;
 ---
 
 <Layout title={`Concordance: ${concordancer.name.en}`}>

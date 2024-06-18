@@ -3,16 +3,17 @@ interface Props {
   concordancer: Concordancer;
 }
 const { concordancer } = Astro.props;
-import { CORPORA } from "../data";
+import { languageTag } from "../paraglide/runtime";
+const lang = languageTag();
 ---
 
 <div class="card">
   <div>
-    <a href={concordancer.link}>{concordancer.name.ja}</a>
+    <a href={concordancer.link}>{concordancer.abbr.ja}</a>
     <a
       class="author"
       href={concordancer.author.link}
-      title={concordancer.author.name.en}>{concordancer.author.abbr}</a
+      title={concordancer.author.name.en}>{concordancer.author.abbr.en}</a
     >
   </div>
 
@@ -20,8 +21,8 @@ import { CORPORA } from "../data";
     {
       concordancer.corpora.map((corpus) => (
         <li>
-          <a href={`/corpora/${corpus}`}>
-            {CORPORA.find((c) => c.id === corpus)?.name?.ja ?? corpus}
+          <a href={`/corpora/${corpus.id}`}>
+            {corpus.name.ja ?? corpus.name.en}
           </a>
         </li>
       ))

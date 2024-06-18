@@ -1,8 +1,12 @@
 ---
 import Layout from "../layouts/Layout.astro";
 
-import { CONCORDANCERS } from "../data";
 import * as m from "../paraglide/messages";
+
+import { db } from "astro:db";
+import { getConcordancers } from "../data";
+
+const concordancers = await getConcordancers(db);
 ---
 
 <Layout title={m.concordancers()}>
@@ -10,7 +14,7 @@ import * as m from "../paraglide/messages";
     <h1>{m.concordancers()}</h1>
     <ul>
       {
-        CONCORDANCERS.map((corpus) => (
+        concordancers.map((corpus) => (
           <li>
             <a href={`/concordancers/${corpus.id}`}>{corpus.name.en}</a>
           </li>

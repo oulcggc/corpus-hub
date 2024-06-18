@@ -17,7 +17,7 @@ type Author = {
   /**
    * The abbreivation of the name.
    */
-  abbr: string;
+  abbr: LocalizedString;
   /**
    * The link to the author's website.
    */
@@ -84,5 +84,39 @@ type Concordancer = {
   /**
    * The list of corpora supported by the concordancer.
    */
-  corpora: string[];
+  corpora: Corpus[];
+};
+
+/**
+ * Represents a corpus.
+ */
+type Corpus = {
+  /**
+   * The unique identifier of the corpus.
+   */
+  id: string;
+  /**
+   * The language of the corpus.
+   */
+  lang: string;
+  /**
+   * The name of the corpus.
+   */
+  name: LocalizedString;
+  /**
+   * The abbreviation of the corpus name.
+   */
+  abbr: LocalizedString;
+  /**
+   * The author of the corpus.
+   */
+  author: Author;
+  /**
+   * The link to the corpus website.
+   */
+  link: string;
+  /**
+   * The tags associated with the corpus.
+   */
+  tags: string[];
 };

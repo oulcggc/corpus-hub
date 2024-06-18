@@ -2,15 +2,54 @@
 import Layout from "../layouts/Layout.astro";
 
 import ConcordancePreviewCard from "../components/ConcordancerCard.astro";
-import { CONCORDANCERS } from "../data";
 import CardGrid from "../components/HomeCardGrid.astro";
 import * as m from "../paraglide/messages";
+
+import { db } from "astro:db";
+import { getConcordancers } from "../data";
 
 const APP_NAME = "CorpusHub";
 
 const [beforeWelcome, afterWelcome] = m
   .welcome({ name: "{name}" })
   .split("{name}");
+
+// const concordancers: Concordancer[] = (
+//   await db
+//     .select()
+//     .from(Concordancers)
+//     .limit(4)
+//     .innerJoin(Authors, eq(Concordancers.authorId, Authors.id))
+//     .innerJoin(
+//       ConcordancerCorpora,
+//       eq(Concordancers.id, ConcordancerCorpora.concordancerId),
+//     )
+//     // .innerJoin(Corpora, eq(ConcordancerCorpora.corporaId, Corpora.id))
+//     .all()
+// ).map(({ Concordancers: c, Authors: a, ConcordancerCorpora: r }) => ({
+//   id: c.id,
+//   lang: c.lang,
+//   name: c.name,
+//   link: c.link,
+//   author: {
+//     name: a.name,
+//     link: a.link,
+//   },
+//   corpora: [
+//     r.corporaId
+//   ]
+//   usage: {
+//     online: c.usageOnline,
+//     free: c.usageFree,
+//     freemium: c.usageFreemium,
+//     registration: c.usageRegistration,
+//     application: c.usageApplication,
+//   },
+// }));
+// console.log(concordancers);
+console.log("Home!");
+const concordancers = await getConcordancers(db, 4);
+console.log(concordancers);
 ---
 
 <Layout title="Welcome to CorpusHub" top>
@@ -23,7 +62,7 @@ const [beforeWelcome, afterWelcome] = m
 
     <output>
       {
-        CONCORDANCERS.map((concordancer) => (
+        concordancers.map((concordancer) => (
           <ConcordancePreviewCard concordancer={concordancer} />
         ))
       }

@@ -1,14 +1,20 @@
 ---
 import Tag from "../components/Tag.astro";
-import { CORPORA, CONCORDANCERS } from "../data";
+import { getCorpus } from "../data";
 import Layout from "../layouts/Layout.astro";
+import { db } from "astro:db";
 const { id } = Astro.params;
-if (!CORPORA.some((c) => c.id === id)) {
+if (!id) {
+  Astro.response.status = 400;
+  Astro.response.statusText = "Corpus ID is required";
+}
+
+const c = await getCorpus(db, id!);
+if (!c) {
   Astro.response.status = 404;
   Astro.response.statusText = "Corpus not found";
 }
-
-const corpus = CORPORA.find((c) => c.id === id)!;
+const corpus = c!;
 ---
 
 <Layout title={`Corpus: ${corpus.name.en}`}>
@@ -32,7 +38,7 @@ const corpus = CORPORA.find((c) => c.id === id)!;
 
     <a class="visit" href={corpus.link}>Visit corpus description page</a>
 
-    <h2>Concordancers</h2>
+    <!-- <h2>Concordancers</h2>
     <ul>
       {
         CONCORDANCERS.filter((c) => c.corpora.includes(corpus.id)).map((c) => (
@@ -41,7 +47,7 @@ const corpus = CORPORA.find((c) => c.id === id)!;
           </li>
         ))
       }
-    </ul>
+    </ul> -->
   </main>
 </Layout>
 
