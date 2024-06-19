@@ -1,0 +1,102 @@
+---
+import { Icon } from "astro-icon/components";
+import * as m from "../paraglide/messages";
+---
+
+<span class="text-sm text-gray-500">
+  <Icon name="hugeicons:view" class="inline-block" />
+  <span>
+    <span class="count" id="onlineCount" title={m.realtimeViews()}>-</span> /
+    <span class="count" id="totalCount" title={m.totalViews()}>-</span>
+  </span>
+</span>
+
+<script is:inline lang="ts">
+  const PUBLIC_COUNTER_API_INCREMENT_URL =
+    "https://count.yocjyet.dev/counters/corpus-hub-chinese-research/increment";
+  const PUBLIC_COUNTER_API_RETRIEVE_URL =
+    "https://count.yocjyet.dev/counters/corpus-hub-chinese-research";
+  const PUBLIC_REALTIME_API_RETRIEVE_URL =
+    "https://count.yocjyet.dev/realtime/corpus-hub-chinese-research";
+  const PUBLIC_REALTIME_API_WEBSOCKET_URL =
+    "wss://count.yocjyet.dev/realtime/corpus-hub-chinese-research/connect";
+
+  let total = null;
+  let online = null;
+
+  function formatCount(count) {
+    if (count === null) return "-";
+    const formatter = new Intl.NumberFormat("ja-JP");
+    return count === 0 || isNaN(count) ? "-" : formatter.format(count);
+  }
+
+  function updateCounts() {
+    document.getElementById("totalCount").textContent = formatCount(total);
+    document.getElementById("onlineCount").textContent = formatCount(online);
+  }
+
+  async function setTotalCount() {
+    if (document.hidden) return;
+
+    try {
+      const response = await fetch(PUBLIC_COUNTER_API_RETRIEVE_URL);
+      total = Number(await response.text());
+      updateCounts();
+    } catch (error) {
+      console.error(`Cannot get visitor count: ${error}`);
+    }
+  }
+
+  function connectToRealTime() {
+    const websocket = new WebSocket(PUBLIC_REALTIME_API_WEBSOCKET_URL);
+    console.log(`Connecting to real-time API at ${websocket.url}...`);
+    websocket.addEventListener("error", (event) => {
+      console.error(`Cannot connect to real-time API:`, event);
+    });
+
+    websocket.addEventListener("open", (event) => {
+      console.log(`Connected to real-time API.`);
+    });
+
+    websocket.addEventListener("message", (event) => {
+      const data = event.data;
+      if (typeof data === "string") {
+        online = Number(data);
+        console.log(`Online: ${online}`);
+        updateCounts();
+      }
+    });
+  }
+
+  async function setRealTimeCount() {
+    try {
+      const response = await fetch(PUBLIC_REALTIME_API_RETRIEVE_URL);
+      online = Number((await response.text()) ?? 1);
+      updateCounts();
+    } catch (error) {
+      console.error(`Cannot get real-time visitors: ${error}`);
+    }
+
+    window.setTimeout(setRealTimeCount, 15000);
+  }
+
+  async function initializeCounts() {
+    // Total Access Count
+    try {
+      const response = await fetch(PUBLIC_COUNTER_API_INCREMENT_URL, {
+        method: "PATCH",
+      });
+      total = Number(await response.text());
+      updateCounts();
+    } catch (error) {
+      console.error(`Cannot get total visitor count: ${error}`);
+    }
+    window.setInterval(setTotalCount, 25000);
+
+    // Realtime User Count
+    connectToRealTime();
+    window.setTimeout(setRealTimeCount, 25000);
+  }
+
+  document.addEventListener("DOMContentLoaded", initializeCounts);
+</script>

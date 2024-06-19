@@ -1,0 +1,204 @@
+---
+import Footer from "../components/Footer.astro";
+import Header from "../components/Header.astro";
+import Author from "../components/article/Author.astro";
+import { languageTag } from "../paraglide/runtime";
+import * as m from "../paraglide/messages";
+import VisitorCounter from "src/components/VisitorCounter.astro";
+import { Icon } from "astro-icon/components";
+interface Props {
+  title: string;
+  top?: boolean;
+  frontmatter: {
+    title: string;
+    authors: string[];
+    updated: string;
+    published: string;
+  };
+}
+
+const { title: rawTitle, top, frontmatter } = Astro.props;
+
+console.log({ rawTitle, top, frontmatter });
+const title = frontmatter.title + (top ? "" : " | CorpusHub");
+---
+
+<!doctype html>
+<html lang={languageTag()}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="Astro description" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" />
+    <meta name="msapplication-TileColor" content="#da532c" />
+    <meta name="theme-color" content="#ffffff" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+  </head>
+  <body>
+    <Header />
+    <main>
+      <section id="hero">
+        <hr class="border-t-2 border-gray-200 dark:border-gray-800 my-10" />
+        <p class="text-center text-2xl text-gray-500 dark:text-gray-400">
+          特集
+        </p>
+        <h1>{frontmatter.title}</h1>
+
+        <div class="flex justify-center space-x-4 my-8">
+          {frontmatter.authors.map((author) => <Author name={author} />)}
+        </div>
+        <p class="text-gray-500 dark:text-gray-400 text-center text-sm">
+          <time>
+            {
+              new Intl.DateTimeFormat(languageTag(), {
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+              }).format(new Date())
+            }
+          </time>{m.updated()}&nbsp;&nbsp;
+          <time>
+            {
+              new Intl.DateTimeFormat(languageTag(), {
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+              }).format(new Date())
+            }
+          </time>{m.published()}&nbsp;&nbsp;
+          <VisitorCounter />
+        </p>
+        <hr class="border-t-2 border-gray-200 dark:border-gray-800 my-10" />
+      </section>
+
+      <section id="content" class="leading-8 indent-4 relative">
+        <!-- Floating menu to the left -->
+        <div
+          class="absolute top-0 left-[-5rem] flex flex-col text-center items-center justify-center"
+        >
+          <button
+            class="border border-gray-200 dark:border-gray-800 rounded-full p-2"
+            id="favourite-button"
+          >
+            <Icon name="hugeicons:favourite" />
+          </button>
+          <div
+            id="favourite-count"
+            class="text-gray-500 dark:text-gray-400 text-center text-sm ml-[-1em]"
+          >
+            0
+          </div>
+        </div>
+        <output id="markdown">
+          <slot />
+        </output>
+        <!-- Floating TOC to the right -->
+        <nav
+          class="hidden text-[0.5em] md:flex absolute top-0 right-[-10rem] flex flex-col text-center items-center justify-center max-w-24"
+        >
+          <h2 class="text-gray-500 dark:text-gray-400 text-center text-sm m-0">
+            目次
+          </h2>
+          <ul id="toc"></ul>
+        </nav>
+      </section>
+    </main>
+    <Footer />
+  </body>
+
+  <script is:inline lang="ts">
+    const favouriteButton = document.getElementById("favourite-button");
+    const favouriteCount = document.getElementById("favourite-count");
+    favouriteButton.addEventListener("click", () => {
+      favouriteButton.classList.toggle("text-red-500");
+      favouriteCount.textContent = favouriteButton.classList.contains(
+        "text-red-500",
+      )
+        ? "1"
+        : "0";
+    });
+
+    const toc = document.getElementById("toc");
+    window.addEventListener("DOMContentLoaded", () => {
+      const markdown = document.getElementById("markdown");
+      const headings = markdown.querySelectorAll("h2, h3, h4, h5, h6");
+      headings.forEach((heading) => {
+        const id = heading.id;
+        const text = heading.textContent;
+        const level = parseInt(heading.tagName[1]);
+        const li = document.createElement("li");
+        const a = document.createElement("a");
+        a.href = `#${id}`;
+        a.textContent = text;
+        a.classList.add(`text-gray-${level * 100}`);
+        li.appendChild(a);
+        toc.appendChild(li);
+      });
+    });
+  </script>
+
+  <style is:global>
+    :root {
+      --accent: 136, 58, 234;
+      --accent-light: 224, 204, 250;
+      --accent-dark: 49, 10, 101;
+      --accent-gradient: linear-gradient(
+        45deg,
+        rgb(var(--accent)),
+        rgb(var(--accent-light)) 30%,
+        white 60%
+      );
+    }
+    html {
+      font-family: system-ui, sans-serif;
+      background: #13151a;
+
+      @apply bg-white dark:bg-[#13151a];
+      background-size: 224px;
+    }
+    code {
+      font-family:
+        Menlo,
+        Monaco,
+        Lucida Console,
+        Liberation Mono,
+        DejaVu Sans Mono,
+        Bitstream Vera Sans Mono,
+        Courier New,
+        monospace;
+    }
+    main {
+      @apply text-[#020305] dark:text-white w-full max-w-2xl mx-auto p-4 py-10 transition-colors leading-10;
+    }
+
+    h1 {
+      @apply m-4 my-10 text-2xl font-bold text-center;
+    }
+
+    h2 {
+      @apply my-8 text-xl font-bold text-gray-700 dark:text-gray-300 indent-0;
+    }
+
+    h3 {
+      @apply my-6 text-lg font-bold text-gray-600 dark:text-gray-400 indent-0;
+    }
+
+    h4 {
+      @apply my-4 text-base font-bold text-gray-500 dark:text-gray-500 indent-0;
+    }
+
+    a {
+      @apply hover:underline;
+    }
+
+    ul {
+      @apply list-disc list-inside;
+    }
+  </style>
+</html>

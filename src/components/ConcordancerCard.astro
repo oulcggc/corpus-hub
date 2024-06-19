@@ -5,11 +5,25 @@ interface Props {
 const { concordancer } = Astro.props;
 import { languageTag } from "../paraglide/runtime";
 const lang = languageTag();
+import * as m from "../paraglide/messages";
+
+function getLocalizedForm(
+  str: LocalizedString,
+  expected: string,
+  current: string,
+): string {
+  if (str[expected]) {
+    return str[expected];
+  }
+  return str[current] ?? str.en ?? "????";
+}
 ---
 
 <div class="card">
-  <div>
-    <a href={concordancer.link}>{concordancer.abbr.ja}</a>
+  <div class="flex items-center flex-col">
+    <a href={concordancer.link}
+      >{getLocalizedForm(concordancer.abbr, concordancer.lang, lang)}</a
+    >
     <a
       class="author"
       href={concordancer.author.link}
@@ -22,14 +36,26 @@ const lang = languageTag();
       concordancer.corpora.map((corpus) => (
         <li>
           <a href={`/corpora/${corpus.id}`}>
-            {corpus.name.ja ?? corpus.name.en}
+            {getLocalizedForm(corpus.name, corpus.lang, lang)}:{" "}
           </a>
         </li>
       ))
     }
   </ul>
 
-  <a class="button" href={`/concordancers/${concordancer.id}`}>View Details</a>
+  <div class="actions">
+    <a class="button" href={`/concordancers/${concordancer.id}`}>
+      {m.viewDetails()}
+    </a>
+    <a
+      class="button"
+      href={concordancer.link}
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      {m.visitSite()}
+    </a>
+  </div>
 </div>
 
 <style>
@@ -65,7 +91,11 @@ const lang = languageTag();
   }
 
   a.button {
-    @apply py-2 px-4 bg-blue-500 bg-opacity-75 dark:bg-opacity-50 text-white rounded border-blue-500 border-2;
+    @apply py-2 px-4 bg-blue-500 bg-opacity-75 dark:bg-opacity-50 text-white rounded border-blue-500 border-2 text-center;
+  }
+
+  .actions {
     grid-column: span 2;
+    @apply grid grid-cols-2 gap-4;
   }
 </style>

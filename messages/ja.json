@@ -4,5 +4,11 @@
   "concordancers": "コンコーダンサー",
   "corpora": "コーパス",
   "datasets": "データセット",
-  "dictionaries": "辞書"
+  "dictionaries": "辞書",
+  "published": "公開",
+  "updated": "更新",
+  "realtimeViews": "リアルタイム閲覧数",
+  "totalViews": "総アクセス数",
+  "viewDetails": "詳細を見る",
+  "visitSite": "サイトを訪問"
 }

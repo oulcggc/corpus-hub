@@ -3,6 +3,17 @@
   "compilerOptions": {
     "moduleResolution": "Bundler",
     "allowJs": true,
-    "types": ["unplugin-icons/types/svelte"]
+    "types": [
+      "unplugin-icons/types/svelte"
+    ],
+    "baseUrl": ".",
+    "paths": {
+      "@layouts/*": [
+        "src/layouts/*"
+      ],
+      "@components/*": [
+        "src/components/*"
+      ],
+    }
   }
 }

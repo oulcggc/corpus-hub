@@ -1,0 +1,23 @@
+---
+import Card from "../ConcordancerCard.astro";
+
+const { id } = Astro.props;
+
+import { db } from "astro:db";
+import { getConcordancer } from "../../data";
+const concordancer = await getConcordancer(db, id);
+---
+
+{
+  concordancer ? (
+    <Card concordancer={concordancer} />
+  ) : (
+    <div>Unknown concordancer: {id}</div>
+  )
+}
+
+<style>
+  div {
+    @apply p-4 text-red-500 shadow-sm border-r-4;
+  }
+</style>
