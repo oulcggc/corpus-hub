@@ -27,8 +27,16 @@ function getLocalizedForm(
     <a
       class="author"
       href={concordancer.author.link}
-      title={concordancer.author.name.en}>{concordancer.author.abbr.en}</a
+      title={getLocalizedForm(
+        concordancer.author.abbr,
+        concordancer.lang,
+        lang,
+      ) === concordancer.author.name.en
+        ? concordancer.author.name.en
+        : `${getLocalizedForm(concordancer.author.name, concordancer.lang, lang)} (${concordancer.author.name.en})`}
+      >{getLocalizedForm(concordancer.author.abbr, concordancer.lang, lang)}</a
     >
+    <!-- TODO: If no English names, show firstly the current language name, else show nothing -->
   </div>
 
   <ul>
@@ -36,7 +44,7 @@ function getLocalizedForm(
       concordancer.corpora.map((corpus) => (
         <li>
           <a href={`/corpora/${corpus.id}`}>
-            {getLocalizedForm(corpus.name, corpus.lang, lang)}:{" "}
+            {getLocalizedForm(corpus.name, corpus.lang, lang)}
           </a>
         </li>
       ))
@@ -75,7 +83,7 @@ function getLocalizedForm(
     box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
 
     display: grid;
-    grid-template-columns: 1fr auto;
+    grid-template-columns: 1fr 3fr;
     grid-template-rows: 1fr auto;
     gap: 1rem;
   }
@@ -85,7 +93,6 @@ function getLocalizedForm(
   }
 
   a.author {
-    margin-left: 1rem;
     font-size: 0.8rem;
     @apply text-gray-500 dark:text-gray-400;
   }
