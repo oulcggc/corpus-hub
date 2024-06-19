@@ -1,4 +1,3 @@
-import { A } from "dist/_worker.js/renderers.mjs";
 import { seed as s } from ".";
 
 export const AUTHORS = {
