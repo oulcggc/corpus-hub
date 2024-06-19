@@ -1,3 +1,4 @@
+import { A } from "dist/_worker.js/renderers.mjs";
 import { seed as s } from ".";
 
 export const AUTHORS = {
@@ -45,6 +46,26 @@ export const CONCORDANCERS = {
     },
     corpora: ["zh@ccl/ccl", "zh@ccl/ccl-classical", "zh@ccl/ccl-bi"],
   },
+  "zh@blcu/bcc": {
+    lang: "zh",
+    name: {
+      zh: "BCC语料库网站",
+    },
+    abbr: {
+      zh: "BCC",
+      en: "BCC",
+    },
+    authorId: "CN@blcu",
+    link: "https://bcc.blcu.edu.cn/",
+    usage: {
+      online: true,
+      free: true,
+      freemium: false,
+      registration: false,
+      application: false,
+    },
+    corpora: ["zh@blcu/bcc"],
+  },
 } as const;
 
 export const CORPORA = {
@@ -64,7 +85,7 @@ export const CORPORA = {
     },
     abbr: {
       en: "CCL (modern)",
-      ja: "CCL (modern)",
+      zh: "CCL (现代)",
     },
     link: "http://ccl.pku.edu.cn:8080/ccl_corpus/CCLCorpus_Readme.html",
   },
@@ -84,7 +105,7 @@ export const CORPORA = {
     },
     abbr: {
       en: "CCL (old)",
-      ja: "CCL (old)",
+      zh: "CCL (古代)",
     },
     link: "http://ccl.pku.edu.cn:8080/ccl_corpus/CCLCorpus_Readme.html",
   },
@@ -98,9 +119,22 @@ export const CORPORA = {
     },
     abbr: {
       en: "CCL (bi)",
-      ja: "CCL (bi)",
+      zh: "CCL (汉英)",
     },
     link: "http://ccl.pku.edu.cn:8080/ccl_corpus/CCLCorpus_Readme.html",
+  },
+  "zh@blcu/bcc": {
+    lang: "zh",
+    tags: ["chinese", "comtemporary", "modern chinese", "mandarin"],
+    authorId: "CN@blcu",
+    name: {
+      zh: "BCC现代汉语语料库",
+    },
+    abbr: {
+      en: "BCC",
+      zh: "BCC",
+    },
+    link: "https://bcc.blcu.edu.cn/help",
   },
 } as const;
 
