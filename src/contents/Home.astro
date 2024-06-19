@@ -60,6 +60,22 @@ console.log(concordancers);
     <p class="text-center m-4 mb-10
       text-2xl">{m.slogan()}</p>
 
+    <section
+      class="bg-gradient-to-r dark:from-accent-dark/60 dark:to-accent-dark/30 from-accent-light/60 to-accent-light/30 p-4 rounded-lg relative mb-10 py-10"
+    >
+      <h2 class="text-center text-3xl font-bold my-5">{m.featured()}</h2>
+      <ul class="flex flex-col space-y-4 mt-10">
+        <li class="text-center">
+          <a
+            href="/ja/featured/chinese-research"
+            class="text-center text-2xl font-bold text-gradient"
+          >
+            中国語・漢語研究のための資料・ツール目録
+          </a>
+        </li>
+      </ul>
+    </section>
+
     <output>
       {
         concordancers.map((concordancer) => (
