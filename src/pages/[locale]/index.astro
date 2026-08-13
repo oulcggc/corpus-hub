@@ -4,7 +4,7 @@ import Layout from "../../layouts/Layout.astro";
 import CatalogCard from "../../components/CatalogCard.astro";
 import * as m from "../../paraglide/messages";
 import { LOCALES, localePath, type Locale } from "../../lib/i18n";
-import { getToolsByKind } from "../../lib/catalog";
+import { getToolsByKinds } from "../../lib/catalog";
 import { toolCard } from "../../lib/display";
 
 export function getStaticPaths() {
@@ -18,7 +18,7 @@ const [beforeWelcome, afterWelcome] = m
   .welcome({ name: "{name}" }, { locale })
   .split("{name}");
 
-const concordancers = await getToolsByKind("concordancer");
+const concordancers = await getToolsByKinds(["concordancer"]);
 const articles = (await getCollection("articles")).sort(
   (a, b) => b.data.published.valueOf() - a.data.published.valueOf(),
 );
@@ -38,6 +38,16 @@ const categories = [
     href: localePath(locale, "concordancers"),
     title: m.concordancers({}, { locale }),
     body: m.concordancersDesc({}, { locale }),
+  },
+  {
+    href: localePath(locale, "dictionaries"),
+    title: m.dictionaries({}, { locale }),
+    body: m.dictionariesDesc({}, { locale }),
+  },
+  {
+    href: localePath(locale, "datasets"),
+    title: m.datasets({}, { locale }),
+    body: m.datasetsDesc({}, { locale }),
   },
 ];
 ---

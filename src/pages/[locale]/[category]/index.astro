@@ -6,8 +6,8 @@ import * as m from "../../../paraglide/messages";
 import { LOCALES, type Locale } from "../../../lib/i18n";
 import {
   CATEGORIES,
-  getResourcesByKind,
-  getToolsByKind,
+  getResourcesByKinds,
+  getToolsByKinds,
   type Category,
 } from "../../../lib/catalog";
 import {
@@ -42,7 +42,7 @@ interface Row {
 
 let rows: Row[];
 if (spec.collection === "resources") {
-  rows = (await getResourcesByKind(spec.kind)).map((r) => ({
+  rows = (await getResourcesByKinds(spec.kinds)).map((r) => ({
     card: resourceCard(r, locale),
     text: searchText(r),
     facets: {
@@ -52,7 +52,7 @@ if (spec.collection === "resources") {
     },
   }));
 } else {
-  rows = (await getToolsByKind(spec.kind)).map((t) => ({
+  rows = (await getToolsByKinds(spec.kinds)).map((t) => ({
     card: toolCard(t, locale),
     text: searchText(t),
     facets: {
@@ -99,8 +99,9 @@ const titles: Record<Category, string> = {
   corpora: m.corpora({}, { locale }),
   datasets: m.datasets({}, { locale }),
   dictionaries: m.dictionaries({}, { locale }),
-  archives: m.datasets({}, { locale }),
+  archives: m.archives({}, { locale }),
   concordancers: m.concordancers({}, { locale }),
+  tools: m.tools({}, { locale }),
 };
 
 const SUGGEST_URL = "https://github.com/oulcggc/corpus-hub/issues/new";
