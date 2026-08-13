@@ -94,8 +94,8 @@ export function searchText(
     entry.id,
     ...Object.values(entry.data.name),
     ...Object.values(entry.data.abbr ?? {}),
-    ...Object.values(entry.organization.data.name),
-    ...Object.values(entry.organization.data.abbr ?? {}),
+    ...Object.values(entry.organization?.data.name ?? {}),
+    ...Object.values(entry.organization?.data.abbr ?? {}),
   ];
   return values.filter(Boolean).join(" ").toLowerCase();
 }
@@ -106,7 +106,7 @@ export interface CardProps {
   titleNative: string | undefined;
   detailHref: string;
   externalHref: string;
-  org: { name: string; href: string };
+  org: { name: string; href: string } | undefined;
   items: { label: string; href: string }[];
   chips: string[];
 }
@@ -114,7 +114,8 @@ export interface CardProps {
 function orgProp(
   entry: ResolvedResource | ResolvedTool,
   locale: Locale,
-): { name: string; href: string } {
+): { name: string; href: string } | undefined {
+  if (!entry.organization) return undefined;
   const nativeLang = entry.data.langs[0];
   const abbr = entry.organization.data.abbr ?? entry.organization.data.name;
   return {

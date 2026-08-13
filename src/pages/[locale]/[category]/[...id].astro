@@ -65,8 +65,12 @@ const abbr = entry.data.abbr
   ? pickLocalized(entry.data.abbr, locale, nativeLang)
   : undefined;
 
-const orgAbbr = entry.organization.data.abbr ?? entry.organization.data.name;
-const orgName = pickLocalized(entry.organization.data.name, locale);
+const orgAbbr = entry.organization
+  ? (entry.organization.data.abbr ?? entry.organization.data.name)
+  : undefined;
+const orgName = entry.organization
+  ? pickLocalized(entry.organization.data.name, locale)
+  : undefined;
 
 const related =
   type === "resource"
@@ -98,11 +102,15 @@ const jsonLd = resourceData
       alternateName: Object.values(resourceData.name).filter((v) => v !== name),
       url: resourceData.link,
       inLanguage: resourceData.langs,
-      creator: {
-        "@type": "Organization",
-        name: pickLocalized(entry.organization.data.name, "en"),
-        url: entry.organization.data.link,
-      },
+      ...(entry.organization
+        ? {
+            creator: {
+              "@type": "Organization",
+              name: pickLocalized(entry.organization.data.name, "en"),
+              url: entry.organization.data.link,
+            },
+          }
+        : {}),
       ...(resourceData.license ? { license: resourceData.license } : {}),
     })
   : undefined;
@@ -154,13 +162,19 @@ if (type === "resource") {
     }
 
     <dl class="my-8 grid grid-cols-[auto_1fr] gap-x-8 gap-y-3">
-      <dt class="font-bold">{m.organization({}, { locale })}</dt>
-      <dd>
-        <a class="underline" href={entry.organization.data.link}>
-          {pickLocalized(orgAbbr, locale)}
-          {orgName !== pickLocalized(orgAbbr, locale) && ` (${orgName})`}
-        </a>
-      </dd>
+      {
+        entry.organization && orgAbbr && (
+          <>
+            <dt class="font-bold">{m.organization({}, { locale })}</dt>
+            <dd>
+              <a class="underline" href={entry.organization.data.link}>
+                {pickLocalized(orgAbbr, locale)}
+                {orgName !== pickLocalized(orgAbbr, locale) && ` (${orgName})`}
+              </a>
+            </dd>
+          </>
+        )
+      }
       {
         rows.map(({ label, value }) => (
           <>
