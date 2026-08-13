@@ -40,6 +40,66 @@ export function accessChips(access: Tool["data"]["access"], locale: Locale): str
   return chips;
 }
 
+type Labeler = (params: object, options: { locale: Locale }) => string;
+
+const PERIOD_LABELS: Record<string, Labeler> = {
+  contemporary: m.periodContemporary,
+  modern: m.periodModern,
+  "early-modern": m.periodEarlyModern,
+  classical: m.periodClassical,
+  diachronic: m.periodDiachronic,
+};
+
+const ANNOTATION_LABELS: Record<string, Labeler> = {
+  none: m.annotationNone,
+  tokenized: m.annotationTokenized,
+  pos: m.annotationPos,
+  lemma: m.annotationLemma,
+  parsed: m.annotationParsed,
+  aligned: m.annotationAligned,
+};
+
+const TAG_LABELS: Record<string, Labeler> = {
+  "old-japanese": m.tagOldJapanese,
+  "middle-japanese": m.tagMiddleJapanese,
+  "classical-japanese": m.tagClassicalJapanese,
+  parallel: m.tagParallel,
+};
+
+const ACCESS_LABELS: Record<string, Labeler> = {
+  web: m.accessOnline,
+  download: m.accessDownload,
+  free: m.accessFree,
+  freemium: m.accessFreemium,
+  paid: m.accessPaid,
+  account: m.accessAccount,
+  application: m.accessApplication,
+};
+
+function label(map: Record<string, Labeler>, value: string, locale: Locale) {
+  return map[value]?.({}, { locale }) ?? value;
+}
+
+export const labelPeriod = (v: string, l: Locale) => label(PERIOD_LABELS, v, l);
+export const labelAnnotation = (v: string, l: Locale) =>
+  label(ANNOTATION_LABELS, v, l);
+export const labelTag = (v: string, l: Locale) => label(TAG_LABELS, v, l);
+export const labelAccess = (v: string, l: Locale) => label(ACCESS_LABELS, v, l);
+
+/** Every text form of an entry, for the list pages' client-side filter. */
+export function searchText(
+  entry: ResolvedResource | ResolvedTool,
+): string {
+  const values = [
+    entry.id,
+    ...Object.values(entry.data.name),
+    ...Object.values(entry.data.abbr ?? {}),
+    ...Object.values(entry.organization.data.name),
+    ...Object.values(entry.organization.data.abbr ?? {}),
+  ];
+  return values.filter(Boolean).join(" ").toLowerCase();
+}
+
 export interface CardProps {
   locale: Locale;
   title: string;

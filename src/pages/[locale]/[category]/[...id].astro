@@ -15,7 +15,13 @@ import {
   type ResolvedResource,
   type ResolvedTool,
 } from "../../../lib/catalog";
-import { accessChips, categoryOf, languageNames } from "../../../lib/display";
+import {
+  accessChips,
+  categoryOf,
+  labelPeriod,
+  labelTag,
+  languageNames,
+} from "../../../lib/display";
 
 export async function getStaticPaths() {
   const resources = await Promise.all(
@@ -93,12 +99,16 @@ if (type === "resource") {
   if (resource.data.period)
     rows.push({
       label: m.period({}, { locale }),
-      value: resource.data.period.join(", "),
+      value: resource.data.period
+        .map((value) => labelPeriod(value, locale))
+        .join(", "),
     });
   if (resource.data.tags.length > 0)
     rows.push({
       label: m.tags({}, { locale }),
-      value: resource.data.tags.join(", "),
+      value: resource.data.tags
+        .map((value) => labelTag(value, locale))
+        .join(", "),
     });
 } else {
   rows.push({

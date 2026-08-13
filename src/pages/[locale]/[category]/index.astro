@@ -1,6 +1,7 @@
 ---
 import Layout from "../../../layouts/Layout.astro";
 import CatalogCard from "../../../components/CatalogCard.astro";
+import FilterBar, { type Facet } from "../../../components/FilterBar.astro";
 import * as m from "../../../paraglide/messages";
 import { LOCALES, type Locale } from "../../../lib/i18n";
 import {
@@ -9,7 +10,16 @@ import {
   getToolsByKind,
   type Category,
 } from "../../../lib/catalog";
-import { resourceCard, toolCard, type CardProps } from "../../../lib/display";
+import {
+  labelAccess,
+  labelPeriod,
+  labelTag,
+  languageNames,
+  resourceCard,
+  searchText,
+  toolCard,
+  type CardProps,
+} from "../../../lib/display";
 
 export function getStaticPaths() {
   return LOCALES.flatMap((locale) =>
@@ -24,10 +34,66 @@ const category = Astro.params.category as Category;
 
 const spec = CATEGORIES[category];
 
-const cards: CardProps[] =
-  spec.collection === "resources"
-    ? (await getResourcesByKind(spec.kind)).map((r) => resourceCard(r, locale))
-    : (await getToolsByKind(spec.kind)).map((t) => toolCard(t, locale));
+interface Row {
+  card: CardProps;
+  text: string;
+  facets: Record<string, string[]>;
+}
+
+let rows: Row[];
+if (spec.collection === "resources") {
+  rows = (await getResourcesByKind(spec.kind)).map((r) => ({
+    card: resourceCard(r, locale),
+    text: searchText(r),
+    facets: {
+      lang: r.data.langs,
+      period: r.data.period ?? [],
+      tag: r.data.tags,
+    },
+  }));
+} else {
+  rows = (await getToolsByKind(spec.kind)).map((t) => ({
+    card: toolCard(t, locale),
+    text: searchText(t),
+    facets: {
+      lang: t.data.langs,
+      access: [
+        t.data.access.delivery,
+        t.data.access.cost,
+        ...(t.data.access.registration === "none"
+          ? []
+          : [t.data.access.registration]),
+      ],
+    },
+  }));
+}
+
+const FACET_LABELS: Record<string, string> = {
+  lang: m.languages({}, { locale }),
+  period: m.period({}, { locale }),
+  tag: m.tags({}, { locale }),
+  access: m.access({}, { locale }),
+};
+
+const labelFor = (key: string, value: string): string => {
+  if (key === "lang") return languageNames([value], locale)[0] ?? value;
+  if (key === "period") return labelPeriod(value, locale);
+  if (key === "tag") return labelTag(value, locale);
+  return labelAccess(value, locale);
+};
+
+const facets: Facet[] = Object.keys(FACET_LABELS)
+  .map((key) => {
+    const values = [...new Set(rows.flatMap((row) => row.facets[key] ?? []))];
+    return {
+      key,
+      label: FACET_LABELS[key],
+      options: values
+        .map((value) => ({ value, label: labelFor(key, value) }))
+        .sort((a, b) => a.label.localeCompare(b.label, locale)),
+    };
+  })
+  .filter((facet) => facet.options.length >= 2);
 
 const titles: Record<Category, string> = {
   corpora: m.corpora({}, { locale }),
@@ -46,15 +112,27 @@ const SUGGEST_URL = "https://github.com/oulcggc/corpus-hub/issues/new";
   >
     <h1 class="text-4xl font-bold mb-8">{titles[category]}</h1>
     {
-      cards.length > 0 ? (
-        <div
-          class="grid gap-4"
-          style="grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));"
-        >
-          {cards.map((card) => (
-            <CatalogCard {...card} />
-          ))}
-        </div>
+      rows.length > 0 ? (
+        <>
+          <FilterBar locale={locale} facets={facets} />
+          <div
+            class="grid gap-4"
+            style="grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));"
+          >
+            {rows.map(({ card, text, facets: rowFacets }) => (
+              <div
+                data-entry
+                data-text={text}
+                data-facet-lang={(rowFacets.lang ?? []).join(" ")}
+                data-facet-period={(rowFacets.period ?? []).join(" ")}
+                data-facet-tag={(rowFacets.tag ?? []).join(" ")}
+                data-facet-access={(rowFacets.access ?? []).join(" ")}
+              >
+                <CatalogCard {...card} />
+              </div>
+            ))}
+          </div>
+        </>
       ) : (
         <p class="text-gray-600 dark:text-gray-400">
           <a class="underline" href={SUGGEST_URL}>
