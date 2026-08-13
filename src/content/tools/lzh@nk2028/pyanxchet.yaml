@@ -1,0 +1,9 @@
+kind: converter
+langs: [lzh]
+name:
+  zh: 自動反切器
+link: https://nk2028.shn.hk/pyanxchet/
+access:
+  delivery: web
+  cost: free
+  registration: none

@@ -1,0 +1,10 @@
+kind: analyzer
+langs: [ja]
+name:
+  ja: Web韻圖（韻鏡）
+creator: 鈴木慎吾
+link: https://suzukish.sakura.ne.jp/search/inkyo/index.php
+access:
+  delivery: web
+  cost: free
+  registration: none

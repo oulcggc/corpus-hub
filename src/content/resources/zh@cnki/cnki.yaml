@@ -1,0 +1,7 @@
+kind: dataset
+langs: [zh]
+name:
+  zh: 中国知网
+link: http://www.cnki.net/
+description:
+  ja: 登録制の論文検索サイト中国の主要雑誌の全文を収録したデータベースです。

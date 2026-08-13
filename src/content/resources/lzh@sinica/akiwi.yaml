@@ -1,0 +1,5 @@
+kind: corpus
+langs: [lzh]
+name:
+  zh: 中央研究院上古漢語標記語料庫
+link: https://lingcorpus.iis.sinica.edu.tw/cgi-bin/kiwi/akiwi/kiwi.sh
