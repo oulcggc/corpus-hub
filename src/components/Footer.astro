@@ -1,48 +1,39 @@
-<footer>
+---
+import * as m from "../paraglide/messages";
+import type { Locale } from "../lib/i18n";
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+
+const SUGGEST_URL = "https://github.com/oulcggc/corpus-hub/issues/new";
+---
+
+<footer
+  class="text-center px-4 py-8 flex flex-col gap-4 bg-gray-200 dark:bg-gray-950 text-gray-900 dark:text-gray-50"
+>
   <p>
-    &copy; 2024 <a href="https://oulcggc.org/" target="_blank"
-      >阪大言語サークルGGC</a
+    <a class="underline" href={SUGGEST_URL}>{m.suggest({}, { locale })}</a>
+  </p>
+  <p>
+    © 2024–2026 <a
+      class="underline"
+      href="https://oulcggc.org/"
+      target="_blank">阪大言語サークルGGC</a
     >
   </p>
-  <address>
+  <address class="not-italic text-sm flex flex-col gap-2">
     <p>with ❤️ by</p>
-    <div class="authors">
-      <a href="https://yocjyet.dev/" target="_blank"> Yo, Cjyet (于拙) </a>
-      <!-- TODO: Change to custom domain -->
-      <a href="https://homepage-82o.pages.dev/" target="_blank"> YuNai </a>
+    <div class="flex flex-col justify-center gap-2">
+      <a class="underline" href="https://yocjyet.dev/" target="_blank">
+        Yo, Cjyet (于拙)
+      </a>
+      <a class="underline" href="https://homepage-82o.pages.dev/" target="_blank">
+        YuNai
+      </a>
     </div>
     <p>and more...</p>
   </address>
 </footer>
-
-<style>
-  footer {
-    text-align: center;
-    padding: 2em 1em;
-    @apply bg-gray-200 dark:bg-gray-950;
-    @apply text-gray-900 dark:text-gray-50;
-    display: flex;
-    flex-direction: column;
-    gap: 1em;
-  }
-
-  a {
-    @apply text-inherit;
-    text-decoration: underline;
-  }
-
-  .authors {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 0.5em;
-  }
-
-  address {
-    font-style: normal;
-    font-size: 0.8em;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5em;
-  }
-</style>

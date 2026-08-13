@@ -1,0 +1,110 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "../../layouts/Layout.astro";
+import CatalogCard from "../../components/CatalogCard.astro";
+import * as m from "../../paraglide/messages";
+import { LOCALES, localePath, type Locale } from "../../lib/i18n";
+import { getToolsByKind } from "../../lib/catalog";
+import { toolCard } from "../../lib/display";
+
+export function getStaticPaths() {
+  return LOCALES.map((locale) => ({ params: { locale } }));
+}
+
+const locale = Astro.params.locale as Locale;
+
+const APP_NAME = "CorpusHub";
+const [beforeWelcome, afterWelcome] = m
+  .welcome({ name: "{name}" }, { locale })
+  .split("{name}");
+
+const concordancers = await getToolsByKind("concordancer");
+const articles = (await getCollection("articles")).sort(
+  (a, b) => b.data.published.valueOf() - a.data.published.valueOf(),
+);
+
+const languageBadge = (articleLocale: string) =>
+  articleLocale === locale
+    ? undefined
+    : new Intl.DisplayNames([locale], { type: "language" }).of(articleLocale);
+
+const categories = [
+  {
+    href: localePath(locale, "corpora"),
+    title: m.corpora({}, { locale }),
+    body: m.corporaDesc({}, { locale }),
+  },
+  {
+    href: localePath(locale, "concordancers"),
+    title: m.concordancers({}, { locale }),
+    body: m.concordancersDesc({}, { locale }),
+  },
+];
+---
+
+<Layout title={`${beforeWelcome}${APP_NAME}${afterWelcome}`} locale={locale} top>
+  <main class="mx-auto w-[800px] max-w-[calc(100%-2rem)] py-10 text-xl leading-relaxed text-ink dark:text-white">
+    <h1 class="m-4 text-6xl font-bold leading-none text-center mb-8">
+      {beforeWelcome}<span class="text-gradient">{APP_NAME}</span>{afterWelcome}
+    </h1>
+    <p class="text-center m-4 mb-10 text-2xl">{m.slogan({}, { locale })}</p>
+
+    {
+      articles.length > 0 && (
+        <section class="bg-gradient-to-r dark:from-accent-dark/60 dark:to-accent-dark/30 from-accent-light/60 to-accent-light/30 p-4 rounded-lg mb-10 py-10">
+          <h2 class="text-center text-3xl font-bold my-5">
+            {m.featured({}, { locale })}
+          </h2>
+          <ul class="flex flex-col space-y-4 mt-10 list-none m-0 p-0">
+            {articles.map((article) => (
+              <li class="text-center">
+                <a
+                  href={localePath(locale, `articles/${article.id}`)}
+                  class="text-2xl font-bold text-gradient"
+                >
+                  {article.data.title}
+                </a>
+                {languageBadge(article.data.locale) && (
+                  <span class="ml-2 text-sm align-middle rounded-full px-2 py-0.5 bg-accent-light/50 dark:bg-accent-dark/50">
+                    {languageBadge(article.data.locale)}
+                  </span>
+                )}
+              </li>
+            ))}
+          </ul>
+        </section>
+      )
+    }
+
+    <section
+      class="grid gap-4 mb-10"
+      style="grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));"
+    >
+      {concordancers.map((tool) => <CatalogCard {...toolCard(tool, locale)} />)}
+    </section>
+
+    <p
+      class="my-10 p-6 rounded-lg border border-accent-light/25 bg-gradient-to-r dark:from-accent-dark/60 dark:to-accent-dark/30 from-accent-light/60 to-accent-light/30 [&_code]:text-sm [&_code]:font-bold [&_code]:rounded [&_code]:px-1.5 [&_code]:py-0.5 [&_code]:bg-accent-dark/10 [&_code]:text-accent-dark dark:[&_code]:bg-accent-light/10 dark:[&_code]:text-accent-light [&_strong]:text-accent-dark dark:[&_strong]:text-accent-light"
+      set:html={m.description({}, { locale })}
+    />
+
+    <section class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      {
+        categories.map(({ href, title, body }) => (
+          <a
+            href={href}
+            class="group rounded-lg border border-gray-300 dark:border-gray-700 p-6 hover:border-accent transition-colors"
+          >
+            <h3 class="text-2xl font-bold mb-2">
+              {title}
+              <span class="inline-block transition-transform group-hover:translate-x-1">
+                →
+              </span>
+            </h3>
+            <p class="text-base text-gray-600 dark:text-gray-400">{body}</p>
+          </a>
+        ))
+      }
+    </section>
+  </main>
+</Layout>

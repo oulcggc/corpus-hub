@@ -1,27 +1,22 @@
+// @ts-check
 import { defineConfig } from "astro/config";
-import tailwind from "@astrojs/tailwind";
-import paraglide from "@inlang/paraglide-astro";
-import cloudflare from "@astrojs/cloudflare";
-import icon from "astro-icon";
-// import Icons from "unplugin-icons";
-import svelte from "@astrojs/svelte";
-import db from "@astrojs/db";
-
 import mdx from "@astrojs/mdx";
+import icon from "astro-icon";
+import tailwindcss from "@tailwindcss/vite";
+import { paraglideVitePlugin } from "@inlang/paraglide-js";
 
-// https://astro.build/config
 export default defineConfig({
-  i18n: {
-    locales: ["en", "ja", "zh", "fr"],
-    defaultLocale: "en"
+  site: "https://corpora.oulcggc.org",
+  output: "static",
+  integrations: [icon(), mdx()],
+  vite: {
+    plugins: [
+      tailwindcss(),
+      paraglideVitePlugin({
+        project: "./project.inlang",
+        outdir: "./src/paraglide",
+        strategy: ["baseLocale"],
+      }),
+    ],
   },
-  integrations: [tailwind(), paraglide({
-    project: "./project.inlang",
-    outdir: "./src/paraglide"
-  }), icon(), svelte(), db(), mdx()],
-  output: "server",
-  adapter: cloudflare()
-  // vite: {
-  //   plugins: [Icons({ compiler: "svelte" })],
-  // },
 });

@@ -1,0 +1,10 @@
+kind: corpus
+langs: [zh]
+name:
+  zh: BCC现代汉语语料库
+abbr:
+  zh: BCC
+  en: BCC
+organization: CN@blcu
+link: https://bcc.blcu.edu.cn/help
+period: [contemporary]

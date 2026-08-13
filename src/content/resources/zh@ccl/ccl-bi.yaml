@@ -1,0 +1,11 @@
+kind: corpus
+langs: [zh, en]
+name:
+  zh: 北京大学CCL语料库（汉英双语）
+  en: Peking University CCL Online Corpus (Chinese-English Bilingual)
+abbr:
+  zh: CCL（汉英）
+  en: CCL (bi)
+organization: CN@ccl
+link: http://ccl.pku.edu.cn:8080/ccl_corpus/CCLCorpus_Readme.html
+tags: [parallel]

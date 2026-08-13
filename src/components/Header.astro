@@ -1,57 +1,52 @@
 ---
-import LanguagePicker from "./LanguagePicker.astro";
-import ThemeSwitcher from "./ThemeSwitch.astro";
+import { Icon } from "astro-icon/components";
 import * as m from "../paraglide/messages";
+import { localePath, type Locale } from "../lib/i18n";
+import LanguagePicker from "./LanguagePicker.astro";
+import ThemeSwitch from "./ThemeSwitch.astro";
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+
+const links = [
+  { path: localePath(locale, "corpora"), name: m.corpora({}, { locale }) },
+  {
+    path: localePath(locale, "concordancers"),
+    name: m.concordancers({}, { locale }),
+  },
+];
 ---
 
 <header
-  class="p-6 align-middle flex justify-between md:justify-normal items-center text-[#020305] dark:text-white transition-colors gap-4
-    md:flex-row flex-col"
+  class="p-6 flex flex-col md:flex-row md:items-center gap-4 text-ink dark:text-white"
 >
   <div class="flex justify-between items-center w-full md:w-auto">
-    <a href="/" class="font-black text-current">CorpusHub</a>
+    <a href={localePath(locale)} class="font-black text-current">CorpusHub</a>
     <button
-      aria-label="Main Navigation Toggle"
-      class="tham tham-e-squeeze tham-w-6 md:hidden"
+      aria-label="Menu"
+      aria-expanded="false"
+      class="md:hidden p-2"
       id="navigation-toggle"
     >
-      <div class="tham-box">
-        <div class="tham-inner bg-[#020305] dark:bg-white"></div>
-      </div>
+      <Icon name="hugeicons:menu-01" class="w-6 h-6" />
     </button>
   </div>
   <div
     id="navbar-menu"
-    class="hidden md:flex flex-col md:flex-row justify-between gap-6 md:gap-4 w-full md:p-0 p-6"
+    class="hidden md:flex flex-col md:flex-row md:justify-between gap-6 md:gap-4 w-full"
   >
-    <nav class="flex w-full items-center gap-4 flex-wrap md:flex-nowrap">
-      <ul class="contents list-none m-0 p-0">
+    <nav>
+      <ul class="flex items-center gap-4 list-none m-0 p-0">
         {
-          [
-            {
-              path: "/concordancers",
-              name: m.concordancers(),
-            },
-            {
-              path: "/corpora",
-              name: m.corpora(),
-            },
-            {
-              path: "/datasets",
-              name: m.datasets(),
-            },
-            {
-              path: "/dictionaries",
-              name: m.dictionaries(),
-            },
-          ].map(({ path, name }) => (
+          links.map(({ path, name }) => (
             <li>
               <a
                 href={path}
                 class:list={[
-                  {
-                    active: path === Astro.url.pathname,
-                  },
+                  { "font-bold": Astro.url.pathname === path },
                   "hover:underline",
                 ]}
               >
@@ -62,32 +57,19 @@ import * as m from "../paraglide/messages";
         }
       </ul>
     </nav>
-    <div class="flex gap-4 items-center justify-end flex-wrap md:flex-nowrap">
-      <span class="whitespace-nowrap">
-        {m.login()}
-      </span>
-      <ThemeSwitcher />
-      <LanguagePicker />
+    <div class="flex gap-4 items-center justify-end">
+      <ThemeSwitch />
+      <LanguagePicker locale={locale} />
     </div>
   </div>
-
-  <script is:inline lang="ts">
-    const navigationToggle = document.getElementById("navigation-toggle");
-    const navbarMenu = document.getElementById("navbar-menu");
-
-    function toggleMenu() {
-      navbarMenu.classList.toggle("hidden");
-      navbarMenu.classList.toggle("flex");
-      navigationToggle.classList.toggle("tham-active");
-    }
-    // toggleMenu();
-
-    navigationToggle.addEventListener("click", () => toggleMenu());
-  </script>
 </header>
 
-<style>
-  nav ul li a.active {
-    font-weight: bold;
-  }
-</style>
+<script is:inline>
+  document.getElementById("navigation-toggle").addEventListener("click", () => {
+    const menu = document.getElementById("navbar-menu");
+    const toggle = document.getElementById("navigation-toggle");
+    const open = menu.classList.toggle("hidden") === false;
+    menu.classList.toggle("flex", open);
+    toggle.setAttribute("aria-expanded", String(open));
+  });
+</script>

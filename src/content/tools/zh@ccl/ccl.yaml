@@ -1,0 +1,14 @@
+kind: concordancer
+langs: [zh]
+name:
+  zh: CCL语料库检索系统（网络版）
+abbr:
+  zh: CCL
+  en: CCL
+organization: CN@ccl
+link: http://ccl.pku.edu.cn:8080/ccl_corpus/index.jsp
+access:
+  delivery: web
+  cost: free
+  registration: none
+serves: [zh@ccl/ccl, zh@ccl/ccl-classical, zh@ccl/ccl-bi]

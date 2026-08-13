@@ -1,0 +1,49 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --color-accent: #883aea;
+  --color-accent-light: #e0ccfa;
+  --color-accent-dark: #310a65;
+  --color-ink: #020305;
+  --color-paper: #ffffff;
+  --color-paper-dark: #13151a;
+}
+
+:root {
+  --accent-gradient: linear-gradient(
+    45deg,
+    var(--color-accent),
+    var(--color-accent-light) 30%,
+    #ffffff 60%
+  );
+}
+
+html {
+  font-family: system-ui, sans-serif;
+  background-color: var(--color-paper);
+  color: var(--color-ink);
+}
+
+html.dark {
+  background-color: var(--color-paper-dark);
+  color: #ffffff;
+}
+
+code {
+  font-family:
+    Menlo, Monaco, "Lucida Console", "Liberation Mono", "DejaVu Sans Mono",
+    "Bitstream Vera Sans Mono", "Courier New", monospace;
+}
+
+.text-gradient {
+  background-image: var(--accent-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  background-size: 400%;
+  background-position: 0%;
+}

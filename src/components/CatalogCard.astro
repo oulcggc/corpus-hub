@@ -1,0 +1,89 @@
+---
+import * as m from "../paraglide/messages";
+import type { Locale } from "../lib/i18n";
+
+interface Props {
+  locale: Locale;
+  title: string;
+  titleNative?: string | undefined;
+  detailHref: string;
+  externalHref: string;
+  org?: { name: string; href: string } | undefined;
+  items?: { label: string; href: string }[];
+  chips?: string[];
+}
+
+const {
+  locale,
+  title,
+  titleNative,
+  detailHref,
+  externalHref,
+  org,
+  items = [],
+  chips = [],
+} = Astro.props;
+---
+
+<div
+  class="rounded-lg p-4 bg-slate-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 shadow-inner flex flex-col gap-4"
+>
+  <div class="flex items-start justify-between gap-2">
+    <div class="flex flex-col">
+      <a href={detailHref} class="font-bold text-lg">{title}</a>
+      {titleNative && <span class="text-sm text-gray-500 dark:text-gray-400">{titleNative}</span>}
+      {
+        org && (
+          <a
+            class="text-sm text-gray-500 dark:text-gray-400"
+            href={org.href}
+          >
+            {org.name}
+          </a>
+        )
+      }
+    </div>
+    {
+      chips.length > 0 && (
+        <ul class="flex flex-wrap gap-1 justify-end list-none m-0 p-0">
+          {chips.map((chip) => (
+            <li class="text-xs rounded-full px-2 py-0.5 bg-accent-light/50 dark:bg-accent-dark/50">
+              {chip}
+            </li>
+          ))}
+        </ul>
+      )
+    }
+  </div>
+
+  {
+    items.length > 0 && (
+      <ul class="list-none m-0 p-0 flex flex-col gap-1 text-sm">
+        {items.map(({ label, href }) => (
+          <li>
+            <a class="hover:underline" href={href}>
+              {label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    )
+  }
+
+  <div class="grid grid-cols-2 gap-4 mt-auto">
+    <a
+      class="py-2 px-4 bg-blue-500/75 dark:bg-blue-500/50 text-white rounded border-blue-500 border-2 text-center"
+      href={detailHref}
+    >
+      {m.viewDetails({}, { locale })}
+    </a>
+    <a
+      class="py-2 px-4 bg-blue-500/75 dark:bg-blue-500/50 text-white rounded border-blue-500 border-2 text-center"
+      href={externalHref}
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      {m.visitSite({}, { locale })}
+    </a>
+  </div>
+</div>

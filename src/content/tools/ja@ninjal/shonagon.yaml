@@ -1,0 +1,15 @@
+kind: concordancer
+langs: [ja]
+name:
+  ja: KOTONOHA「現代日本語書き言葉均衡コーパス」少納言
+  en: Online Reference Tool “Shonagon”
+abbr:
+  ja: 少納言
+  en: Shonagon
+organization: JP@ninjal
+link: https://shonagon.ninjal.ac.jp
+access:
+  delivery: web
+  cost: free
+  registration: none
+serves: [ja@ninjal/bccwj]

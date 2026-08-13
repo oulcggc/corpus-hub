@@ -1,0 +1,12 @@
+kind: corpus
+langs: [lzh]
+name:
+  zh: 北京大学CCL语料库（古代汉语）
+  en: Peking University CCL Online Corpus (Classical Chinese)
+abbr:
+  zh: CCL（古代）
+  en: CCL (old)
+organization: CN@ccl
+link: http://ccl.pku.edu.cn:8080/ccl_corpus/CCLCorpus_Readme.html
+period: [classical]
+annotation: [none]
