@@ -20,9 +20,20 @@ const [beforeWelcome, afterWelcome] = m
   .split("{name}");
 
 const concordancers = await getToolsByKinds(["concordancer"]);
-const articles = (await getCollection("articles")).sort(
-  (a, b) => b.data.published.valueOf() - a.data.published.valueOf(),
-);
+
+const slugOf = (id: string) => id.replace(/^[a-z]{2}\//, "");
+const allArticles = await getCollection("articles");
+const bySlug = new Map<string, typeof allArticles>();
+for (const article of allArticles) {
+  const slug = slugOf(article.id);
+  bySlug.set(slug, [...(bySlug.get(slug) ?? []), article]);
+}
+const articles = [...bySlug.values()]
+  .map(
+    (versions) =>
+      versions.find((a) => a.data.locale === locale) ?? versions[0]!,
+  )
+  .sort((a, b) => b.data.published.valueOf() - a.data.published.valueOf());
 
 const languageBadge = (articleLocale: string) =>
   articleLocale === locale
@@ -70,7 +81,10 @@ const categories = [
             {articles.map((article) => (
               <li class="text-center">
                 <a
-                  href={localePath(locale, `articles/${article.id}`)}
+                  href={localePath(
+                    article.data.locale,
+                    `articles/${slugOf(article.id)}`,
+                  )}
                   class="text-2xl font-bold text-gradient"
                 >
                   {article.data.title}

@@ -1,0 +1,122 @@
+---
+title: 中文與漢語詞研究的資料・工具目錄
+locale: zh
+published: 2024-06-19
+updated: 2026-08-14
+authors:
+  - name: 安部 清哉
+  - name: 于 拙
+    link: https://yocjyet.dev/
+---
+import ToolCard from '../../../components/article/ToolCard.astro'
+import ResourceList from '../../../components/article/ResourceList.astro'
+
+本特輯為日語詞彙研究與漢語詞研究整理收錄相關檢索網站，尤其是中國大陸所建置的網站，以便一覽全貌並快速展開檢索。
+
+## 先行研究檢索
+
+<ResourceList locale="zh" ids={["zh@cnki/cnki"]} />
+
+## 字辭典
+
+查考漢語詞出典時，下列網站可供參考。
+
+<ResourceList locale="zh" ids={[
+  "zh@zdic/zdic",
+  "lzh@onlinedown/siku",
+  "zh@sinica/mhdb-portal",
+  "zh@sinica/ecdict",
+]} />
+
+※「*四库全书电子版*」與「*台湾中央研究院网站*」有時不易連線。
+
+## 語料庫
+
+### 北京大學、北京語言大學語料庫
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4 not-prose">
+  <ToolCard id="zh@ccl/ccl" locale="zh" />
+
+  <ToolCard id="zh@blcu/bcc" locale="zh" />
+</div>
+
+### 臺灣：中央研究院語料庫
+
+<ResourceList locale="zh" ids={[
+  "lzh@sinica/akiwi",
+  "lzh@sinica/dkiwi",
+  "lzh@sinica/pkiwi",
+  "zh@sinica/mkiwi",
+  "lzh@sinica/asacc",
+]} />
+
+## 文獻資料庫
+
+<ResourceList locale="zh" ids={["zh@sinica/mh", "zh@sinica/mhdb"]} />
+
+## 檢索・辭書網站
+
+<ResourceList locale="zh" ids={[
+  "lzh@kaom/kaom",
+  "zh@fudan/ccdc",
+  "lzh@sinica/xiaoxue",
+  "zh@guoxuedashi/guoxuedashi",
+  "zh@cuhk/lexi-mf",
+]} />
+
+## 方言
+
+<ResourceList locale="zh" ids={[
+  "nan@dict/twblg",
+  "hak@dict/hakkadict",
+  "hak@hakka/hakka",
+  "yue@cuhk/lexi-can",
+  "yue@iso10646hk/jyutping",
+  "wuu@wu-chinese/minidict",
+  "ko@tougokudb/tougokudb",
+]} />
+
+## 古籍・出土文獻
+
+<ResourceList locale="zh" ids={[
+  "lzh@bsm/bsm",
+  "lzh@fdgwz/fdgwz",
+  "lzh@shuge/shuge",
+  "zh@ygsf/ygsf",
+  "zh@nlc/nlc",
+]} />
+
+## 音韻（漢字音）
+
+<ResourceList
+  locale="zh"
+  ids={[
+    "lzh@sou-yun/sou-yun",
+    "lzh@ytenx/ytenx",
+    "ja@suzukish/database",
+    "lzh@wiktionary/baxter-sagart",
+    "ja@waseda/dhsjr",
+  ]}
+  tools={[
+    "lzh@nk2028/qieyun-autoderiver",
+    "lzh@nk2028/pyanxchet",
+    "lzh@nk2028/qieyun-tools",
+    "ja@suzukish/inkyo",
+  ]}
+/>
+
+## 參考資料
+
+* 于拙（2023）「[中国語関係オンライン・ツールまとめ：音韻・文字・訓詁](https://files.yocjyet.dev/zh.pdf)」（日文）
+
+## 謝辭
+
+本特輯為下列研究計畫資助成果的一部分：
+
+<ul class="pl-10 py-6">
+  <li>
+    學習院大學計算機中心2024年特別研究計畫<br/>
+    「古典日本語連語表現の検索コンコーダンスシステムの拡張と応用研究」<br/>
+    （代表人：安部清哉；研究協力・實作：于拙）
+  </li>
+</ul>
