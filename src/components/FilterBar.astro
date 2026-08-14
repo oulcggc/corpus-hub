@@ -18,7 +18,7 @@ const { locale, facets } = Astro.props;
 
 <form
   id="filter-bar"
-  class="flex flex-wrap gap-3 items-center mb-8"
+  class="filter-bar"
   autocomplete="off"
 >
   <input
@@ -26,14 +26,14 @@ const { locale, facets } = Astro.props;
     name="q"
     placeholder={m.search({}, { locale })}
     aria-label={m.search({}, { locale })}
-    class="flex-1 min-w-48 bg-transparent border border-gray-300 dark:border-gray-700 rounded px-3 py-2"
+    class="filter-search"
   />
   {
     facets.map((facet) => (
       <select
         name={facet.key}
         aria-label={facet.label}
-        class="bg-paper dark:bg-paper-dark border border-gray-300 dark:border-gray-700 rounded px-2 py-2"
+        class="filter-select"
       >
         <option value="">{facet.label}</option>
         {facet.options.map(({ value, label }) => (
@@ -42,16 +42,72 @@ const { locale, facets } = Astro.props;
       </select>
     ))
   }
-  <button
-    type="reset"
-    class="px-3 py-2 border border-gray-300 dark:border-gray-700 rounded"
-  >
+  <button type="reset" class="btn btn-ghost filter-reset">
     {m.clear({}, { locale })}
   </button>
 </form>
-<p id="no-results" class="text-gray-600 dark:text-gray-400" hidden>
+<p id="no-results" class="no-results" hidden>
   {m.noResults({}, { locale })}
 </p>
+
+<style>
+  .filter-bar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+    padding: 0.5rem;
+    background-color: var(--color-gray-100);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--rim-inset);
+  }
+  :global(.dark) .filter-bar {
+    background-color: var(--color-gray-800);
+  }
+  .filter-search,
+  .filter-select {
+    min-height: 2.5rem;
+    padding: 0.4rem 0.75rem;
+    border: 1px solid var(--color-gray-300);
+    border-radius: var(--radius-md);
+    background-color: var(--color-paper);
+    color: inherit;
+    font: inherit;
+    font-size: 0.9375rem;
+    line-height: 1.6;
+  }
+  :global(.dark) .filter-search,
+  :global(.dark) .filter-select {
+    border-color: var(--color-gray-700);
+    background-color: var(--color-paper-dark);
+  }
+  .filter-search {
+    flex: 1 1 12rem;
+    min-width: 12rem;
+  }
+  .filter-select {
+    flex: 0 1 auto;
+    max-width: 100%;
+  }
+  .filter-search:focus,
+  .filter-select:focus {
+    outline: none;
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-accent) 22%, transparent);
+  }
+  .filter-reset {
+    flex: 0 0 auto;
+  }
+  .no-results {
+    margin: 0 0 1.25rem;
+    color: var(--color-gray-600);
+    line-height: 1.7;
+  }
+  :global(.dark) .no-results {
+    color: var(--color-gray-400);
+  }
+</style>
 
 <script is:inline>
   (() => {

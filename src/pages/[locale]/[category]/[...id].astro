@@ -61,6 +61,14 @@ const { entry, type } = Astro.props;
 const nativeLang = entry.data.langs[0];
 const name = pickLocalized(entry.data.name, locale, nativeLang);
 const nameNative = nativeForm(entry.data.name, name, nativeLang);
+const description = entry.data.description
+  ? (entry.data.description[locale] ?? entry.data.description["ja"])
+  : undefined;
+const descriptionLang = entry.data.description
+  ? entry.data.description[locale]
+    ? locale
+    : "ja"
+  : undefined;
 const abbr = entry.data.abbr
   ? pickLocalized(entry.data.abbr, locale, nativeLang)
   : undefined;
@@ -150,24 +158,34 @@ if (type === "resource") {
 
 <Layout title={abbr ?? name} locale={locale}>
   <main
-    class="mx-auto w-[800px] max-w-[calc(100%-2rem)] py-10 text-ink dark:text-white"
+    class="mx-auto w-[800px] max-w-[calc(100%-2rem)] py-12 leading-relaxed text-ink dark:text-white"
   >
-    <h1 class="text-3xl font-bold">{name}</h1>
+    <h1 class="text-3xl font-bold leading-snug tracking-tight">{name}</h1>
     {
       nameNative && (
-        <p class="text-xl text-gray-500 dark:text-gray-400 mt-1">
+        <p class="mt-2 text-xl leading-relaxed text-gray-500 dark:text-gray-400">
           {nameNative}
         </p>
       )
     }
+    {
+      description && (
+        <p
+          class="mt-5 text-[1.0625rem] leading-relaxed text-gray-700 dark:text-gray-300"
+          lang={descriptionLang}
+        >
+          {description}
+        </p>
+      )
+    }
 
-    <dl class="my-8 grid grid-cols-[auto_1fr] gap-x-8 gap-y-3">
+    <dl class="entry-meta">
       {
         entry.organization && orgAbbr && (
           <>
-            <dt class="font-bold">{m.organization({}, { locale })}</dt>
+            <dt>{m.organization({}, { locale })}</dt>
             <dd>
-              <a class="underline" href={entry.organization.data.link}>
+              <a href={entry.organization.data.link}>
                 {pickLocalized(orgAbbr, locale)}
                 {orgName !== pickLocalized(orgAbbr, locale) && ` (${orgName})`}
               </a>
@@ -178,7 +196,7 @@ if (type === "resource") {
       {
         rows.map(({ label, value }) => (
           <>
-            <dt class="font-bold">{label}</dt>
+            <dt>{label}</dt>
             <dd>{value}</dd>
           </>
         ))
@@ -186,14 +204,12 @@ if (type === "resource") {
       {
         related.length > 0 && (
           <>
-            <dt class="font-bold">{relatedLabel}</dt>
+            <dt>{relatedLabel}</dt>
             <dd>
-              <ul class="list-none m-0 p-0 flex flex-col gap-1">
+              <ul class="related">
                 {related.map(({ label, href }) => (
                   <li>
-                    <a class="underline" href={href}>
-                      {label}
-                    </a>
+                    <a href={href}>{label}</a>
                   </li>
                 ))}
               </ul>
@@ -205,17 +221,15 @@ if (type === "resource") {
 
     {
       citation && (
-        <figure class="my-8">
-          <figcaption class="font-bold mb-2">Citation</figcaption>
-          <blockquote class="border-l-4 border-accent pl-4 py-2 bg-slate-100 dark:bg-gray-800 rounded-r select-all">
-            {citation}
-          </blockquote>
+        <figure class="citation">
+          <figcaption>Citation</figcaption>
+          <blockquote class="select-all">{citation}</blockquote>
         </figure>
       )
     }
 
     <a
-      class="inline-block py-2 px-6 bg-blue-500/75 dark:bg-blue-500/50 text-white rounded border-blue-500 border-2"
+      class="btn btn-primary px-6"
       href={entry.data.link}
       target="_blank"
       rel="noopener noreferrer"
@@ -230,3 +244,102 @@ if (type === "resource") {
     }
   </main>
 </Layout>
+
+<style>
+  .entry-meta {
+    display: grid;
+    grid-template-columns: minmax(6.75rem, 9.25rem) 1fr;
+    margin: 2rem 0;
+    overflow: hidden;
+    background-color: var(--color-gray-100);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--rim-inset);
+  }
+  :global(.dark) .entry-meta {
+    background-color: var(--color-gray-800);
+  }
+  .entry-meta dt,
+  .entry-meta dd {
+    margin: 0;
+    padding: 0.85rem 1.15rem;
+    line-height: 1.7;
+    border-bottom: 1px solid rgb(16 8 32 / 0.06);
+  }
+  :global(.dark) .entry-meta dt,
+  :global(.dark) .entry-meta dd {
+    border-bottom-color: rgb(255 255 255 / 0.08);
+  }
+  .entry-meta dt {
+    font-size: 0.8125rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: var(--color-gray-600);
+  }
+  :global(.dark) .entry-meta dt {
+    color: var(--color-gray-400);
+  }
+  .entry-meta dd {
+    min-width: 0;
+  }
+  .entry-meta dt:nth-last-of-type(1),
+  .entry-meta dd:nth-last-of-type(1) {
+    border-bottom: none;
+  }
+  .entry-meta a {
+    color: inherit;
+    text-decoration: underline;
+    text-decoration-color: color-mix(
+      in srgb,
+      var(--color-accent) 42%,
+      transparent
+    );
+    text-underline-offset: 0.18em;
+  }
+  .entry-meta a:hover,
+  .entry-meta a:focus-visible {
+    color: var(--color-accent-dark);
+  }
+  :global(.dark) .entry-meta a:hover,
+  :global(.dark) .entry-meta a:focus-visible {
+    color: var(--color-accent-light);
+  }
+  .related {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .related a {
+    display: inline-flex;
+    align-items: center;
+    max-width: 100%;
+    padding: 0.2rem 0;
+    line-height: 1.65;
+  }
+  .citation {
+    margin: 2rem 0;
+  }
+  .citation figcaption {
+    margin-bottom: 0.55rem;
+    font-size: 0.8125rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: var(--color-gray-600);
+  }
+  :global(.dark) .citation figcaption {
+    color: var(--color-gray-400);
+  }
+  .citation blockquote {
+    margin: 0;
+    padding: 0.9rem 1.15rem;
+    background-color: var(--color-gray-100);
+    border-left: 3px solid var(--color-accent);
+    border-radius: 0 var(--radius-md) var(--radius-md) 0;
+    line-height: 1.75;
+  }
+  :global(.dark) .citation blockquote {
+    background-color: var(--color-gray-800);
+  }
+</style>
