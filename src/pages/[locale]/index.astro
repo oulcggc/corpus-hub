@@ -1,6 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 import Layout from "../../layouts/Layout.astro";
+import Card from "../../components/Card.astro";
 import CatalogCard from "../../components/CatalogCard.astro";
 import * as m from "../../paraglide/messages";
 import { LOCALES, localePath, type Locale } from "../../lib/i18n";
@@ -98,23 +99,15 @@ const categories = [
       set:html={m.description({}, { locale })}
     />
 
-    <section class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <ul
+      role="list"
+      class="grid gap-4 p-0 m-0 grid-cols-[repeat(auto-fit,minmax(24ch,1fr))]"
+    >
       {
         categories.map(({ href, title, body }) => (
-          <a
-            href={href}
-            class="group rounded-lg border border-gray-300 dark:border-gray-700 p-6 hover:border-accent transition-colors"
-          >
-            <h3 class="text-2xl font-bold mb-2">
-              {title}
-              <span class="inline-block transition-transform group-hover:translate-x-1">
-                →
-              </span>
-            </h3>
-            <p class="text-base text-gray-600 dark:text-gray-400">{body}</p>
-          </a>
+          <Card href={href} title={title} body={body} />
         ))
       }
-    </section>
+    </ul>
   </main>
 </Layout>
