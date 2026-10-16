@@ -1,5 +1,25 @@
 ---
-import Home from "../contents/Home.astro";
+import { DEFAULT_LOCALE, LOCALES } from "../lib/i18n";
 ---
 
-<Home />
+<!doctype html>
+<html lang={DEFAULT_LOCALE}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="refresh" content={`0;url=/${DEFAULT_LOCALE}/`} />
+    <link rel="canonical" href={new URL(`/${DEFAULT_LOCALE}/`, Astro.site)} />
+    <title>CorpusHub</title>
+    <script
+      is:inline
+      define:vars={{ locales: [...LOCALES], fallback: DEFAULT_LOCALE }}
+    >
+      const preferred = (navigator.languages ?? [navigator.language])
+        .map((tag) => tag.split("-")[0])
+        .find((lang) => locales.includes(lang));
+      location.replace(`/${preferred ?? fallback}/`);
+    </script>
+  </head>
+  <body>
+    <a href={`/${DEFAULT_LOCALE}/`}>CorpusHub</a>
+  </body>
+</html>
