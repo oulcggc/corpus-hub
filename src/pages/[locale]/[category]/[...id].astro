@@ -61,6 +61,14 @@ const { entry, type } = Astro.props;
 const nativeLang = entry.data.langs[0];
 const name = pickLocalized(entry.data.name, locale, nativeLang);
 const nameNative = nativeForm(entry.data.name, name, nativeLang);
+const description = entry.data.description
+  ? (entry.data.description[locale] ?? entry.data.description["ja"])
+  : undefined;
+const descriptionLang = entry.data.description
+  ? entry.data.description[locale]
+    ? locale
+    : "ja"
+  : undefined;
 const abbr = entry.data.abbr
   ? pickLocalized(entry.data.abbr, locale, nativeLang)
   : undefined;
@@ -157,6 +165,16 @@ if (type === "resource") {
       nameNative && (
         <p class="mt-2 text-xl leading-relaxed text-gray-500 dark:text-gray-400">
           {nameNative}
+        </p>
+      )
+    }
+    {
+      description && (
+        <p
+          class="mt-5 text-[1.0625rem] leading-relaxed text-gray-700 dark:text-gray-300"
+          lang={descriptionLang}
+        >
+          {description}
         </p>
       )
     }
