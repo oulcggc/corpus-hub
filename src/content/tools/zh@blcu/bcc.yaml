@@ -1,0 +1,14 @@
+kind: concordancer
+langs: [zh]
+name:
+  zh: BCC语料库网站
+abbr:
+  zh: BCC
+  en: BCC
+organization: CN@blcu
+link: https://bcc.blcu.edu.cn/
+access:
+  delivery: web
+  cost: free
+  registration: none
+serves: [zh@blcu/bcc]
