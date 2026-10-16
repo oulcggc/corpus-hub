@@ -4,6 +4,8 @@
   "corpora": "コーパス",
   "datasets": "データセット",
   "dictionaries": "辞書",
+  "slogan": "コーパスのコーパス",
+  "welcome": "{name}へようこそ",
   "published": "公開",
   "updated": "更新",
   "viewDetails": "詳細を見る",
