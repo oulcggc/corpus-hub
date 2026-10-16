@@ -5,7 +5,6 @@ import Author from "../components/article/Author.astro";
 import { languageTag } from "../paraglide/runtime";
 import * as m from "../paraglide/messages";
 import VisitorCounter from "src/components/VisitorCounter.astro";
-import { Icon } from "astro-icon/components";
 interface Props {
   title: string;
   top?: boolean;
@@ -78,23 +77,6 @@ const title = frontmatter.title + (top ? "" : " | CorpusHub");
       </section>
 
       <section id="content" class="leading-8 indent-4 relative">
-        <!-- Floating menu to the left -->
-        <div
-          class="absolute top-0 left-[-5rem] flex flex-col text-center items-center justify-center"
-        >
-          <button
-            class="border border-gray-200 dark:border-gray-800 rounded-full p-2"
-            id="favourite-button"
-          >
-            <Icon name="hugeicons:favourite" />
-          </button>
-          <div
-            id="favourite-count"
-            class="text-gray-500 dark:text-gray-400 text-center text-sm ml-[-1em]"
-          >
-            0
-          </div>
-        </div>
         <output id="markdown">
           <slot />
         </output>
@@ -113,17 +95,6 @@ const title = frontmatter.title + (top ? "" : " | CorpusHub");
   </body>
 
   <script is:inline lang="ts">
-    const favouriteButton = document.getElementById("favourite-button");
-    const favouriteCount = document.getElementById("favourite-count");
-    favouriteButton.addEventListener("click", () => {
-      favouriteButton.classList.toggle("text-red-500");
-      favouriteCount.textContent = favouriteButton.classList.contains(
-        "text-red-500",
-      )
-        ? "1"
-        : "0";
-    });
-
     const toc = document.getElementById("toc");
     window.addEventListener("DOMContentLoaded", () => {
       const markdown = document.getElementById("markdown");
