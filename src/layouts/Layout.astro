@@ -8,10 +8,18 @@ import { LOCALES, type Locale } from "../lib/i18n";
 interface Props {
   title: string;
   locale: Locale;
+  description?: string;
+  alternates?: readonly Locale[];
   top?: boolean;
 }
 
-const { title: rawTitle, locale, top } = Astro.props;
+const {
+  title: rawTitle,
+  locale,
+  description,
+  alternates = LOCALES,
+  top,
+} = Astro.props;
 
 const title = rawTitle + (top ? "" : " | CorpusHub");
 
@@ -23,6 +31,7 @@ const pathSuffix = Astro.url.pathname.replace(/^\/[a-z]{2}(\/|$)/, "");
 <html lang={locale}>
   <head>
     <meta charset="UTF-8" />
+    {description && <meta name="description" content={description} />}
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
@@ -33,7 +42,7 @@ const pathSuffix = Astro.url.pathname.replace(/^\/[a-z]{2}(\/|$)/, "");
     <meta name="generator" content={Astro.generator} />
     {
       localized &&
-        LOCALES.map((l) => (
+        alternates.map((l) => (
           <link
             rel="alternate"
             hreflang={l}
