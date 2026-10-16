@@ -1,4 +1,6 @@
 ---
+import { localePath } from "../lib/i18n";
+import { languageTag } from "../paraglide/runtime";
 import Layout from "../layouts/Layout.astro";
 
 import * as m from "../paraglide/messages";
@@ -15,7 +17,7 @@ const concordancers = await getConcordancers();
       {
         concordancers.map((corpus) => (
           <li>
-            <a href={`/concordancers/${corpus.id}`}>{corpus.name.en}</a>
+            <a href={localePath(languageTag(), `concordancers/${corpus.id}`)}>{corpus.name.en}</a>
           </li>
         ))
       }
