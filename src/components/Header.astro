@@ -1,5 +1,6 @@
 ---
 import { Icon } from "astro-icon/components";
+import * as m from "../paraglide/messages";
 import { localePath, type Locale } from "../lib/i18n";
 import LanguagePicker from "./LanguagePicker.astro";
 import ThemeSwitch from "./ThemeSwitch.astro";
@@ -10,7 +11,13 @@ interface Props {
 
 const { locale } = Astro.props;
 
-const links: { path: string; name: string }[] = [];
+const links = [
+  { path: localePath(locale, "corpora"), name: m.corpora({}, { locale }) },
+  {
+    path: localePath(locale, "concordancers"),
+    name: m.concordancers({}, { locale }),
+  },
+];
 ---
 
 <header

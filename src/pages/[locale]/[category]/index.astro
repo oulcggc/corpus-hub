@@ -1,0 +1,67 @@
+---
+import Layout from "../../../layouts/Layout.astro";
+import CatalogCard from "../../../components/CatalogCard.astro";
+import * as m from "../../../paraglide/messages";
+import { LOCALES, type Locale } from "../../../lib/i18n";
+import {
+  CATEGORIES,
+  getResourcesByKind,
+  getToolsByKind,
+  type Category,
+} from "../../../lib/catalog";
+import { resourceCard, toolCard, type CardProps } from "../../../lib/display";
+
+export function getStaticPaths() {
+  return LOCALES.flatMap((locale) =>
+    (Object.keys(CATEGORIES) as Category[]).map((category) => ({
+      params: { locale, category },
+    })),
+  );
+}
+
+const locale = Astro.params.locale as Locale;
+const category = Astro.params.category as Category;
+
+const spec = CATEGORIES[category];
+
+const cards: CardProps[] =
+  spec.collection === "resources"
+    ? (await getResourcesByKind(spec.kind)).map((r) => resourceCard(r, locale))
+    : (await getToolsByKind(spec.kind)).map((t) => toolCard(t, locale));
+
+const titles: Record<Category, string> = {
+  corpora: m.corpora({}, { locale }),
+  datasets: m.datasets({}, { locale }),
+  dictionaries: m.dictionaries({}, { locale }),
+  archives: m.datasets({}, { locale }),
+  concordancers: m.concordancers({}, { locale }),
+};
+
+const SUGGEST_URL = "https://github.com/oulcggc/corpus-hub/issues/new";
+---
+
+<Layout title={titles[category]} locale={locale}>
+  <main
+    class="mx-auto w-[800px] max-w-[calc(100%-2rem)] py-10 text-ink dark:text-white"
+  >
+    <h1 class="text-4xl font-bold mb-8">{titles[category]}</h1>
+    {
+      cards.length > 0 ? (
+        <div
+          class="grid gap-4"
+          style="grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));"
+        >
+          {cards.map((card) => (
+            <CatalogCard {...card} />
+          ))}
+        </div>
+      ) : (
+        <p class="text-gray-600 dark:text-gray-400">
+          <a class="underline" href={SUGGEST_URL}>
+            {m.suggest({}, { locale })}
+          </a>
+        </p>
+      )
+    }
+  </main>
+</Layout>
