@@ -1,0 +1,5 @@
+kind: dataset
+langs: [zh]
+name:
+  zh: 文津検索 中国国家図書館
+link: http://find.nlc.cn/
