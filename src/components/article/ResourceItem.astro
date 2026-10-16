@@ -1,0 +1,59 @@
+---
+import { getEntry } from "astro:content";
+import { Icon } from "astro-icon/components";
+import {
+  localePath,
+  nativeForm,
+  pickLocalized,
+  type Locale,
+} from "../../lib/i18n";
+import { categoryOf } from "../../lib/display";
+
+interface Props {
+  id: string;
+  collection?: "resources" | "tools";
+  locale: Locale;
+}
+
+const { id, collection = "resources", locale } = Astro.props;
+
+const entry = await getEntry(collection, id);
+if (!entry) throw new Error(`Unknown ${collection} entry in article: ${id}`);
+
+const nativeLang = entry.data.langs[0];
+const name = pickLocalized(entry.data.name, locale, nativeLang);
+const native = nativeForm(entry.data.name, name, nativeLang);
+const description = entry.data.description
+  ? (entry.data.description[locale] ?? entry.data.description["ja"])
+  : undefined;
+const descriptionLang = entry.data.description
+  ? entry.data.description[locale]
+    ? locale
+    : "ja"
+  : undefined;
+const detailHref = localePath(locale, `${categoryOf(entry.data.kind)}/${entry.id}`);
+---
+
+<li class="resource-item">
+  <p class="m-0">
+    {entry.data.creator && <span>{entry.data.creator} — </span>}
+    <a href={detailHref} class="font-bold">{name}</a>
+    {native && <span class="text-gray-500 dark:text-gray-400">（{native}）</span>}
+    <a
+      href={entry.data.link}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="whitespace-nowrap text-sm"
+    >
+      <Icon name="hugeicons:link-square-02" class="inline w-4 h-4 align-text-bottom" />
+      {new URL(entry.data.link).hostname}
+    </a>
+  </p>
+  {
+    description && (
+      <p class="m-0 mt-1 text-[0.95em] text-gray-600 dark:text-gray-400" lang={descriptionLang}>
+        {description}
+      </p>
+    )
+  }
+</li>
