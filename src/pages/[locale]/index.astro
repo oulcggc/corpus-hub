@@ -20,6 +20,21 @@ const [beforeWelcome, afterWelcome] = m
   .split("{name}");
 
 const concordancers = await getToolsByKinds(["concordancer"]);
+const allResources = await getCollection("resources");
+const allTools = await getCollection("tools");
+
+const corpusCount = allResources.filter(
+  (r) => r.data.kind === "corpus",
+).length;
+const languageCount = new Set(
+  [...allResources, ...allTools].flatMap((e) => e.data.langs),
+).size;
+
+const stats = [
+  { value: corpusCount, label: m.corpora({}, { locale }) },
+  { value: concordancers.length, label: m.concordancers({}, { locale }) },
+  { value: languageCount, label: m.languages({}, { locale }) },
+];
 
 const slugOf = (id: string) => id.replace(/^[a-z]{2}\//, "");
 const allArticles = await getCollection("articles");
@@ -39,6 +54,12 @@ const languageBadge = (articleLocale: string) =>
   articleLocale === locale
     ? undefined
     : new Intl.DisplayNames([locale], { type: "language" }).of(articleLocale);
+
+const dateFormat = new Intl.DateTimeFormat(locale, {
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+});
 
 const categories = [
   {
@@ -62,38 +83,81 @@ const categories = [
     body: m.datasetsDesc({}, { locale }),
   },
 ];
+
+const SUGGEST_URL = "https://github.com/oulcggc/corpus-hub/issues/new";
 ---
 
 <Layout title={`${beforeWelcome}${APP_NAME}${afterWelcome}`} locale={locale} top>
-  <main class="mx-auto w-[800px] max-w-[calc(100%-2rem)] py-12 text-xl leading-relaxed text-ink dark:text-white">
-    <h1 class="mb-5 mt-2 text-center text-6xl font-bold leading-none text-balance">
-      {beforeWelcome}<span class="text-gradient">{APP_NAME}</span>{afterWelcome}
-    </h1>
-    <p class="mb-12 mt-0 text-center text-2xl leading-snug">{m.slogan({}, { locale })}</p>
+  <main
+    class="mx-auto w-[800px] max-w-[calc(100%-2rem)] pb-16 text-ink dark:text-white"
+  >
+    <section class="flex flex-col items-center gap-6 py-16 text-center">
+      <h1 class="m-0 text-5xl font-bold leading-tight md:text-6xl">
+        {beforeWelcome}<span class="text-gradient">{APP_NAME}</span>{
+          afterWelcome
+        }
+      </h1>
+      <p class="m-0 text-2xl text-gray-600 dark:text-gray-300">
+        {m.slogan({}, { locale })}
+      </p>
+      <p
+        class="lede m-0 max-w-[38rem] text-lg leading-relaxed text-gray-700 dark:text-gray-300"
+        set:html={m.description({}, { locale })}
+      />
+      <dl class="m-0 flex flex-wrap items-start justify-center gap-x-12 gap-y-4">
+        {
+          stats.map(({ value, label }) => (
+            <div class="flex flex-col items-center gap-0.5">
+              <dd class="m-0 text-gradient text-4xl font-bold leading-none">
+                {value}
+              </dd>
+              <dt class="text-sm text-gray-500 dark:text-gray-400">{label}</dt>
+            </div>
+          ))
+        }
+      </dl>
+      <div class="flex flex-wrap justify-center gap-3">
+        <a class="btn btn-primary px-6" href={localePath(locale, "corpora")}>
+          {m.corpora({}, { locale })}
+        </a>
+        <a class="btn btn-ghost px-6" href={SUGGEST_URL}>
+          {m.suggest({}, { locale })}
+        </a>
+      </div>
+    </section>
 
     {
       articles.length > 0 && (
-        <section class="mb-12 rounded-xl bg-gradient-to-r from-accent-light/60 to-accent-light/30 px-8 py-10 shadow-soft dark:from-accent-dark/60 dark:to-accent-dark/30 dark:shadow-soft-dark">
-          <h2 class="mb-8 mt-0 text-center text-3xl font-bold leading-tight">
-            {m.featured({}, { locale })}
-          </h2>
+        <section class="mb-14">
+          <h2 class="mb-4 text-2xl font-bold">{m.featured({}, { locale })}</h2>
           <ul class="m-0 flex list-none flex-col gap-4 p-0">
             {articles.map((article) => (
-              <li class="text-center leading-snug">
+              <li class="featured-card">
                 <a
                   href={localePath(
                     article.data.locale,
                     `articles/${slugOf(article.id)}`,
                   )}
-                  class="text-2xl font-bold text-gradient"
                 >
-                  {article.data.title}
-                </a>
-                {languageBadge(article.data.locale) && (
-                  <span class="chip ml-2 align-middle">
-                    {languageBadge(article.data.locale)}
+                  <span class="flex flex-wrap items-center gap-2">
+                    <span class="text-gradient text-xl font-bold md:text-2xl">
+                      {article.data.title}
+                    </span>
+                    {languageBadge(article.data.locale) && (
+                      <span class="chip">
+                        {languageBadge(article.data.locale)}
+                      </span>
+                    )}
                   </span>
-                )}
+                  <span class="mt-2 flex flex-wrap gap-x-3 text-sm text-gray-500 dark:text-gray-400">
+                    {article.data.authors.map((author) => (
+                      <span>{author.name}</span>
+                    ))}
+                    <time datetime={article.data.published.toISOString()}>
+                      {dateFormat.format(article.data.published)}
+                    </time>
+                  </span>
+                </a>
               </li>
             ))}
           </ul>
@@ -101,27 +165,99 @@ const categories = [
       )
     }
 
-    <section
-      class="mb-12 grid gap-5"
-      style="grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));"
-    >
-      {concordancers.map((tool) => <CatalogCard {...toolCard(tool, locale)} />)}
+    <section class="mb-14">
+      <div class="mb-4 flex items-baseline justify-between gap-4">
+        <h2 class="m-0 text-2xl font-bold">{m.concordancers({}, { locale })}</h2>
+        <a
+          class="text-sm font-medium text-accent-dark no-underline hover:underline dark:text-accent-light"
+          href={localePath(locale, "concordancers")}
+        >
+          {m.viewAll({}, { locale })} →
+        </a>
+      </div>
+      <div
+        class="grid gap-4"
+        style="grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));"
+      >
+        {concordancers.map((tool) => <CatalogCard {...toolCard(tool, locale)} />)}
+      </div>
     </section>
 
-    <p
-      class="mb-12 mt-0 rounded-xl border border-accent-light/25 bg-gradient-to-r from-accent-light/60 to-accent-light/30 px-8 py-8 leading-relaxed shadow-soft dark:from-accent-dark/60 dark:to-accent-dark/30 dark:shadow-soft-dark [&_code]:rounded-md [&_code]:bg-accent-dark/10 [&_code]:px-1.5 [&_code]:py-0.5 [&_code]:text-sm [&_code]:font-bold [&_code]:text-accent-dark dark:[&_code]:bg-accent-light/10 dark:[&_code]:text-accent-light [&_strong]:text-accent-dark dark:[&_strong]:text-accent-light"
-      set:html={m.description({}, { locale })}
-    />
-
-    <ul
-      role="list"
-      class="m-0 grid grid-cols-[repeat(auto-fit,minmax(24ch,1fr))] gap-4 p-0"
-    >
-      {
-        categories.map(({ href, title, body }) => (
-          <Card href={href} title={title} body={body} />
-        ))
-      }
-    </ul>
+    <section>
+      <ul
+        role="list"
+        class="m-0 grid list-none gap-4 p-0 grid-cols-[repeat(auto-fit,minmax(24ch,1fr))]"
+      >
+        {
+          categories.map(({ href, title, body }) => (
+            <Card href={href} title={title} body={body} />
+          ))
+        }
+      </ul>
+    </section>
   </main>
 </Layout>
+
+<style>
+  .lede :global(code) {
+    font-size: 0.85em;
+    font-weight: 700;
+    border-radius: var(--radius-sm);
+    padding: 0.15em 0.4em;
+    background-color: color-mix(in srgb, var(--color-accent-dark) 10%, transparent);
+    color: var(--color-accent-dark);
+  }
+  :global(.dark) .lede :global(code) {
+    background-color: color-mix(in srgb, var(--color-accent-light) 12%, transparent);
+    color: var(--color-accent-light);
+  }
+  .lede :global(strong) {
+    color: var(--color-accent-dark);
+  }
+  :global(.dark) .lede :global(strong) {
+    color: var(--color-accent-light);
+  }
+
+  .featured-card {
+    padding: 1px;
+    border-radius: var(--radius-lg);
+    background-color: var(--color-gray-100);
+    background-image: none;
+    background-size: 400%;
+    background-position: 100%;
+    box-shadow: var(--rim-inset);
+    transition: background-position 0.6s var(--ease-sweep);
+  }
+  :global(.dark) .featured-card {
+    background-color: var(--color-gray-800);
+  }
+  .featured-card > a {
+    display: block;
+    padding: 1.25rem 1.5rem;
+    border-radius: calc(var(--radius-lg) - 1px);
+    text-decoration: none;
+    color: inherit;
+    background:
+      linear-gradient(
+        105deg,
+        color-mix(in srgb, var(--color-accent-light) 42%, transparent),
+        color-mix(in srgb, var(--color-accent-light) 14%, transparent) 60%,
+        transparent
+      ),
+      var(--color-paper);
+  }
+  :global(.dark) .featured-card > a {
+    background:
+      linear-gradient(
+        105deg,
+        color-mix(in srgb, var(--color-accent-dark) 55%, transparent),
+        color-mix(in srgb, var(--color-accent-dark) 22%, transparent) 60%,
+        transparent
+      ),
+      var(--color-paper-dark);
+  }
+  .featured-card:is(:hover, :focus-within) {
+    background-position: 0;
+    background-image: var(--accent-gradient);
+  }
+</style>
