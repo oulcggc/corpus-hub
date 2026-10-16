@@ -1,0 +1,9 @@
+kind: converter
+langs: [lzh]
+name:
+  ja: 中古音変換
+link: https://nk2028.shn.hk/qieyun-autoderiver/
+access:
+  delivery: web
+  cost: free
+  registration: none
