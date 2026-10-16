@@ -1,22 +1,22 @@
 import { defineConfig } from "astro/config";
-import paraglide from "@inlang/paraglide-astro";
 import icon from "astro-icon";
 
 import mdx from "@astrojs/mdx";
 import tailwindcss from "@tailwindcss/vite";
+import { paraglideVitePlugin } from "@inlang/paraglide-js";
 
 // https://astro.build/config
 export default defineConfig({
   site: "https://corpora.oulcggc.org",
-  i18n: {
-    locales: ["en", "ja", "zh"],
-    defaultLocale: "en"
-  },
-  integrations: [paraglide({
-    project: "./project.inlang",
-    outdir: "./src/paraglide"
-  }), icon(), mdx()],
+  integrations: [icon(), mdx()],
   vite: {
-    plugins: [tailwindcss()],
+    plugins: [
+      tailwindcss(),
+      paraglideVitePlugin({
+        project: "./project.inlang",
+        outdir: "./src/paraglide",
+        strategy: ["baseLocale"],
+      }),
+    ],
   },
 });
