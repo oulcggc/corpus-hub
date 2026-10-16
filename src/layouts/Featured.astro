@@ -1,7 +1,6 @@
 ---
 import Footer from "../components/Footer.astro";
 import Header from "../components/Header.astro";
-import Author from "../components/article/Author.astro";
 import { languageTag } from "../paraglide/runtime";
 import * as m from "../paraglide/messages";
 interface Props {
@@ -9,7 +8,7 @@ interface Props {
   top?: boolean;
   frontmatter: {
     title: string;
-    authors: string[];
+    authors: { name: string; link?: string }[];
     updated: string;
     published: string;
   };
@@ -55,8 +54,18 @@ const dateFormat = new Intl.DateTimeFormat(languageTag(), {
         </p>
         <h1>{frontmatter.title}</h1>
 
-        <div class="flex justify-center space-x-4 my-8">
-          {frontmatter.authors.map((author) => <Author name={author} />)}
+        <div class="flex justify-center gap-4 my-8 flex-wrap">
+          {
+            frontmatter.authors.map((author) =>
+              author.link ? (
+                <a class="underline" href={author.link}>
+                  {author.name}
+                </a>
+              ) : (
+                <span>{author.name}</span>
+              ),
+            )
+          }
         </div>
         <p class="text-gray-500 dark:text-gray-400 text-center text-sm">
           {m.published()}:
