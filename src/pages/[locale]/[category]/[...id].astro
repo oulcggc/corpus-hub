@@ -1,0 +1,169 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "../../../layouts/Layout.astro";
+import * as m from "../../../paraglide/messages";
+import {
+  LOCALES,
+  localePath,
+  pickLocalized,
+  nativeForm,
+  type Locale,
+} from "../../../lib/i18n";
+import {
+  resolveResource,
+  resolveTool,
+  type ResolvedResource,
+  type ResolvedTool,
+} from "../../../lib/catalog";
+import { accessChips, categoryOf, languageNames } from "../../../lib/display";
+
+export async function getStaticPaths() {
+  const resources = await Promise.all(
+    (await getCollection("resources")).map(resolveResource),
+  );
+  const tools = await Promise.all(
+    (await getCollection("tools")).map(resolveTool),
+  );
+  return LOCALES.flatMap((locale) => [
+    ...resources.map((entry) => ({
+      params: {
+        locale,
+        category: categoryOf(entry.data.kind),
+        id: entry.id,
+      },
+      props: { entry, type: "resource" as const },
+    })),
+    ...tools.map((entry) => ({
+      params: {
+        locale,
+        category: categoryOf(entry.data.kind),
+        id: entry.id,
+      },
+      props: { entry, type: "tool" as const },
+    })),
+  ]);
+}
+
+interface Props {
+  entry: ResolvedResource | ResolvedTool;
+  type: "resource" | "tool";
+}
+
+const locale = Astro.params.locale as Locale;
+const { entry, type } = Astro.props;
+
+const nativeLang = entry.data.langs[0];
+const name = pickLocalized(entry.data.name, locale, nativeLang);
+const nameNative = nativeForm(entry.data.name, name, nativeLang);
+const abbr = entry.data.abbr
+  ? pickLocalized(entry.data.abbr, locale, nativeLang)
+  : undefined;
+
+const orgAbbr = entry.organization.data.abbr ?? entry.organization.data.name;
+const orgName = pickLocalized(entry.organization.data.name, locale);
+
+const related =
+  type === "resource"
+    ? (entry as ResolvedResource).tools.map((tool) => ({
+        label: pickLocalized(tool.data.name, locale, tool.data.langs[0]),
+        href: localePath(locale, `${categoryOf(tool.data.kind)}/${tool.id}`),
+      }))
+    : (entry as ResolvedTool).resources.map((resource) => ({
+        label: pickLocalized(resource.data.name, locale, resource.data.langs[0]),
+        href: localePath(
+          locale,
+          `${categoryOf(resource.data.kind)}/${resource.id}`,
+        ),
+      }));
+
+const relatedLabel =
+  type === "resource"
+    ? m.searchTools({}, { locale })
+    : m.searchableResources({}, { locale });
+
+const rows: { label: string; html?: boolean; value: string }[] = [
+  {
+    label: m.languages({}, { locale }),
+    value: languageNames(entry.data.langs, locale).join(", "),
+  },
+];
+
+if (type === "resource") {
+  const resource = entry as ResolvedResource;
+  if (resource.data.period)
+    rows.push({
+      label: m.period({}, { locale }),
+      value: resource.data.period.join(", "),
+    });
+  if (resource.data.tags.length > 0)
+    rows.push({
+      label: m.tags({}, { locale }),
+      value: resource.data.tags.join(", "),
+    });
+} else {
+  rows.push({
+    label: m.access({}, { locale }),
+    value: accessChips((entry as ResolvedTool).data.access, locale).join(", "),
+  });
+}
+---
+
+<Layout title={abbr ?? name} locale={locale}>
+  <main
+    class="mx-auto w-[800px] max-w-[calc(100%-2rem)] py-10 text-ink dark:text-white"
+  >
+    <h1 class="text-3xl font-bold">{name}</h1>
+    {
+      nameNative && (
+        <p class="text-xl text-gray-500 dark:text-gray-400 mt-1">
+          {nameNative}
+        </p>
+      )
+    }
+
+    <dl class="my-8 grid grid-cols-[auto_1fr] gap-x-8 gap-y-3">
+      <dt class="font-bold">{m.organization({}, { locale })}</dt>
+      <dd>
+        <a class="underline" href={entry.organization.data.link}>
+          {pickLocalized(orgAbbr, locale)}
+          {orgName !== pickLocalized(orgAbbr, locale) && ` (${orgName})`}
+        </a>
+      </dd>
+      {
+        rows.map(({ label, value }) => (
+          <>
+            <dt class="font-bold">{label}</dt>
+            <dd>{value}</dd>
+          </>
+        ))
+      }
+      {
+        related.length > 0 && (
+          <>
+            <dt class="font-bold">{relatedLabel}</dt>
+            <dd>
+              <ul class="list-none m-0 p-0 flex flex-col gap-1">
+                {related.map(({ label, href }) => (
+                  <li>
+                    <a class="underline" href={href}>
+                      {label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </dd>
+          </>
+        )
+      }
+    </dl>
+
+    <a
+      class="inline-block py-2 px-6 bg-blue-500/75 dark:bg-blue-500/50 text-white rounded border-blue-500 border-2"
+      href={entry.data.link}
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      {m.visitSite({}, { locale })}
+    </a>
+  </main>
+</Layout>
