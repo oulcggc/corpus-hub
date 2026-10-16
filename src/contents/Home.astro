@@ -28,7 +28,7 @@ const languageBadge = (articleLocale: string) =>
     : new Intl.DisplayNames([locale], { type: "language" }).of(articleLocale);
 ---
 
-<Layout locale={locale} title="Welcome to CorpusHub" top>
+<Layout locale={locale} title={`${beforeWelcome}${APP_NAME}${afterWelcome}`} top>
   <main class="py-10">
     <h1 class="m-4">
       {beforeWelcome}<span class="text-gradient">{APP_NAME}</span>{afterWelcome}
