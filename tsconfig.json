@@ -1,19 +1,5 @@
 {
   "extends": "astro/tsconfigs/strict",
-  "compilerOptions": {
-    "moduleResolution": "Bundler",
-    "allowJs": true,
-    "types": [
-      "unplugin-icons/types/svelte"
-    ],
-    "baseUrl": ".",
-    "paths": {
-      "@layouts/*": [
-        "src/layouts/*"
-      ],
-      "@components/*": [
-        "src/components/*"
-      ],
-    }
-  }
+  "include": [".astro/types.d.ts", "src/**/*"],
+  "exclude": ["dist", "src/paraglide"]
 }

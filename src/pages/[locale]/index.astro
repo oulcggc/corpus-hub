@@ -1,0 +1,27 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import * as m from "../../paraglide/messages";
+import { LOCALES, type Locale } from "../../lib/i18n";
+
+export function getStaticPaths() {
+  return LOCALES.map((locale) => ({ params: { locale } }));
+}
+
+const locale = Astro.params.locale as Locale;
+
+const APP_NAME = "CorpusHub";
+const [beforeWelcome, afterWelcome] = m
+  .welcome({ name: "{name}" }, { locale })
+  .split("{name}");
+
+---
+
+<Layout title={`${beforeWelcome}${APP_NAME}${afterWelcome}`} locale={locale} top>
+  <main class="mx-auto w-[800px] max-w-[calc(100%-2rem)] py-10 text-xl leading-relaxed text-ink dark:text-white">
+    <h1 class="m-4 text-6xl font-bold leading-none text-center mb-8">
+      {beforeWelcome}<span class="text-gradient">{APP_NAME}</span>{afterWelcome}
+    </h1>
+    <p class="text-center m-4 mb-10 text-2xl">{m.slogan({}, { locale })}</p>
+
+  </main>
+</Layout>

@@ -1,15 +1,16 @@
 {
   "$schema": "https://inlang.com/schema/inlang-message-format",
-  "login": "ログイン",
   "concordancers": "コンコーダンサー",
   "corpora": "コーパス",
   "datasets": "データセット",
   "dictionaries": "辞書",
+  "slogan": "コーパスのコーパス",
+  "welcome": "{name}へようこそ",
   "published": "公開",
   "updated": "更新",
-  "realtimeViews": "リアルタイム閲覧数",
-  "totalViews": "総アクセス数",
   "viewDetails": "詳細を見る",
   "visitSite": "サイトを訪問",
-  "featured": "特集"
+  "featured": "特集",
+  "suggest": "リソースを提案する",
+  "notFound": "ページが見つかりません"
 }
