@@ -222,7 +222,7 @@ if (type === "resource") {
     {
       citation && (
         <figure class="citation">
-          <figcaption>Citation</figcaption>
+          <figcaption>{m.citation({}, { locale })}</figcaption>
           <blockquote class="select-all">{citation}</blockquote>
         </figure>
       )
