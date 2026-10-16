@@ -1,4 +1,5 @@
-import { defineCollection, reference, z } from "astro:content";
+import { defineCollection, reference } from "astro:content";
+import { z } from "astro/zod";
 import { glob } from "astro/loaders";
 
 const keepPathAsId = ({ entry }: { entry: string }) =>
@@ -15,7 +16,7 @@ const organizations = defineCollection({
   schema: z.object({
     name: localized,
     abbr: localized.optional(),
-    link: z.string().url(),
+    link: z.url(),
     location: z.string().length(2),
   }),
 });
@@ -34,7 +35,7 @@ const resources = defineCollection({
     organization: reference("organizations").optional(),
     creator: z.string().optional(),
     description: localized.optional(),
-    link: z.string().url(),
+    link: z.url(),
     tags: z.array(z.string()).default([]),
     period: z
       .array(
@@ -73,7 +74,7 @@ const tools = defineCollection({
     organization: reference("organizations").optional(),
     creator: z.string().optional(),
     description: localized.optional(),
-    link: z.string().url(),
+    link: z.url(),
     access: z.object({
       delivery: z.enum(["web", "download"]),
       cost: z.enum(["free", "freemium", "paid"]),
@@ -96,7 +97,7 @@ const articles = defineCollection({
     published: z.coerce.date(),
     updated: z.coerce.date().optional(),
     authors: z
-      .array(z.object({ name: z.string(), link: z.string().url().optional() }))
+      .array(z.object({ name: z.string(), link: z.url().optional() }))
       .default([]),
   }),
 });
