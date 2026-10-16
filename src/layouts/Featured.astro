@@ -87,39 +87,10 @@ const title = frontmatter.title + (top ? "" : " | CorpusHub");
         <output id="markdown">
           <slot />
         </output>
-        <!-- Floating TOC to the right -->
-        <nav
-          class="hidden text-[0.5em] md:flex absolute top-0 right-[-10rem] flex flex-col text-center items-center justify-center max-w-24"
-        >
-          <h2 class="text-gray-500 dark:text-gray-400 text-center text-sm m-0">
-            目次
-          </h2>
-          <ul id="toc"></ul>
-        </nav>
       </section>
     </main>
     <Footer />
   </body>
-
-  <script is:inline lang="ts">
-    const toc = document.getElementById("toc");
-    window.addEventListener("DOMContentLoaded", () => {
-      const markdown = document.getElementById("markdown");
-      const headings = markdown.querySelectorAll("h2, h3, h4, h5, h6");
-      headings.forEach((heading) => {
-        const id = heading.id;
-        const text = heading.textContent;
-        const level = parseInt(heading.tagName[1]);
-        const li = document.createElement("li");
-        const a = document.createElement("a");
-        a.href = `#${id}`;
-        a.textContent = text;
-        a.classList.add(`text-gray-${level * 100}`);
-        li.appendChild(a);
-        toc.appendChild(li);
-      });
-    });
-  </script>
 
   <style is:global>
     :root {
