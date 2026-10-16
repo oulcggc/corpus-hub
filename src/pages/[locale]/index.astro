@@ -39,6 +39,16 @@ const categories = [
     title: m.concordancers({}, { locale }),
     body: m.concordancersDesc({}, { locale }),
   },
+  {
+    href: localePath(locale, "dictionaries"),
+    title: m.dictionaries({}, { locale }),
+    body: m.dictionariesDesc({}, { locale }),
+  },
+  {
+    href: localePath(locale, "datasets"),
+    title: m.datasets({}, { locale }),
+    body: m.datasetsDesc({}, { locale }),
+  },
 ];
 ---
 
