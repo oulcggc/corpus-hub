@@ -1,0 +1,9 @@
+kind: analyzer
+langs: [lzh]
+name:
+  zh: 音韻地位查詢器
+link: https://nk2028.shn.hk/qieyun-tools/
+access:
+  delivery: web
+  cost: free
+  registration: none
