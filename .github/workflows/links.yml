@@ -19,10 +19,24 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+      # A PR is held to the entries it adds or edits; the weekly run covers the whole catalog.
+      - id: files
+        env:
+          BASE_REF: ${{ github.base_ref }}
+        run: |
+          if [ "${{ github.event_name }}" = pull_request ]; then
+            files=$(git diff --name-only --diff-filter=AM "origin/$BASE_REF...HEAD" -- 'src/content/**/*.yaml' | tr '\n' ' ')
+          else
+            files='"src/content/**/*.yaml"'
+          fi
+          echo "files=$files" >> "$GITHUB_OUTPUT"
       - id: lychee
+        if: steps.files.outputs.files != ''
         uses: lycheeverse/lychee-action@e7477775783ea5526144ba13e8db5eec57747ce8 # v2.9.0
         with:
-          args: --config lychee.toml --no-progress "src/content/**/*.yaml"
+          args: --config lychee.toml --no-progress ${{ steps.files.outputs.files }}
           output: lychee/report.md
           fail: ${{ github.event_name == 'pull_request' }}
       - name: Track broken links in one issue
