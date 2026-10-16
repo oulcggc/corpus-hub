@@ -20,5 +20,20 @@
   "visitSite": "Visit site",
   "featured": "Featured",
   "suggest": "Suggest a resource",
-  "notFound": "Page not found"
+  "languages": "Languages",
+  "organization": "Provider",
+  "tags": "Tags",
+  "period": "Period",
+  "access": "Access",
+  "searchTools": "Search tools",
+  "searchableResources": "Searchable resources",
+  "accessOnline": "Online",
+  "accessDownload": "Download",
+  "accessFree": "Free",
+  "accessFreemium": "Freemium",
+  "accessPaid": "Paid",
+  "accessAccount": "Account required",
+  "accessApplication": "Application required",
+  "notFound": "Page not found",
+  "archives": "Text archives"
 }
