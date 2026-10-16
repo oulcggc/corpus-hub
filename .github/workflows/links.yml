@@ -27,7 +27,12 @@ jobs:
           BASE_REF: ${{ github.base_ref }}
         run: |
           if [ "${{ github.event_name }}" = pull_request ]; then
-            files=$(git diff --name-only --diff-filter=AM "origin/$BASE_REF...HEAD" -- 'src/content/**/*.yaml' | tr '\n' ' ')
+            files=$(git diff --name-only --diff-filter=AM "origin/$BASE_REF...HEAD" -- 'src/content/**/*.yaml')
+            # lychee-action evals its args; entry paths only ever use these characters.
+            if printf '%s\n' "$files" | grep -qvE '^([A-Za-z0-9@._/-]+)?$'; then
+              echo "::error::Unexpected characters in a changed entry path"; exit 1
+            fi
+            files=$(echo $files)
           else
             files='"src/content/**/*.yaml"'
           fi
