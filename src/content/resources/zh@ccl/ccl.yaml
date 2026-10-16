@@ -1,0 +1,12 @@
+kind: corpus
+langs: [zh]
+name:
+  zh: 北京大学CCL语料库（现代汉语）
+  en: Peking University CCL Online Corpus (Modern Chinese)
+abbr:
+  zh: CCL（现代）
+  en: CCL (modern)
+organization: CN@ccl
+link: http://ccl.pku.edu.cn:8080/ccl_corpus/CCLCorpus_Readme.html
+period: [contemporary]
+annotation: [none]
