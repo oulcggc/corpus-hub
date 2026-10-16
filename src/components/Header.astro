@@ -12,16 +12,18 @@ interface Props {
 const { locale } = Astro.props;
 
 const links = [
+  { path: localePath(locale, "corpora"), name: m.corpora({}, { locale }) },
   {
     path: localePath(locale, "concordancers"),
     name: m.concordancers({}, { locale }),
   },
-  { path: localePath(locale, "corpora"), name: m.corpora({}, { locale }) },
-  { path: localePath(locale, "datasets"), name: m.datasets({}, { locale }) },
   {
     path: localePath(locale, "dictionaries"),
     name: m.dictionaries({}, { locale }),
   },
+  { path: localePath(locale, "datasets"), name: m.datasets({}, { locale }) },
+  { path: localePath(locale, "archives"), name: m.archives({}, { locale }) },
+  { path: localePath(locale, "tools"), name: m.tools({}, { locale }) },
 ];
 ---
 
