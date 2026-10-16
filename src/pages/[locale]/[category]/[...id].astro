@@ -19,6 +19,7 @@ import {
   accessChips,
   categoryOf,
   labelPeriod,
+  labelModality,
   labelTag,
   languageNames,
 } from "../../../lib/display";
@@ -140,6 +141,11 @@ if (type === "resource") {
       value: resource.data.period
         .map((value) => labelPeriod(value, locale))
         .join(", "),
+    });
+  if (resource.data.modality)
+    rows.push({
+      label: m.modality({}, { locale }),
+      value: labelModality(resource.data.modality, locale),
     });
   if (resource.data.tags.length > 0)
     rows.push({
