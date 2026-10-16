@@ -1,4 +1,5 @@
 ---
+import "../styles/global.css";
 import Footer from "../components/Footer.astro";
 import Header from "../components/Header.astro";
 import { languageTag } from "../paraglide/runtime";
@@ -111,61 +112,65 @@ const dateFormat = new Intl.DateTimeFormat(languageTag(), {
   </body>
 
   <style is:global>
-    :root {
-      --accent: 136, 58, 234;
-      --accent-light: 224, 204, 250;
-      --accent-dark: 49, 10, 101;
-      --accent-gradient: linear-gradient(
-        45deg,
-        rgb(var(--accent)),
-        rgb(var(--accent-light)) 30%,
-        white 60%
-      );
-    }
-    html {
-      font-family: system-ui, sans-serif;
-      background: #13151a;
+    @reference "../styles/global.css";
 
-      @apply bg-white dark:bg-[#13151a];
-      background-size: 224px;
-    }
-    code {
-      font-family:
-        Menlo,
-        Monaco,
-        Lucida Console,
-        Liberation Mono,
-        DejaVu Sans Mono,
-        Bitstream Vera Sans Mono,
-        Courier New,
-        monospace;
-    }
-    main {
-      @apply text-[#020305] dark:text-white w-full max-w-2xl mx-auto p-4 py-10 transition-colors leading-10;
-    }
+    @layer base {
+      :root {
+        --accent: 136, 58, 234;
+        --accent-light: 224, 204, 250;
+        --accent-dark: 49, 10, 101;
+        --accent-gradient: linear-gradient(
+          45deg,
+          rgb(var(--accent)),
+          rgb(var(--accent-light)) 30%,
+          white 60%
+        );
+      }
+      html {
+        font-family: system-ui, sans-serif;
+        background: #13151a;
 
-    h1 {
-      @apply m-4 my-10 text-2xl font-bold text-center;
-    }
+        @apply bg-white dark:bg-[#13151a];
+        background-size: 224px;
+      }
+      code {
+        font-family:
+          Menlo,
+          Monaco,
+          Lucida Console,
+          Liberation Mono,
+          DejaVu Sans Mono,
+          Bitstream Vera Sans Mono,
+          Courier New,
+          monospace;
+      }
+      main {
+        @apply text-[#020305] dark:text-white w-full max-w-2xl mx-auto p-4 py-10 transition-colors leading-10;
+      }
 
-    h2 {
-      @apply my-8 text-xl font-bold text-gray-700 dark:text-gray-300 indent-0;
-    }
+      h1 {
+        @apply m-4 my-10 text-2xl font-bold text-center;
+      }
 
-    h3 {
-      @apply my-6 text-lg font-bold text-gray-600 dark:text-gray-400 indent-0;
-    }
+      h2 {
+        @apply my-8 text-xl font-bold text-gray-700 dark:text-gray-300 indent-0;
+      }
 
-    h4 {
-      @apply my-4 text-base font-bold text-gray-500 dark:text-gray-500 indent-0;
-    }
+      h3 {
+        @apply my-6 text-lg font-bold text-gray-600 dark:text-gray-400 indent-0;
+      }
 
-    a {
-      @apply hover:underline;
-    }
+      h4 {
+        @apply my-4 text-base font-bold text-gray-500 dark:text-gray-500 indent-0;
+      }
 
-    ul {
-      @apply list-disc list-outside;
+      a {
+        @apply hover:underline;
+      }
+
+      ul {
+        @apply list-disc list-outside;
+      }
     }
   </style>
 </html>

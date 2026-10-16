@@ -1,4 +1,5 @@
 ---
+import "../styles/global.css";
 import Footer from "../components/Footer.astro";
 import Header from "../components/Header.astro";
 
@@ -44,6 +45,8 @@ const title = rawTitle + (top ? "" : " | CorpusHub");
   </body>
 </html>
 <style is:global>
+  @reference "../styles/global.css";
+
   :root {
     --accent: 136, 58, 234;
     --accent-light: 224, 204, 250;
