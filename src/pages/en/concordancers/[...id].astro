@@ -1,5 +1,10 @@
 ---
+import { getCollection } from "astro:content";
 import Concordancer from "../../../contents/Concordancer.astro";
+
+export async function getStaticPaths() {
+  return (await getCollection("concordancers")).map(({ id }) => ({ params: { id } }));
+}
 ---
 
 <Concordancer />
