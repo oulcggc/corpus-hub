@@ -65,21 +65,21 @@ const categories = [
 ---
 
 <Layout title={`${beforeWelcome}${APP_NAME}${afterWelcome}`} locale={locale} top>
-  <main class="mx-auto w-[800px] max-w-[calc(100%-2rem)] py-10 text-xl leading-relaxed text-ink dark:text-white">
-    <h1 class="m-4 text-6xl font-bold leading-none text-center mb-8">
+  <main class="mx-auto w-[800px] max-w-[calc(100%-2rem)] py-12 text-xl leading-relaxed text-ink dark:text-white">
+    <h1 class="mb-5 mt-2 text-center text-6xl font-bold leading-none text-balance">
       {beforeWelcome}<span class="text-gradient">{APP_NAME}</span>{afterWelcome}
     </h1>
-    <p class="text-center m-4 mb-10 text-2xl">{m.slogan({}, { locale })}</p>
+    <p class="mb-12 mt-0 text-center text-2xl leading-snug">{m.slogan({}, { locale })}</p>
 
     {
       articles.length > 0 && (
-        <section class="bg-gradient-to-r dark:from-accent-dark/60 dark:to-accent-dark/30 from-accent-light/60 to-accent-light/30 p-4 rounded-lg mb-10 py-10">
-          <h2 class="text-center text-3xl font-bold my-5">
+        <section class="mb-12 rounded-xl bg-gradient-to-r from-accent-light/60 to-accent-light/30 px-8 py-10 shadow-soft dark:from-accent-dark/60 dark:to-accent-dark/30 dark:shadow-soft-dark">
+          <h2 class="mb-8 mt-0 text-center text-3xl font-bold leading-tight">
             {m.featured({}, { locale })}
           </h2>
-          <ul class="flex flex-col space-y-4 mt-10 list-none m-0 p-0">
+          <ul class="m-0 flex list-none flex-col gap-4 p-0">
             {articles.map((article) => (
-              <li class="text-center">
+              <li class="text-center leading-snug">
                 <a
                   href={localePath(
                     article.data.locale,
@@ -90,7 +90,7 @@ const categories = [
                   {article.data.title}
                 </a>
                 {languageBadge(article.data.locale) && (
-                  <span class="ml-2 text-sm align-middle rounded-full px-2 py-0.5 bg-accent-light/50 dark:bg-accent-dark/50">
+                  <span class="chip ml-2 align-middle">
                     {languageBadge(article.data.locale)}
                   </span>
                 )}
@@ -102,20 +102,20 @@ const categories = [
     }
 
     <section
-      class="grid gap-4 mb-10"
+      class="mb-12 grid gap-5"
       style="grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));"
     >
       {concordancers.map((tool) => <CatalogCard {...toolCard(tool, locale)} />)}
     </section>
 
     <p
-      class="my-10 p-6 rounded-lg border border-accent-light/25 bg-gradient-to-r dark:from-accent-dark/60 dark:to-accent-dark/30 from-accent-light/60 to-accent-light/30 [&_code]:text-sm [&_code]:font-bold [&_code]:rounded [&_code]:px-1.5 [&_code]:py-0.5 [&_code]:bg-accent-dark/10 [&_code]:text-accent-dark dark:[&_code]:bg-accent-light/10 dark:[&_code]:text-accent-light [&_strong]:text-accent-dark dark:[&_strong]:text-accent-light"
+      class="mb-12 mt-0 rounded-xl border border-accent-light/25 bg-gradient-to-r from-accent-light/60 to-accent-light/30 px-8 py-8 leading-relaxed shadow-soft dark:from-accent-dark/60 dark:to-accent-dark/30 dark:shadow-soft-dark [&_code]:rounded-md [&_code]:bg-accent-dark/10 [&_code]:px-1.5 [&_code]:py-0.5 [&_code]:text-sm [&_code]:font-bold [&_code]:text-accent-dark dark:[&_code]:bg-accent-light/10 dark:[&_code]:text-accent-light [&_strong]:text-accent-dark dark:[&_strong]:text-accent-light"
       set:html={m.description({}, { locale })}
     />
 
     <ul
       role="list"
-      class="grid gap-4 p-0 m-0 grid-cols-[repeat(auto-fit,minmax(24ch,1fr))]"
+      class="m-0 grid grid-cols-[repeat(auto-fit,minmax(24ch,1fr))] gap-4 p-0"
     >
       {
         categories.map(({ href, title, body }) => (
