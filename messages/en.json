@@ -16,5 +16,6 @@
   "viewDetails": "View details",
   "visitSite": "Visit site",
   "featured": "Featured",
-  "suggest": "Suggest a resource"
+  "suggest": "Suggest a resource",
+  "notFound": "Page not found"
 }
