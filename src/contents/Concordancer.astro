@@ -1,4 +1,6 @@
 ---
+import { localePath } from "../lib/i18n";
+import { languageTag } from "../paraglide/runtime";
 // import Tag from "../../components/Tag.astro";
 
 import { getConcordancer } from "../data";
@@ -52,7 +54,7 @@ const concordancer = c!;
       {
         concordancer.corpora.map((corpus) => (
           <li>
-            <a href={`/corpora/${corpus}`}>{corpus}</a>
+            <a href={localePath(languageTag(), `corpora/${corpus}`)}>{corpus}</a>
             {/* TODO: Add corpus card */}
           </li>
         ))
