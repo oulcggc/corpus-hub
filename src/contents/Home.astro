@@ -27,7 +27,7 @@ console.log(concordancers);
       text-2xl">{m.slogan()}</p>
 
     <section
-      class="bg-gradient-to-r dark:from-accent-dark/60 dark:to-accent-dark/30 from-accent-light/60 to-accent-light/30 p-4 rounded-lg relative mb-10 py-10"
+      class="bg-linear-to-r dark:from-accent-dark/60 dark:to-accent-dark/30 from-accent-light/60 to-accent-light/30 p-4 rounded-lg relative mb-10 py-10"
     >
       <h2 class="text-center text-3xl font-bold my-5">{m.featured()}</h2>
       <ul class="flex flex-col space-y-4 mt-10">
@@ -57,6 +57,8 @@ console.log(concordancers);
 </Layout>
 
 <style>
+  @reference "../styles/global.css";
+
   main {
     margin: auto;
     width: 800px;
@@ -91,7 +93,7 @@ console.log(concordancers);
   .instructions {
     margin-bottom: 2rem;
     border: 1px solid rgba(var(--accent-light), 25%);
-    @apply bg-gradient-to-r dark:from-accent-dark/60 dark:to-accent-dark/30 from-accent-light/60 to-accent-light/30;
+    @apply bg-linear-to-r dark:from-accent-dark/60 dark:to-accent-dark/30 from-accent-light/60 to-accent-light/30;
     padding: 1.5rem;
     border-radius: 8px;
   }
