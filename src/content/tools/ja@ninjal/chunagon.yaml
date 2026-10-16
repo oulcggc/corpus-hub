@@ -1,16 +1,15 @@
-lang: ja
+kind: concordancer
+langs: [ja]
 name:
   ja: コーパス検索アプリケーション「中納言」
   en: Online Reference Tool “Chunagon”
 abbr:
   ja: 中納言
   en: Chunagon
-author: JP@ninjal
+organization: JP@ninjal
 link: https://chunagon.ninjal.ac.jp/
-usage:
-  online: true
-  free: true
-  freemium: false
-  registration: true
-  application: true
-corpora: [ja@ninjal/bccwj, ja@ninjal/chj]
+access:
+  delivery: web
+  cost: free
+  registration: application
+serves: [ja@ninjal/bccwj, ja@ninjal/chj]

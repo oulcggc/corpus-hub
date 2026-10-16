@@ -1,16 +1,15 @@
-lang: ja
+kind: concordancer
+langs: [ja]
 name:
   ja: 全文検索システム『ひまわり』
   en: Full-Text Search System “Himawari”
 abbr:
   ja: ひまわり
   en: Himawari
-author: JP@ninjal
+organization: JP@ninjal
 link: https://csd.ninjal.ac.jp/lrc/index.php
-usage:
-  online: false
-  free: true
-  freemium: false
-  registration: false
-  application: false
-corpora: []
+access:
+  delivery: download
+  cost: free
+  registration: none
+serves: []
