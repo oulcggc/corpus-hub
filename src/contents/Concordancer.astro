@@ -1,7 +1,6 @@
 ---
 // import Tag from "../../components/Tag.astro";
 
-import { db } from "astro:db";
 import { getConcordancer } from "../data";
 import Layout from "../layouts/Layout.astro";
 const { id } = Astro.params;
@@ -10,7 +9,7 @@ if (!id) {
   Astro.response.statusText = "Corpus ID is required";
 }
 
-const c = await getConcordancer(db, id!);
+const c = await getConcordancer(id!);
 if (!c) {
   Astro.response.status = 404;
   Astro.response.statusText = "Corpus not found";
