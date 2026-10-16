@@ -8,7 +8,10 @@ import type { CollectionEntry } from "astro:content";
 export async function getStaticPaths() {
   const articles = await getCollection("articles");
   return articles.map((article) => ({
-    params: { locale: article.data.locale, id: article.id },
+    params: {
+      locale: article.data.locale,
+      id: article.id.replace(/^[a-z]{2}\//, ""),
+    },
     props: { article },
   }));
 }
