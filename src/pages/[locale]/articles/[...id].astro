@@ -1,0 +1,85 @@
+---
+import { getCollection, render } from "astro:content";
+import Layout from "../../../layouts/Layout.astro";
+import * as m from "../../../paraglide/messages";
+import type { Locale } from "../../../lib/i18n";
+import type { CollectionEntry } from "astro:content";
+
+export async function getStaticPaths() {
+  const articles = await getCollection("articles");
+  return articles.map((article) => ({
+    params: { locale: article.data.locale, id: article.id },
+    props: { article },
+  }));
+}
+
+interface Props {
+  article: CollectionEntry<"articles">;
+}
+
+const locale = Astro.params.locale as Locale;
+const { article } = Astro.props;
+const { Content } = await render(article);
+
+const dateFormat = new Intl.DateTimeFormat(locale, {
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+});
+---
+
+<Layout
+  title={article.data.title}
+  locale={locale}
+  description={article.data.description}
+>
+  <main
+    class="mx-auto w-[800px] max-w-[calc(100%-2rem)] py-10 text-ink dark:text-white"
+  >
+    <section>
+      <hr class="border-t-2 border-gray-200 dark:border-gray-800 my-10" />
+      <p class="text-center text-2xl text-gray-500 dark:text-gray-400">
+        {m.featured({}, { locale })}
+      </p>
+      <h1 class="text-3xl md:text-4xl font-bold text-center my-6">
+        {article.data.title}
+      </h1>
+      <div class="flex justify-center gap-4 my-8 flex-wrap">
+        {
+          article.data.authors.map((author) =>
+            author.link ? (
+              <a class="underline" href={author.link}>
+                {author.name}
+              </a>
+            ) : (
+              <span>{author.name}</span>
+            ),
+          )
+        }
+      </div>
+      <p class="text-gray-500 dark:text-gray-400 text-center text-sm">
+        {m.published({}, { locale })}:
+        <time datetime={article.data.published.toISOString()}>
+          {dateFormat.format(article.data.published)}
+        </time>
+        {
+          article.data.updated && (
+            <>
+              &nbsp;&nbsp;{m.updated({}, { locale })}:
+              <time datetime={article.data.updated.toISOString()}>
+                {dateFormat.format(article.data.updated)}
+              </time>
+            </>
+          )
+        }
+      </p>
+      <hr class="border-t-2 border-gray-200 dark:border-gray-800 my-10" />
+    </section>
+
+    <article
+      class="prose dark:prose-invert max-w-none prose-a:break-all"
+    >
+      <Content />
+    </article>
+  </main>
+</Layout>
