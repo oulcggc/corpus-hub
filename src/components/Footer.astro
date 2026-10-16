@@ -12,25 +12,36 @@ const SUGGEST_URL = "https://github.com/oulcggc/corpus-hub/issues/new";
 ---
 
 <footer
-  class="text-center px-4 py-8 flex flex-col gap-4 bg-gray-200 dark:bg-gray-950 text-gray-900 dark:text-gray-50"
+  class="flex flex-col gap-3 border-t border-black/5 bg-gray-100 px-6 py-10 text-center text-gray-800 dark:border-white/8 dark:bg-gray-950 dark:text-gray-200"
 >
   <p>
-    <a class="underline" href={SUGGEST_URL}>{m.suggest({}, { locale })}</a>
+    <a
+      class="underline decoration-accent/40 underline-offset-4 hover:text-accent-dark dark:hover:text-accent-light"
+      href={SUGGEST_URL}>{m.suggest({}, { locale })}</a
+    >
   </p>
   <p>
     © 2024–2026 <a
-      class="underline"
+      class="underline decoration-accent/40 underline-offset-4 hover:text-accent-dark dark:hover:text-accent-light"
       href="https://oulcggc.org/"
       target="_blank">阪大言語サークルGGC</a
     >
   </p>
-  <address class="not-italic text-sm flex flex-col gap-2">
+  <address class="flex flex-col gap-2 text-sm not-italic text-gray-600 dark:text-gray-400">
     <p>with ❤️ by</p>
-    <div class="flex flex-col justify-center gap-2">
-      <a class="underline" href="https://yocjyet.dev/" target="_blank">
+    <div class="flex flex-col justify-center gap-1.5">
+      <a
+        class="underline decoration-accent/40 underline-offset-4 hover:text-accent-dark dark:hover:text-accent-light"
+        href="https://yocjyet.dev/"
+        target="_blank"
+      >
         Yo, Cjyet (于拙)
       </a>
-      <a class="underline" href="https://homepage-82o.pages.dev/" target="_blank">
+      <a
+        class="underline decoration-accent/40 underline-offset-4 hover:text-accent-dark dark:hover:text-accent-light"
+        href="https://homepage-82o.pages.dev/"
+        target="_blank"
+      >
         YuNai
       </a>
     </div>
