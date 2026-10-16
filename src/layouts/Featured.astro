@@ -19,6 +19,13 @@ const { title: rawTitle, top, frontmatter } = Astro.props;
 
 console.log({ rawTitle, top, frontmatter });
 const title = frontmatter.title + (top ? "" : " | CorpusHub");
+
+const dateFormat = new Intl.DateTimeFormat(languageTag(), {
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+  timeZone: "UTC",
+});
 ---
 
 <!doctype html>
@@ -52,24 +59,20 @@ const title = frontmatter.title + (top ? "" : " | CorpusHub");
           {frontmatter.authors.map((author) => <Author name={author} />)}
         </div>
         <p class="text-gray-500 dark:text-gray-400 text-center text-sm">
-          <time>
-            {
-              new Intl.DateTimeFormat(languageTag(), {
-                year: "numeric",
-                month: "long",
-                day: "numeric",
-              }).format(new Date())
-            }
-          </time>{m.updated()}&nbsp;&nbsp;
-          <time>
-            {
-              new Intl.DateTimeFormat(languageTag(), {
-                year: "numeric",
-                month: "long",
-                day: "numeric",
-              }).format(new Date())
-            }
-          </time>{m.published()}
+          {m.published()}:
+          <time datetime={frontmatter.published}>
+            {dateFormat.format(new Date(frontmatter.published))}
+          </time>
+          {
+            frontmatter.updated && (
+              <>
+                &nbsp;&nbsp;{m.updated()}:
+                <time datetime={frontmatter.updated}>
+                  {dateFormat.format(new Date(frontmatter.updated))}
+                </time>
+              </>
+            )
+          }
         </p>
         <hr class="border-t-2 border-gray-200 dark:border-gray-800 my-10" />
       </section>
