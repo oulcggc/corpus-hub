@@ -1,9 +1,17 @@
 import { defineCollection, reference, z } from "astro:content";
+import { glob } from "astro/loaders";
+
+const keepPathAsId = ({ entry }: { entry: string }) =>
+  entry.replace(/\.[^.]+$/, "");
 
 const localized = z.record(z.string(), z.string());
 
 const authors = defineCollection({
-  type: "data",
+  loader: glob({
+    pattern: "**/*.yaml",
+    base: "./src/content/authors",
+    generateId: keepPathAsId,
+  }),
   schema: z.object({
     name: localized,
     abbr: localized,
@@ -13,7 +21,11 @@ const authors = defineCollection({
 });
 
 const corpora = defineCollection({
-  type: "data",
+  loader: glob({
+    pattern: "**/*.yaml",
+    base: "./src/content/corpora",
+    generateId: keepPathAsId,
+  }),
   schema: z.object({
     lang: z.string(),
     tags: z.array(z.string()),
@@ -25,7 +37,11 @@ const corpora = defineCollection({
 });
 
 const concordancers = defineCollection({
-  type: "data",
+  loader: glob({
+    pattern: "**/*.yaml",
+    base: "./src/content/concordancers",
+    generateId: keepPathAsId,
+  }),
   schema: z.object({
     lang: z.string(),
     name: localized,
