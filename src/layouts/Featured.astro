@@ -42,6 +42,15 @@ const dateFormat = new Intl.DateTimeFormat(languageTag(), {
     <meta name="theme-color" content="#883aea" />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
+    <script is:inline>
+      if (
+        localStorage.getItem("color-theme") === "dark" ||
+        (!localStorage.getItem("color-theme") &&
+          window.matchMedia("(prefers-color-scheme: dark)").matches)
+      ) {
+        document.documentElement.classList.add("dark");
+      }
+    </script>
   </head>
   <body>
     <Header />
