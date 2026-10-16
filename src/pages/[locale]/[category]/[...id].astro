@@ -126,6 +126,9 @@ const jsonLd = resourceData
 const citation = resourceData?.citation;
 
 const rows: { label: string; html?: boolean; value: string }[] = [
+  ...(entry.data.creator
+    ? [{ label: m.creator({}, { locale }), value: entry.data.creator }]
+    : []),
   {
     label: m.languages({}, { locale }),
     value: languageNames(entry.data.langs, locale).join(", "),
