@@ -19,7 +19,8 @@ jobs:
           grep -q "現代日本語書き言葉均衡コーパス" dist/ja/index.html
           grep -q "古音小鏡" dist/ja/articles/chinese-research/index.html
           grep -q "BCC" dist/zh/concordancers/index.html
-          test "$(find dist -name index.html -size -1k | wc -l)" = 0
+          # every page but the root language redirect carries real content
+          test "$(find dist -name index.html -size -1024c ! -path dist/index.html | wc -l)" = 0
       - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: dist
