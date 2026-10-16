@@ -1,4 +1,5 @@
 ---
+import { localePath } from "../lib/i18n";
 interface Props {
   concordancer: Concordancer;
 }
@@ -43,7 +44,7 @@ function getLocalizedForm(
     {
       concordancer.corpora.map((corpus) => (
         <li>
-          <a href={`/corpora/${corpus.id}`}>
+          <a href={localePath(lang, `corpora/${corpus.id}`)}>
             {getLocalizedForm(corpus.name, corpus.lang, lang)}
           </a>
         </li>
@@ -52,7 +53,7 @@ function getLocalizedForm(
   </ul>
 
   <div class="actions">
-    <a class="button" href={`/concordancers/${concordancer.id}`}>
+    <a class="button" href={localePath(lang, `concordancers/${concordancer.id}`)}>
       {m.viewDetails()}
     </a>
     <a

@@ -1,0 +1,14 @@
+---
+import { getCollection } from "astro:content";
+import Corpus from "../../../contents/Corpus.astro";
+import { LOCALES } from "../../../lib/i18n";
+
+export async function getStaticPaths() {
+  const entries = await getCollection("corpora");
+  return LOCALES.flatMap((locale) =>
+    entries.map(({ id }) => ({ params: { locale, id } })),
+  );
+}
+---
+
+<Corpus />

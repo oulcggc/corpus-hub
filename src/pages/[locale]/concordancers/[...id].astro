@@ -1,0 +1,14 @@
+---
+import { getCollection } from "astro:content";
+import Concordancer from "../../../contents/Concordancer.astro";
+import { LOCALES } from "../../../lib/i18n";
+
+export async function getStaticPaths() {
+  const entries = await getCollection("concordancers");
+  return LOCALES.flatMap((locale) =>
+    entries.map(({ id }) => ({ params: { locale, id } })),
+  );
+}
+---
+
+<Concordancer />
