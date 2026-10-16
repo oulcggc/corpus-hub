@@ -87,6 +87,26 @@ const relatedLabel =
     ? m.searchTools({}, { locale })
     : m.searchableResources({}, { locale });
 
+const resourceData =
+  type === "resource" ? (entry as ResolvedResource).data : undefined;
+
+const jsonLd = resourceData
+  ? JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Dataset",
+      name,
+      alternateName: Object.values(resourceData.name).filter((v) => v !== name),
+      url: resourceData.link,
+      inLanguage: resourceData.langs,
+      creator: {
+        "@type": "Organization",
+        name: pickLocalized(entry.organization.data.name, "en"),
+        url: entry.organization.data.link,
+      },
+      ...(resourceData.license ? { license: resourceData.license } : {}),
+    })
+  : undefined;
+
 const rows: { label: string; html?: boolean; value: string }[] = [
   {
     label: m.languages({}, { locale }),
@@ -175,5 +195,11 @@ if (type === "resource") {
     >
       {m.visitSite({}, { locale })}
     </a>
+
+    {
+      jsonLd && (
+        <script type="application/ld+json" set:html={jsonLd} is:inline />
+      )
+    }
   </main>
 </Layout>
