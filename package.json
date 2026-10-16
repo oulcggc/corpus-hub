@@ -23,7 +23,6 @@
   },
   "devDependencies": {
     "@iconify-json/hugeicons": "^1.1.0",
-    "@iconify/json": "^2.2.217",
     "@inlang/paraglide-js": "1.9.1",
     "prettier": "^3.3.2",
     "prettier-plugin-astro": "^0.14.0"
