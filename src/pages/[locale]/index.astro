@@ -31,24 +31,24 @@ const languageBadge = (articleLocale: string) =>
 
 const categories = [
   {
-    href: localePath(locale, "concordancers"),
-    title: m.concordancers({}, { locale }),
-    body: m.concordancersDesc({}, { locale }),
-  },
-  {
     href: localePath(locale, "corpora"),
     title: m.corpora({}, { locale }),
     body: m.corporaDesc({}, { locale }),
   },
   {
-    href: localePath(locale, "datasets"),
-    title: m.datasets({}, { locale }),
-    body: m.datasetsDesc({}, { locale }),
+    href: localePath(locale, "concordancers"),
+    title: m.concordancers({}, { locale }),
+    body: m.concordancersDesc({}, { locale }),
   },
   {
     href: localePath(locale, "dictionaries"),
     title: m.dictionaries({}, { locale }),
     body: m.dictionariesDesc({}, { locale }),
+  },
+  {
+    href: localePath(locale, "datasets"),
+    title: m.datasets({}, { locale }),
+    body: m.datasetsDesc({}, { locale }),
   },
 ];
 ---
