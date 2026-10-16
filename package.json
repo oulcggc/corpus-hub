@@ -24,6 +24,7 @@
     "@iconify-json/hugeicons": "^1.2.35",
     "@inlang/paraglide-js": "^2.29.0",
     "prettier": "^3.3.2",
-    "prettier-plugin-astro": "^0.14.0"
+    "prettier-plugin-astro": "^0.14.0",
+    "wrangler": "^4.151.0"
   }
 }
