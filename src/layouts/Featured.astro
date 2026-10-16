@@ -2,27 +2,19 @@
 import "../styles/global.css";
 import Footer from "../components/Footer.astro";
 import Header from "../components/Header.astro";
-import type { Locale } from "../lib/i18n";
+import type { CollectionEntry } from "astro:content";
 import * as m from "../paraglide/messages";
 import VisitorCounter from "src/components/VisitorCounter.astro";
 import FavouriteButton from "../components/article/FavouriteButton.astro";
 interface Props {
-  title: string;
-  top?: boolean;
-  frontmatter: {
-    title: string;
-    locale: Locale;
-    authors: { name: string; link?: string }[];
-    updated: string;
-    published: string;
-  };
+  article: CollectionEntry<"articles">;
 }
 
-const { title: rawTitle, top, frontmatter } = Astro.props;
+const { article } = Astro.props;
+const frontmatter = article.data;
 const { locale } = frontmatter;
 
-console.log({ rawTitle, top, frontmatter });
-const title = frontmatter.title + (top ? "" : " | CorpusHub");
+const title = `${frontmatter.title} | CorpusHub`;
 
 const dateFormat = new Intl.DateTimeFormat(locale, {
   year: "numeric",
@@ -80,15 +72,15 @@ const dateFormat = new Intl.DateTimeFormat(locale, {
         </div>
         <p class="text-gray-500 dark:text-gray-400 text-center text-sm">
           {m.published({}, { locale })}:{" "}
-          <time datetime={frontmatter.published}>
-            {dateFormat.format(new Date(frontmatter.published))}
+          <time datetime={frontmatter.published.toISOString()}>
+            {dateFormat.format(frontmatter.published)}
           </time>{" "}
           {
             frontmatter.updated && (
               <>
                 &nbsp;&nbsp;{m.updated({}, { locale })}:{" "}
-                <time datetime={frontmatter.updated}>
-                  {dateFormat.format(new Date(frontmatter.updated))}
+                <time datetime={frontmatter.updated.toISOString()}>
+                  {dateFormat.format(frontmatter.updated)}
                 </time>
               </>
             )
