@@ -14,6 +14,7 @@ interface Props {
 const { title: rawTitle, locale, description, top } = Astro.props;
 const title = top ? rawTitle : `${rawTitle} | CorpusHub`;
 
+const localized = /^\/[a-z]{2}(\/|$)/.test(Astro.url.pathname);
 const pathSuffix = Astro.url.pathname.replace(/^\/[a-z]{2}(\/|$)/, "");
 ---
 
@@ -31,13 +32,14 @@ const pathSuffix = Astro.url.pathname.replace(/^\/[a-z]{2}(\/|$)/, "");
     <meta name="theme-color" content="#883aea" />
     <meta name="generator" content={Astro.generator} />
     {
-      LOCALES.map((l) => (
-        <link
-          rel="alternate"
-          hreflang={l}
-          href={new URL(`/${l}/${pathSuffix}`, Astro.site)}
-        />
-      ))
+      localized &&
+        LOCALES.map((l) => (
+          <link
+            rel="alternate"
+            hreflang={l}
+            href={new URL(`/${l}/${pathSuffix}`, Astro.site)}
+          />
+        ))
     }
     <title>{title}</title>
     <script is:inline>
