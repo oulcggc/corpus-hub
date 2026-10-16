@@ -2,7 +2,7 @@
 import "../styles/global.css";
 import Footer from "../components/Footer.astro";
 import Header from "../components/Header.astro";
-import { languageTag } from "../paraglide/runtime";
+import type { Locale } from "../lib/i18n";
 import * as m from "../paraglide/messages";
 import VisitorCounter from "src/components/VisitorCounter.astro";
 import FavouriteButton from "../components/article/FavouriteButton.astro";
@@ -11,6 +11,7 @@ interface Props {
   top?: boolean;
   frontmatter: {
     title: string;
+    locale: Locale;
     authors: { name: string; link?: string; avatar?: string }[];
     updated: string;
     published: string;
@@ -18,11 +19,12 @@ interface Props {
 }
 
 const { title: rawTitle, top, frontmatter } = Astro.props;
+const { locale } = frontmatter;
 
 console.log({ rawTitle, top, frontmatter });
 const title = frontmatter.title + (top ? "" : " | CorpusHub");
 
-const dateFormat = new Intl.DateTimeFormat(languageTag(), {
+const dateFormat = new Intl.DateTimeFormat(locale, {
   year: "numeric",
   month: "long",
   day: "numeric",
@@ -31,7 +33,7 @@ const dateFormat = new Intl.DateTimeFormat(languageTag(), {
 ---
 
 <!doctype html>
-<html lang={languageTag()}>
+<html lang={locale}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
@@ -54,7 +56,7 @@ const dateFormat = new Intl.DateTimeFormat(languageTag(), {
     </script>
   </head>
   <body>
-    <Header />
+    <Header locale={locale} />
     <main>
       <section id="hero">
         <hr class="border-t-2 border-gray-200 dark:border-gray-800 my-10" />
@@ -88,21 +90,21 @@ const dateFormat = new Intl.DateTimeFormat(languageTag(), {
           }
         </div>
         <p class="text-gray-500 dark:text-gray-400 text-center text-sm">
-          {m.published()}:
+          {m.published({}, { locale })}:
           <time datetime={frontmatter.published}>
             {dateFormat.format(new Date(frontmatter.published))}
           </time>
           {
             frontmatter.updated && (
               <>
-                &nbsp;&nbsp;{m.updated()}:
+                &nbsp;&nbsp;{m.updated({}, { locale })}:
                 <time datetime={frontmatter.updated}>
                   {dateFormat.format(new Date(frontmatter.updated))}
                 </time>
               </>
             )
           }
-          &nbsp;&nbsp;<VisitorCounter />
+          &nbsp;&nbsp;<VisitorCounter locale={locale} />
         </p>
         <hr class="border-t-2 border-gray-200 dark:border-gray-800 my-10" />
       </section>
@@ -112,7 +114,7 @@ const dateFormat = new Intl.DateTimeFormat(languageTag(), {
         <div
           class="absolute top-0 left-[-5rem] flex flex-col text-center items-center justify-center"
         >
-          <FavouriteButton />
+          <FavouriteButton locale={locale} />
         </div>
         <output id="markdown">
           <slot />
@@ -128,7 +130,7 @@ const dateFormat = new Intl.DateTimeFormat(languageTag(), {
         </nav>
       </section>
     </main>
-    <Footer />
+    <Footer locale={locale} />
   </body>
 
   <script is:inline lang="ts">

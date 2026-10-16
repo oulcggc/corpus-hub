@@ -1,11 +1,11 @@
 ---
-import { localePath } from "../lib/i18n";
+import { localePath, type Locale } from "../lib/i18n";
 interface Props {
   concordancer: Concordancer;
+  locale: Locale;
 }
-const { concordancer } = Astro.props;
-import { languageTag } from "../paraglide/runtime";
-const lang = languageTag();
+const { concordancer, locale } = Astro.props;
+const lang = locale;
 import * as m from "../paraglide/messages";
 
 function getLocalizedForm(
@@ -54,7 +54,7 @@ function getLocalizedForm(
 
   <div class="actions">
     <a class="button" href={localePath(lang, `concordancers/${concordancer.id}`)}>
-      {m.viewDetails()}
+      {m.viewDetails({}, { locale })}
     </a>
     <a
       class="button"
@@ -62,7 +62,7 @@ function getLocalizedForm(
       target="_blank"
       rel="noopener noreferrer"
     >
-      {m.visitSite()}
+      {m.visitSite({}, { locale })}
     </a>
   </div>
 </div>

@@ -1,8 +1,13 @@
 ---
 import { Icon } from "astro-icon/components";
-import { availableLanguageTags, languageTag } from "../paraglide/runtime";
+import { locales } from "../paraglide/runtime";
+import type { Locale } from "../lib/i18n";
 
-console.log(availableLanguageTags, languageTag());
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
 ---
 
 <div class="flex items-center justify-center gap-2">
@@ -16,8 +21,8 @@ console.log(availableLanguageTags, languageTag());
     aria-label="Language"
   >
     {
-      availableLanguageTags.map((tag) => (
-        <option selected={tag === languageTag()} value={tag}>
+      locales.map((tag) => (
+        <option selected={tag === locale} value={tag}>
           {new Intl.DisplayNames([tag], { type: "language" }).of(tag)}
         </option>
       ))

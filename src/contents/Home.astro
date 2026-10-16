@@ -1,4 +1,5 @@
 ---
+import type { Locale } from "../lib/i18n";
 import Layout from "../layouts/Layout.astro";
 
 import ConcordancePreviewCard from "../components/ConcordancerCard.astro";
@@ -6,11 +7,12 @@ import CardGrid from "../components/HomeCardGrid.astro";
 import * as m from "../paraglide/messages";
 
 import { getConcordancers } from "../data";
+const locale = Astro.params.locale as Locale;
 
 const APP_NAME = "CorpusHub";
 
 const [beforeWelcome, afterWelcome] = m
-  .welcome({ name: "{name}" })
+  .welcome({ name: "{name}" }, { locale })
   .split("{name}");
 
 console.log("Home!");
@@ -18,18 +20,18 @@ const concordancers = await getConcordancers(20);
 console.log(concordancers);
 ---
 
-<Layout title="Welcome to CorpusHub" top>
+<Layout locale={locale} title="Welcome to CorpusHub" top>
   <main class="py-10">
     <h1 class="m-4">
       {beforeWelcome}<span class="text-gradient">{APP_NAME}</span>{afterWelcome}
     </h1>
     <p class="text-center m-4 mb-10
-      text-2xl">{m.slogan()}</p>
+      text-2xl">{m.slogan({}, { locale })}</p>
 
     <section
       class="bg-linear-to-r dark:from-accent-dark/60 dark:to-accent-dark/30 from-accent-light/60 to-accent-light/30 p-4 rounded-lg relative mb-10 py-10"
     >
-      <h2 class="text-center text-3xl font-bold my-5">{m.featured()}</h2>
+      <h2 class="text-center text-3xl font-bold my-5">{m.featured({}, { locale })}</h2>
       <ul class="flex flex-col space-y-4 mt-10">
         <li class="text-center">
           <a
@@ -45,14 +47,14 @@ console.log(concordancers);
     <output>
       {
         concordancers.map((concordancer) => (
-          <ConcordancePreviewCard concordancer={concordancer} />
+          <ConcordancePreviewCard concordancer={concordancer} locale={locale} />
         ))
       }
     </output>
 
-    <p class="instructions my-10" set:html={m.description()} />
+    <p class="instructions my-10" set:html={m.description({}, { locale })} />
 
-    <CardGrid />
+    <CardGrid locale={locale} />
   </main>
 </Layout>
 

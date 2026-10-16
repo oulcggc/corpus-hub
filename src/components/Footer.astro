@@ -1,12 +1,19 @@
 ---
 import * as m from "../paraglide/messages";
+import type { Locale } from "../lib/i18n";
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
 
 const SUGGEST_URL = "https://github.com/oulcggc/corpus-hub/issues/new";
 ---
 
 <footer>
   <p>
-    <a href={SUGGEST_URL}>{m.suggest()}</a>
+    <a href={SUGGEST_URL}>{m.suggest({}, { locale })}</a>
   </p>
   <p>
     &copy; 2024–2026 <a href="https://oulcggc.org/" target="_blank"

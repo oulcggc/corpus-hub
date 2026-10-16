@@ -1,13 +1,20 @@
 ---
 import { Icon } from "astro-icon/components";
 import * as m from "../paraglide/messages";
+import type { Locale } from "../lib/i18n";
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
 ---
 
 <span class="text-sm text-gray-500">
   <Icon name="hugeicons:view" class="inline-block" />
   <span>
-    <span class="count" id="onlineCount" title={m.realtimeViews()}>-</span> /
-    <span class="count" id="totalCount" title={m.totalViews()}>-</span>
+    <span class="count" id="onlineCount" title={m.realtimeViews({}, { locale })}>-</span> /
+    <span class="count" id="totalCount" title={m.totalViews({}, { locale })}>-</span>
   </span>
 </span>
 

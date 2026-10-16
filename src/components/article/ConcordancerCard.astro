@@ -1,7 +1,7 @@
 ---
 import Card from "../ConcordancerCard.astro";
 
-const { id } = Astro.props;
+const { id, locale } = Astro.props;
 
 import { getConcordancer } from "../../data";
 const concordancer = await getConcordancer(id);
@@ -9,7 +9,7 @@ const concordancer = await getConcordancer(id);
 
 {
   concordancer ? (
-    <Card concordancer={concordancer} />
+    <Card concordancer={concordancer} locale={locale} />
   ) : (
     <div>Unknown concordancer: {id}</div>
   )

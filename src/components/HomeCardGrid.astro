@@ -1,8 +1,13 @@
 ---
-import { localePath } from "../lib/i18n";
-import { languageTag } from "../paraglide/runtime";
+import { localePath, type Locale } from "../lib/i18n";
 import Card from "./Card.astro";
 import * as m from "../paraglide/messages";
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
 ---
 
 <ul
@@ -12,15 +17,15 @@ import * as m from "../paraglide/messages";
   class="link-card-grid"
 >
   <Card
-    href={localePath(languageTag(), "concordancers")}
-    title={m.concordancers()}
-    body={m.concordancersDesc()}
+    href={localePath(locale, "concordancers")}
+    title={m.concordancers({}, { locale })}
+    body={m.concordancersDesc({}, { locale })}
   />
-  <Card href={localePath(languageTag(), "corpora")} title={m.corpora()} body={m.corporaDesc()} />
-  <Card href={localePath(languageTag(), "datasets")} title={m.datasets()} body={m.datasetsDesc()} />
+  <Card href={localePath(locale, "corpora")} title={m.corpora({}, { locale })} body={m.corporaDesc({}, { locale })} />
+  <Card href={localePath(locale, "datasets")} title={m.datasets({}, { locale })} body={m.datasetsDesc({}, { locale })} />
   <Card
-    href={localePath(languageTag(), "dictionaries")}
-    title={m.dictionaries()}
-    body={m.dictionariesDesc()}
+    href={localePath(locale, "dictionaries")}
+    title={m.dictionaries({}, { locale })}
+    body={m.dictionariesDesc({}, { locale })}
   />
 </ul>
