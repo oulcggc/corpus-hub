@@ -12,39 +12,41 @@ const SUGGEST_URL = "https://github.com/oulcggc/corpus-hub/issues/new";
 ---
 
 <footer
-  class="flex flex-col gap-3 border-t border-black/5 bg-gray-100 px-6 py-10 text-center text-gray-800 dark:border-white/8 dark:bg-gray-950 dark:text-gray-200"
+  class="border-t border-black/5 bg-gray-100 px-6 py-10 text-sm text-gray-600 dark:border-white/8 dark:bg-gray-950 dark:text-gray-400"
 >
-  <p>
-    <a
-      class="underline decoration-accent/40 underline-offset-4 hover:text-accent-dark dark:hover:text-accent-light"
-      href={SUGGEST_URL}>{m.suggest({}, { locale })}</a
-    >
-  </p>
-  <p>
-    © 2024–2026 <a
-      class="underline decoration-accent/40 underline-offset-4 hover:text-accent-dark dark:hover:text-accent-light"
-      href="https://oulcggc.org/"
-      target="_blank">阪大言語サークルGGC</a
-    >
-  </p>
-  <address class="flex flex-col gap-2 text-sm not-italic text-gray-600 dark:text-gray-400">
-    <p>with ❤️ by</p>
-    <div class="flex flex-col justify-center gap-1.5">
+  <div
+    class="mx-auto flex w-[800px] max-w-full flex-col items-center justify-between gap-6 md:flex-row md:items-start"
+  >
+    <div class="flex flex-col items-center gap-1.5 md:items-start">
       <a
-        class="underline decoration-accent/40 underline-offset-4 hover:text-accent-dark dark:hover:text-accent-light"
-        href="https://yocjyet.dev/"
+        href="https://oulcggc.org/"
         target="_blank"
+        class="font-bold text-gray-800 no-underline transition-colors hover:text-accent-dark dark:text-gray-200 dark:hover:text-accent-light"
+        >阪大言語サークルGGC</a
       >
-        Yo, Cjyet (于拙)
-      </a>
-      <a
-        class="underline decoration-accent/40 underline-offset-4 hover:text-accent-dark dark:hover:text-accent-light"
-        href="https://homepage-82o.pages.dev/"
-        target="_blank"
-      >
-        YuNai
-      </a>
+      <p class="m-0">© 2024–2026</p>
     </div>
-    <p>and more...</p>
-  </address>
+    <div class="flex flex-col items-center gap-1.5 md:items-end">
+      <a
+        href={SUGGEST_URL}
+        class="no-underline transition-colors hover:text-accent-dark dark:hover:text-accent-light"
+        >{m.suggest({}, { locale })}</a
+      >
+      <p class="m-0 flex flex-wrap items-center justify-center gap-x-1.5 md:justify-end">
+        with ❤️ by
+        <a
+          href="https://yocjyet.dev/"
+          target="_blank"
+          class="no-underline transition-colors hover:text-accent-dark dark:hover:text-accent-light"
+          >Yo, Cjyet (于拙)</a
+        >·
+        <a
+          href="https://homepage-82o.pages.dev/"
+          target="_blank"
+          class="no-underline transition-colors hover:text-accent-dark dark:hover:text-accent-light"
+          >YuNai</a
+        >· and more...
+      </p>
+    </div>
+  </div>
 </footer>
