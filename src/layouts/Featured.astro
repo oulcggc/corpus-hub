@@ -77,14 +77,14 @@ const dateFormat = new Intl.DateTimeFormat(locale, {
           }
         </div>
         <p class="text-gray-500 dark:text-gray-400 text-center text-sm">
-          {m.published({}, { locale })}:
+          {m.published({}, { locale })}:{" "}
           <time datetime={frontmatter.published}>
             {dateFormat.format(new Date(frontmatter.published))}
-          </time>
+          </time>{" "}
           {
             frontmatter.updated && (
               <>
-                &nbsp;&nbsp;{m.updated({}, { locale })}:
+                &nbsp;&nbsp;{m.updated({}, { locale })}:{" "}
                 <time datetime={frontmatter.updated}>
                   {dateFormat.format(new Date(frontmatter.updated))}
                 </time>
