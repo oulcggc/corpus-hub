@@ -4,7 +4,9 @@ import Concordancer from "../../../contents/Concordancer.astro";
 import { LOCALES } from "../../../lib/i18n";
 
 export async function getStaticPaths() {
-  const entries = await getCollection("concordancers");
+  const entries = (await getCollection("tools")).filter(
+    (t) => t.data.kind === "concordancer",
+  );
   return LOCALES.flatMap((locale) =>
     entries.map(({ id }) => ({ params: { locale, id } })),
   );

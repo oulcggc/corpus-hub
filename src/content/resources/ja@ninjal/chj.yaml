@@ -1,0 +1,12 @@
+kind: corpus
+langs: [ja]
+name:
+  ja: 日本語歴史コーパス
+  en: Corpus of Historical Japanese
+abbr:
+  ja: CHJ
+  en: CHJ
+organization: JP@ninjal
+link: https://clrd.ninjal.ac.jp/chj/index.html
+period: [diachronic]
+tags: [old-japanese, middle-japanese, classical-japanese]
