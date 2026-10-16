@@ -3,10 +3,9 @@ import Layout from "../layouts/Layout.astro";
 
 import * as m from "../paraglide/messages";
 
-import { db } from "astro:db";
 import { getConcordancers } from "../data";
 
-const concordancers = await getConcordancers(db);
+const concordancers = await getConcordancers();
 ---
 
 <Layout title={m.concordancers()}>
