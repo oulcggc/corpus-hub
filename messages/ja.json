@@ -14,5 +14,6 @@
   "viewDetails": "詳細を見る",
   "visitSite": "サイトを訪問",
   "featured": "特集",
-  "suggest": "リソースを提案する"
+  "suggest": "リソースを提案する",
+  "notFound": "ページが見つかりません"
 }
