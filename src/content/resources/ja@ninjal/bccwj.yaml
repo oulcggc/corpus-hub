@@ -1,0 +1,12 @@
+kind: corpus
+langs: [ja]
+name:
+  ja: 現代日本語書き言葉均衡コーパス
+  en: Balanced Corpus of Contemporary Written Japanese
+abbr:
+  ja: BCCWJ
+  en: BCCWJ
+organization: JP@ninjal
+link: https://clrd.ninjal.ac.jp/bccwj/
+period: [contemporary]
+modality: written
