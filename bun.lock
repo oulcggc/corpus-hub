@@ -17,7 +17,6 @@
       },
       "devDependencies": {
         "@iconify-json/hugeicons": "^1.1.0",
-        "@iconify/json": "^2.2.217",
         "@inlang/paraglide-js": "1.9.1",
         "prettier": "^3.3.2",
         "prettier-plugin-astro": "^0.14.0",
@@ -164,8 +163,6 @@
     "@esbuild/win32-x64": ["@esbuild/win32-x64@0.21.4", "", { "os": "win32", "cpu": "x64" }, "sha512-sywLRD3UK/qRJt0oBwdpYLBibk7KiRfbswmWRDabuncQYSlf8aLEEUor/oP6KRz8KEG+HoiVLBhPRD5JWjS8Sg=="],
 
     "@iconify-json/hugeicons": ["@iconify-json/hugeicons@1.1.0", "", { "dependencies": { "@iconify/types": "*" } }, "sha512-MzzShBJQsOB92kzPMBe2dI35m0BrR7Z7yEQ0Al84ULQ46PRAAu+RBkqmTzqY+T2uBB1PeGe8sPs+8lGRXClGjg=="],
-
-    "@iconify/json": ["@iconify/json@2.2.217", "", { "dependencies": { "@iconify/types": "*", "pathe": "^1.1.2" } }, "sha512-+sSR9iKsoThUmgG4wA9xdtyazROIqMOo5h5otOXYRyOQjMNJCpJltq5hEhHInC5aG/DUQmXDiN/YsCoJdCYUbQ=="],
 
     "@iconify/tools": ["@iconify/tools@3.0.7", "", { "dependencies": { "@iconify/types": "^2.0.0", "@iconify/utils": "^2.1.10", "@types/cheerio": "^0.22.32", "@types/tar": "^6.1.6", "cheerio": "^1.0.0-rc.12", "extract-zip": "^2.0.1", "local-pkg": "^0.4.3", "pathe": "^1.1.1", "svgo": "3.0.3", "tar": "^6.2.0" } }, "sha512-DxfhFLMnooS34dHelpGUnnYrxLZHs0czC1CgrBhAbuL8ddVzBb2VEQm8kh9qGh7A34qeXAB5iSHH3A72rAaFrg=="],
 
