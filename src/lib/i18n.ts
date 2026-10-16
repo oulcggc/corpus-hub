@@ -42,6 +42,6 @@ export function nativeForm(
 }
 
 export function localePath(locale: string, path = ""): string {
-  const clean = path.replace(/^\/+/, "");
-  return clean ? `/${locale}/${clean}` : `/${locale}/`;
+  const clean = path.replace(/^\/+|\/+$/g, "");
+  return clean ? `/${locale}/${clean}/` : `/${locale}/`;
 }
