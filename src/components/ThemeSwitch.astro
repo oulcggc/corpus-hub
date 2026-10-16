@@ -22,19 +22,6 @@ import { Icon } from "astro-icon/components";
 </div>
 
 <script is:inline>
-  function applyTheme() {
-    const theme = localStorage.getItem("color-theme");
-
-    if (
-      theme === "dark" ||
-      (!theme && window.matchMedia("(prefers-color-scheme: dark)").matches)
-    ) {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-    }
-  }
-
   function enableThemeToggle() {
     const themeToggleDarkIcon = document.querySelector(
       "#theme-toggle-dark-icon",
@@ -100,12 +87,7 @@ import { Icon } from "astro-icon/components";
     });
   }
 
-  applyTheme();
   enableThemeToggle();
-  document.addEventListener("astro:after-swap", () => {
-    applyTheme();
-    enableThemeToggle();
-  });
 </script>
 
 <style>
