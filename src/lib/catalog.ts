@@ -5,12 +5,12 @@ export type Resource = CollectionEntry<"resources">;
 export type Tool = CollectionEntry<"tools">;
 
 export type ResolvedResource = Resource & {
-  organization: Organization;
+  organization: Organization | undefined;
   tools: Tool[];
 };
 
 export type ResolvedTool = Tool & {
-  organization: Organization;
+  organization: Organization | undefined;
   resources: Resource[];
 };
 
@@ -25,7 +25,10 @@ export const CATEGORIES = {
 
 export type Category = keyof typeof CATEGORIES;
 
-async function mustGetOrganization(id: string): Promise<Organization> {
+async function getOrganization(
+  id: string | undefined,
+): Promise<Organization | undefined> {
+  if (!id) return undefined;
   const org = await getEntry("organizations", id);
   if (!org) throw new Error(`Dangling organization reference: ${id}`);
   return org;
@@ -34,7 +37,7 @@ async function mustGetOrganization(id: string): Promise<Organization> {
 export async function resolveResource(
   resource: Resource,
 ): Promise<ResolvedResource> {
-  const organization = await mustGetOrganization(resource.data.organization.id);
+  const organization = await getOrganization(resource.data.organization?.id);
   const tools = (await getCollection("tools")).filter((t) =>
     t.data.serves.some((ref) => ref.id === resource.id),
   );
@@ -42,7 +45,7 @@ export async function resolveResource(
 }
 
 export async function resolveTool(tool: Tool): Promise<ResolvedTool> {
-  const organization = await mustGetOrganization(tool.data.organization.id);
+  const organization = await getOrganization(tool.data.organization?.id);
   const resources = await Promise.all(
     tool.data.serves.map(async (ref) => {
       const entry = await getEntry("resources", ref.id);
