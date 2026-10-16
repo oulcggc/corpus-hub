@@ -1,10 +1,10 @@
 ---
-import { localePath } from "../lib/i18n";
-import { languageTag } from "../paraglide/runtime";
+import { localePath, type Locale } from "../lib/i18n";
 // import Tag from "../../components/Tag.astro";
 
 import { getConcordancer } from "../data";
 import Layout from "../layouts/Layout.astro";
+const locale = Astro.params.locale as Locale;
 const { id } = Astro.params;
 if (!id) {
   Astro.response.status = 400;
@@ -19,7 +19,7 @@ if (!c) {
 const concordancer = c!;
 ---
 
-<Layout title={`Concordance: ${concordancer.name.en}`}>
+<Layout locale={locale} title={`Concordance: ${concordancer.name.en}`}>
   <main class="dark:text-cyan-200 text-cyan-800
    w-full max-w-2xl mx-auto p-4">
     <h1>
@@ -54,7 +54,7 @@ const concordancer = c!;
       {
         concordancer.corpora.map((corpus) => (
           <li>
-            <a href={localePath(languageTag(), `corpora/${corpus}`)}>{corpus}</a>
+            <a href={localePath(locale, `corpora/${corpus}`)}>{corpus}</a>
             {/* TODO: Add corpus card */}
           </li>
         ))

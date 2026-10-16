@@ -1,16 +1,12 @@
 {
   "extends": "astro/tsconfigs/strict",
+  "include": [".astro/types.d.ts", "src/**/*"],
+  "exclude": ["dist", "src/paraglide"],
   "compilerOptions": {
-    "moduleResolution": "Bundler",
-    "allowJs": true,
     "baseUrl": ".",
     "paths": {
-      "@layouts/*": [
-        "src/layouts/*"
-      ],
-      "@components/*": [
-        "src/components/*"
-      ],
+      "@layouts/*": ["src/layouts/*"],
+      "@components/*": ["src/components/*"]
     }
   }
 }

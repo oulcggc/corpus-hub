@@ -3,20 +3,21 @@ import "../styles/global.css";
 import Footer from "../components/Footer.astro";
 import Header from "../components/Header.astro";
 
-import { languageTag } from "../paraglide/runtime";
+import type { Locale } from "../lib/i18n";
 
 interface Props {
   title: string;
+  locale: Locale;
   top?: boolean;
 }
 
-const { title: rawTitle, top } = Astro.props;
+const { title: rawTitle, locale, top } = Astro.props;
 
 const title = rawTitle + (top ? "" : " | CorpusHub");
 ---
 
 <!doctype html>
-<html lang={languageTag()}>
+<html lang={locale}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
@@ -39,9 +40,9 @@ const title = rawTitle + (top ? "" : " | CorpusHub");
     </script>
   </head>
   <body>
-    <Header />
+    <Header locale={locale} />
     <slot />
-    <Footer />
+    <Footer locale={locale} />
   </body>
 </html>
 <style is:global>
