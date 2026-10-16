@@ -7,6 +7,7 @@ import tailwindcss from "@tailwindcss/vite";
 
 // https://astro.build/config
 export default defineConfig({
+  site: "https://corpora.oulcggc.org",
   i18n: {
     locales: ["en", "ja", "zh"],
     defaultLocale: "en"
