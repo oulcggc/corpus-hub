@@ -1,0 +1,20 @@
+---
+import { getEntry } from "astro:content";
+import CatalogCard from "../CatalogCard.astro";
+import { resolveTool } from "../../lib/catalog";
+import { toolCard } from "../../lib/display";
+import type { Locale } from "../../lib/i18n";
+
+interface Props {
+  id: string;
+  locale: Locale;
+}
+
+const { id, locale } = Astro.props;
+
+const entry = await getEntry("tools", id);
+if (!entry) throw new Error(`Unknown tool in article: ${id}`);
+const resolved = await resolveTool(entry);
+---
+
+<CatalogCard {...toolCard(resolved, locale)} />
