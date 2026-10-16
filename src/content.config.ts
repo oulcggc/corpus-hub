@@ -80,5 +80,22 @@ const tools = defineCollection({
   }),
 });
 
+const articles = defineCollection({
+  loader: glob({
+    pattern: "**/*.mdx",
+    base: "./src/content/articles",
+    generateId: keepPathAsId,
+  }),
+  schema: z.object({
+    title: z.string(),
+    locale: z.enum(["en", "ja", "zh"]),
+    description: z.string().optional(),
+    published: z.coerce.date(),
+    updated: z.coerce.date().optional(),
+    authors: z
+      .array(z.object({ name: z.string(), link: z.url().optional() }))
+      .default([]),
+  }),
+});
 
-export const collections = { organizations, resources, tools };
+export const collections = { organizations, resources, tools, articles };
