@@ -1,0 +1,7 @@
+kind: dataset
+langs: [zh]
+name:
+  zh: 复旦大学中华文明数据中心・复旦大学东亚语言数据中心
+link: http://ccdc.fudan.edu.cn/bases/index.jsp
+description:
+  ja: 中古音・上古音などはもちろん、方言地図は特色で、ユーザーで作る機能も持っている故、興味深い方言地図が多数存在する。また、言語調査の詳細データもあります。
