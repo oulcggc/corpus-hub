@@ -4,7 +4,6 @@ import Header from "../components/Header.astro";
 import Author from "../components/article/Author.astro";
 import { languageTag } from "../paraglide/runtime";
 import * as m from "../paraglide/messages";
-import VisitorCounter from "src/components/VisitorCounter.astro";
 import { Icon } from "astro-icon/components";
 interface Props {
   title: string;
@@ -71,8 +70,7 @@ const title = frontmatter.title + (top ? "" : " | CorpusHub");
                 day: "numeric",
               }).format(new Date())
             }
-          </time>{m.published()}&nbsp;&nbsp;
-          <VisitorCounter />
+          </time>{m.published()}
         </p>
         <hr class="border-t-2 border-gray-200 dark:border-gray-800 my-10" />
       </section>
