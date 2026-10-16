@@ -2,11 +2,12 @@
 import type { Locale } from "../lib/i18n";
 import Layout from "../layouts/Layout.astro";
 
-import ConcordancePreviewCard from "../components/ConcordancerCard.astro";
+import CatalogCard from "../components/CatalogCard.astro";
 import CardGrid from "../components/HomeCardGrid.astro";
 import * as m from "../paraglide/messages";
 
-import { getConcordancers } from "../data";
+import { getToolsByKind } from "../lib/catalog";
+import { toolCard } from "../lib/display";
 const locale = Astro.params.locale as Locale;
 
 const APP_NAME = "CorpusHub";
@@ -15,9 +16,7 @@ const [beforeWelcome, afterWelcome] = m
   .welcome({ name: "{name}" }, { locale })
   .split("{name}");
 
-console.log("Home!");
-const concordancers = await getConcordancers(20);
-console.log(concordancers);
+const concordancers = await getToolsByKind("concordancer");
 ---
 
 <Layout locale={locale} title="Welcome to CorpusHub" top>
@@ -46,9 +45,7 @@ console.log(concordancers);
 
     <output>
       {
-        concordancers.map((concordancer) => (
-          <ConcordancePreviewCard concordancer={concordancer} locale={locale} />
-        ))
+        concordancers.map((tool) => <CatalogCard {...toolCard(tool, locale)} />)
       }
     </output>
 
