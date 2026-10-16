@@ -12,7 +12,7 @@ import mdx from "@astrojs/mdx";
 // https://astro.build/config
 export default defineConfig({
   i18n: {
-    locales: ["en", "ja", "zh", "fr"],
+    locales: ["en", "ja", "zh"],
     defaultLocale: "en"
   },
   integrations: [tailwind(), paraglide({
