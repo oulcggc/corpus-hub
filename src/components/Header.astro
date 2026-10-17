@@ -1,10 +1,15 @@
 ---
-import { localePath } from "../lib/i18n";
-import { languageTag } from "../paraglide/runtime";
+import { localePath, type Locale } from "../lib/i18n";
 import { Icon } from "astro-icon/components";
 import LanguagePicker from "./LanguagePicker.astro";
 import ThemeSwitcher from "./ThemeSwitch.astro";
 import * as m from "../paraglide/messages";
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
 ---
 
 <header
@@ -12,7 +17,7 @@ import * as m from "../paraglide/messages";
     md:flex-row flex-col"
 >
   <div class="flex justify-between items-center w-full md:w-auto">
-    <a href={localePath(languageTag())} class="font-black text-current">CorpusHub</a>
+    <a href={localePath(locale)} class="font-black text-current">CorpusHub</a>
     <button
       aria-label="Menu"
       aria-expanded="false"
@@ -31,20 +36,20 @@ import * as m from "../paraglide/messages";
         {
           [
             {
-              path: localePath(languageTag(), "concordancers"),
-              name: m.concordancers(),
+              path: localePath(locale, "concordancers"),
+              name: m.concordancers({}, { locale }),
             },
             {
-              path: localePath(languageTag(), "corpora"),
-              name: m.corpora(),
+              path: localePath(locale, "corpora"),
+              name: m.corpora({}, { locale }),
             },
             {
-              path: localePath(languageTag(), "datasets"),
-              name: m.datasets(),
+              path: localePath(locale, "datasets"),
+              name: m.datasets({}, { locale }),
             },
             {
-              path: localePath(languageTag(), "dictionaries"),
-              name: m.dictionaries(),
+              path: localePath(locale, "dictionaries"),
+              name: m.dictionaries({}, { locale }),
             },
           ].map(({ path, name }) => (
             <li>
@@ -66,7 +71,7 @@ import * as m from "../paraglide/messages";
     </nav>
     <div class="flex gap-4 items-center justify-end flex-wrap md:flex-nowrap">
       <ThemeSwitcher />
-      <LanguagePicker />
+      <LanguagePicker locale={locale} />
     </div>
   </div>
 
