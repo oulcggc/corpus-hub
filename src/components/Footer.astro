@@ -1,4 +1,13 @@
+---
+import * as m from "../paraglide/messages";
+
+const SUGGEST_URL = "https://github.com/oulcggc/corpus-hub/issues/new";
+---
+
 <footer>
+  <p>
+    <a href={SUGGEST_URL}>{m.suggest()}</a>
+  </p>
   <p>
     &copy; 2024 <a href="https://oulcggc.org/" target="_blank"
       >阪大言語サークルGGC</a
