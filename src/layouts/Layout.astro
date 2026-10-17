@@ -3,7 +3,7 @@ import "../styles/global.css";
 import Footer from "../components/Footer.astro";
 import Header from "../components/Header.astro";
 
-import type { Locale } from "../lib/i18n";
+import { LOCALES, type Locale } from "../lib/i18n";
 
 interface Props {
   title: string;
@@ -14,6 +14,9 @@ interface Props {
 const { title: rawTitle, locale, top } = Astro.props;
 
 const title = rawTitle + (top ? "" : " | CorpusHub");
+
+const localized = /^\/[a-z]{2}(\/|$)/.test(Astro.url.pathname);
+const pathSuffix = Astro.url.pathname.replace(/^\/[a-z]{2}(\/|$)/, "");
 ---
 
 <!doctype html>
@@ -28,6 +31,16 @@ const title = rawTitle + (top ? "" : " | CorpusHub");
     <link rel="manifest" href="/site.webmanifest" />
     <meta name="theme-color" content="#883aea" />
     <meta name="generator" content={Astro.generator} />
+    {
+      localized &&
+        LOCALES.map((l) => (
+          <link
+            rel="alternate"
+            hreflang={l}
+            href={new URL(`/${l}/${pathSuffix}`, Astro.site)}
+          />
+        ))
+    }
     <title>{title}</title>
     <script is:inline>
       if (
