@@ -3,10 +3,9 @@ import Layout from "../layouts/Layout.astro";
 
 import * as m from "../paraglide/messages";
 
-import { db } from "astro:db";
 import { getCorpora } from "../data";
 
-const corpora = await getCorpora(db);
+const corpora = await getCorpora();
 ---
 
 <Layout title={m.corpora()}>
