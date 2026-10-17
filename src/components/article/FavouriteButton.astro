@@ -1,0 +1,59 @@
+---
+import { Icon } from "astro-icon/components";
+import * as m from "../../paraglide/messages";
+---
+
+<button
+  id="favourite-button"
+  type="button"
+  aria-label={m.like()}
+  aria-pressed="false"
+  class="border border-gray-200 dark:border-gray-800 rounded-full p-2 disabled:cursor-default"
+>
+  <Icon name="hugeicons:favourite" />
+</button>
+<div
+  id="favourite-count"
+  class="text-gray-500 dark:text-gray-400 text-center text-sm ml-[-1em]"
+>
+  0
+</div>
+
+<script is:inline>
+  (() => {
+    const LIKES = "https://count.yocjyet.dev/counters/corpus-hub-chinese-research-likes";
+    const KEY = "liked:corpus-hub-chinese-research";
+    const button = document.getElementById("favourite-button");
+    const count = document.getElementById("favourite-count");
+    const format = new Intl.NumberFormat(document.documentElement.lang);
+    const liked = () => {
+      try {
+        return localStorage.getItem(KEY) === "1";
+      } catch {
+        return false;
+      }
+    };
+    const show = (value) => {
+      button.classList.toggle("text-red-500", liked());
+      button.setAttribute("aria-pressed", String(liked()));
+      button.disabled = liked();
+      if (value !== undefined)
+        count.textContent = Number.isFinite(value) ? format.format(value) : "-";
+    };
+    button.addEventListener("click", async () => {
+      if (liked()) return;
+      try {
+        const response = await fetch(`${LIKES}/increment`, { method: "PATCH" });
+        if (!response.ok) return;
+        try {
+          localStorage.setItem(KEY, "1");
+        } catch {}
+        show(Number(await response.text()));
+      } catch {}
+    });
+    fetch(LIKES)
+      .then(async (response) => show(response.ok ? Number(await response.text()) : NaN))
+      .catch(() => show(NaN));
+    show();
+  })();
+</script>
