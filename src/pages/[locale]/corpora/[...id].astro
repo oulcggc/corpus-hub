@@ -4,7 +4,9 @@ import Corpus from "../../../contents/Corpus.astro";
 import { LOCALES } from "../../../lib/i18n";
 
 export async function getStaticPaths() {
-  const entries = await getCollection("corpora");
+  const entries = (await getCollection("resources")).filter(
+    (r) => r.data.kind === "corpus",
+  );
   return LOCALES.flatMap((locale) =>
     entries.map(({ id }) => ({ params: { locale, id } })),
   );
