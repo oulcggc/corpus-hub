@@ -1,5 +1,6 @@
 ---
 import { getCollection, render } from "astro:content";
+import { Image } from "astro:assets";
 import Layout from "../../../layouts/Layout.astro";
 import * as m from "../../../paraglide/messages";
 import VisitorCounter from "../../../components/VisitorCounter.astro";
@@ -58,15 +59,27 @@ const dateFormat = new Intl.DateTimeFormat(locale, {
       </h1>
       <div class="flex justify-center gap-4 my-8 flex-wrap">
         {
-          article.data.authors.map((author) =>
-            author.link ? (
-              <a class="underline" href={author.link}>
-                {author.name}
-              </a>
-            ) : (
-              <span>{author.name}</span>
-            ),
-          )
+          article.data.authors.map((author) => (
+            <span class="inline-flex items-center gap-2">
+              {author.avatar && (
+                <Image
+                  src={author.avatar}
+                  alt=""
+                  width={32}
+                  height={32}
+                  densities={[1, 2]}
+                  class="size-8 rounded-full object-cover"
+                />
+              )}
+              {author.link ? (
+                <a class="underline" href={author.link}>
+                  {author.name}
+                </a>
+              ) : (
+                <span>{author.name}</span>
+              )}
+            </span>
+          ))
         }
       </div>
       <p class="text-gray-500 dark:text-gray-400 text-center text-sm">
