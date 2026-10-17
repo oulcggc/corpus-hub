@@ -10,7 +10,7 @@ interface Props {
   top?: boolean;
   frontmatter: {
     title: string;
-    authors: { name: string; link?: string }[];
+    authors: { name: string; link?: string; avatar?: string }[];
     updated: string;
     published: string;
   };
@@ -58,15 +58,26 @@ const dateFormat = new Intl.DateTimeFormat(languageTag(), {
 
         <div class="flex justify-center gap-4 my-8 flex-wrap">
           {
-            frontmatter.authors.map((author) =>
-              author.link ? (
-                <a class="underline" href={author.link}>
-                  {author.name}
-                </a>
-              ) : (
-                <span>{author.name}</span>
-              ),
-            )
+            frontmatter.authors.map((author) => (
+              <span class="inline-flex items-center gap-2">
+                {author.avatar && (
+                  <img
+                    src={author.avatar}
+                    alt=""
+                    width="32"
+                    height="32"
+                    class="w-8 h-8 rounded-full object-cover"
+                  />
+                )}
+                {author.link ? (
+                  <a class="underline" href={author.link}>
+                    {author.name}
+                  </a>
+                ) : (
+                  <span>{author.name}</span>
+                )}
+              </span>
+            ))
           }
         </div>
         <p class="text-gray-500 dark:text-gray-400 text-center text-sm">
