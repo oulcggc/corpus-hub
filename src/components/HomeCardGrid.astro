@@ -1,4 +1,6 @@
 ---
+import { localePath } from "../lib/i18n";
+import { languageTag } from "../paraglide/runtime";
 import Card from "./Card.astro";
 import * as m from "../paraglide/messages";
 ---
@@ -10,14 +12,14 @@ import * as m from "../paraglide/messages";
   class="link-card-grid"
 >
   <Card
-    href="/concordancers"
+    href={localePath(languageTag(), "concordancers")}
     title={m.concordancers()}
     body={m.concordancersDesc()}
   />
-  <Card href="/corpora" title={m.corpora()} body={m.corporaDesc()} />
-  <Card href="/datasets" title={m.datasets()} body={m.datasetsDesc()} />
+  <Card href={localePath(languageTag(), "corpora")} title={m.corpora()} body={m.corporaDesc()} />
+  <Card href={localePath(languageTag(), "datasets")} title={m.datasets()} body={m.datasetsDesc()} />
   <Card
-    href="/dictionaries"
+    href={localePath(languageTag(), "dictionaries")}
     title={m.dictionaries()}
     body={m.dictionariesDesc()}
   />

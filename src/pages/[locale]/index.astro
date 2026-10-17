@@ -1,0 +1,10 @@
+---
+import Home from "../../contents/Home.astro";
+import { LOCALES } from "../../lib/i18n";
+
+export function getStaticPaths() {
+  return LOCALES.map((locale) => ({ params: { locale } }));
+}
+---
+
+<Home />
