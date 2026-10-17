@@ -67,6 +67,8 @@ function getLocalizedForm(
 </div>
 
 <style>
+  @reference "../styles/global.css";
+
   .card {
     justify-content: space-between;
     padding: 1rem;
@@ -98,7 +100,7 @@ function getLocalizedForm(
   }
 
   a.button {
-    @apply py-2 px-4 bg-blue-500 bg-opacity-75 dark:bg-opacity-50 text-white rounded border-blue-500 border-2 text-center;
+    @apply py-2 px-4 bg-blue-500/75 dark:bg-blue-500/50 text-white rounded-sm border-blue-500 border-2 text-center;
   }
 
   .actions {
