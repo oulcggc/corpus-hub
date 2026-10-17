@@ -1,5 +1,10 @@
 ---
+import { getCollection } from "astro:content";
 import Corpus from "../../../contents/Corpus.astro";
+
+export async function getStaticPaths() {
+  return (await getCollection("corpora")).map(({ id }) => ({ params: { id } }));
+}
 ---
 
 <Corpus />
