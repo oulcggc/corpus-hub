@@ -1,0 +1,17 @@
+---
+import ResourceItem from "./ResourceItem.astro";
+import type { Locale } from "../../lib/i18n";
+
+interface Props {
+  ids: string[];
+  tools?: string[];
+  locale: Locale;
+}
+
+const { ids = [], tools = [], locale } = Astro.props;
+---
+
+<ul class="not-prose list-none m-0 my-4 p-0 flex flex-col gap-3">
+  {ids.map((id) => <ResourceItem id={id} locale={locale} />)}
+  {tools.map((id) => <ResourceItem id={id} collection="tools" locale={locale} />)}
+</ul>
