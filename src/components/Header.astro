@@ -28,28 +28,30 @@ const links = [
 ---
 
 <header
-  class="p-6 flex flex-col md:flex-row items-center gap-4 text-ink dark:text-white"
+  class="flex flex-col items-center gap-3 px-6 py-4 text-ink dark:text-white md:flex-row md:gap-5 border-b border-black/5 dark:border-white/8"
 >
-  <div class="flex justify-between items-center w-full md:w-auto">
-    <a href={localePath(locale)} class="font-black text-lg text-current"
+  <div class="flex w-full items-center justify-between md:w-auto">
+    <a
+      href={localePath(locale)}
+      class="text-xl font-black tracking-tight text-current"
       >CorpusHub</a
     >
     <button
       aria-label="Menu"
       aria-expanded="false"
-      class="md:hidden p-2"
+      class="rounded-md p-2 md:hidden hover:bg-accent-light/40 dark:hover:bg-accent-dark/40"
       id="navigation-toggle"
     >
-      <Icon name="hugeicons:menu-01" class="w-6 h-6" />
+      <Icon name="hugeicons:menu-01" class="h-6 w-6" />
     </button>
   </div>
   <div
     id="navbar-menu"
-    class="hidden md:flex flex-col md:flex-row md:items-center md:justify-between gap-6 md:gap-4 w-full"
+    class="hidden w-full flex-col gap-5 md:flex md:flex-row md:items-center md:justify-between md:gap-4"
   >
     <nav class="flex w-full items-center">
       <ul
-        class="flex items-center gap-4 list-none m-0 p-0 flex-wrap md:flex-nowrap"
+        class="m-0 flex list-none flex-wrap items-center gap-1 p-0 md:flex-nowrap"
       >
         {
           links.map(({ path, name }) => (
@@ -57,8 +59,10 @@ const links = [
               <a
                 href={path}
                 class:list={[
-                  { "font-bold": Astro.url.pathname === path },
-                  "hover:underline whitespace-nowrap",
+                  "inline-flex items-center whitespace-nowrap rounded-md px-2.5 py-1.5 text-[0.9375rem] leading-none no-underline transition-colors",
+                  Astro.url.pathname === path
+                    ? "font-bold text-accent-dark bg-accent-light/55 dark:text-accent-light dark:bg-accent-dark/45"
+                    : "font-medium text-ink/70 hover:bg-gray-100 hover:text-ink dark:text-white/70 dark:hover:bg-white/6 dark:hover:text-white",
                 ]}
               >
                 {name}
@@ -68,7 +72,7 @@ const links = [
         }
       </ul>
     </nav>
-    <div class="flex gap-3 items-center justify-end shrink-0">
+    <div class="flex shrink-0 items-center justify-end gap-2">
       <ThemeSwitch />
       <LanguagePicker locale={locale} />
     </div>
