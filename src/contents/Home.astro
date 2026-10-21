@@ -1,5 +1,6 @@
 ---
-import type { Locale } from "../lib/i18n";
+import { getCollection } from "astro:content";
+import { localePath, type Locale } from "../lib/i18n";
 import Layout from "../layouts/Layout.astro";
 
 import CatalogCard from "../components/CatalogCard.astro";
@@ -17,6 +18,14 @@ const [beforeWelcome, afterWelcome] = m
   .split("{name}");
 
 const concordancers = await getToolsByKind("concordancer");
+const articles = (await getCollection("articles")).sort(
+  (a, b) => b.data.published.valueOf() - a.data.published.valueOf(),
+);
+
+const languageBadge = (articleLocale: string) =>
+  articleLocale === locale
+    ? undefined
+    : new Intl.DisplayNames([locale], { type: "language" }).of(articleLocale);
 ---
 
 <Layout locale={locale} title="Welcome to CorpusHub" top>
@@ -32,14 +41,23 @@ const concordancers = await getToolsByKind("concordancer");
     >
       <h2 class="text-center text-3xl font-bold my-5">{m.featured({}, { locale })}</h2>
       <ul class="flex flex-col space-y-4 mt-10">
-        <li class="text-center">
-          <a
-            href="/ja/articles/chinese-research"
-            class="text-center text-2xl font-bold text-gradient"
-          >
-            中国語・漢語研究のための資料・ツール目録
-          </a>
-        </li>
+        {
+          articles.map((article) => (
+            <li class="text-center">
+              <a
+                href={localePath(article.data.locale, `articles/${article.id}`)}
+                class="text-center text-2xl font-bold text-gradient"
+              >
+                {article.data.title}
+              </a>
+              {languageBadge(article.data.locale) && (
+                <span class="ml-2 text-sm align-middle rounded-full px-2 py-0.5 bg-accent-light/50 dark:bg-accent-dark/50">
+                  {languageBadge(article.data.locale)}
+                </span>
+              )}
+            </li>
+          ))
+        }
       </ul>
     </section>
 
