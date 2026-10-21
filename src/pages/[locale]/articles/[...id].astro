@@ -1,7 +1,11 @@
 ---
 import { getCollection, render } from "astro:content";
+import Layout from "../../../layouts/Layout.astro";
+import * as m from "../../../paraglide/messages";
+import VisitorCounter from "../../../components/VisitorCounter.astro";
+import FavouriteButton from "../../../components/article/FavouriteButton.astro";
+import type { Locale } from "../../../lib/i18n";
 import type { CollectionEntry } from "astro:content";
-import Featured from "../../../layouts/Featured.astro";
 
 export async function getStaticPaths() {
   const articles = await getCollection("articles");
@@ -15,10 +19,120 @@ interface Props {
   article: CollectionEntry<"articles">;
 }
 
+const locale = Astro.params.locale as Locale;
 const { article } = Astro.props;
 const { Content } = await render(article);
+
+const dateFormat = new Intl.DateTimeFormat(locale, {
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+  timeZone: "UTC",
+});
 ---
 
-<Featured article={article}>
-  <Content />
-</Featured>
+<Layout
+  title={article.data.title}
+  locale={locale}
+  description={article.data.description}
+  alternates={[locale]}
+>
+  <main
+    class="mx-auto w-[800px] max-w-[calc(100%-2rem)] py-10 text-ink dark:text-white"
+  >
+    <section>
+      <hr class="border-t-2 border-gray-200 dark:border-gray-800 my-10" />
+      <p class="text-center text-2xl text-gray-500 dark:text-gray-400">
+        {m.featured({}, { locale })}
+      </p>
+      <h1 class="text-3xl md:text-4xl font-bold text-center my-6">
+        {article.data.title}
+      </h1>
+      <div class="flex justify-center gap-4 my-8 flex-wrap">
+        {
+          article.data.authors.map((author) => (
+            <span class="inline-flex items-center gap-2">
+              {author.avatar && (
+                <img
+                  src={author.avatar}
+                  alt=""
+                  width="32"
+                  height="32"
+                  class="w-8 h-8 rounded-full object-cover"
+                />
+              )}
+              {author.link ? (
+                <a class="underline" href={author.link}>
+                  {author.name}
+                </a>
+              ) : (
+                <span>{author.name}</span>
+              )}
+            </span>
+          ))
+        }
+      </div>
+      <p class="text-gray-500 dark:text-gray-400 text-center text-sm">
+        {m.published({}, { locale })}:{" "}
+        <time datetime={article.data.published.toISOString()}>
+          {dateFormat.format(article.data.published)}
+        </time>{" "}
+        {
+          article.data.updated && (
+            <>
+              &nbsp;&nbsp;{m.updated({}, { locale })}:{" "}
+              <time datetime={article.data.updated.toISOString()}>
+                {dateFormat.format(article.data.updated)}
+              </time>
+            </>
+          )
+        }
+        &nbsp;&nbsp;<VisitorCounter locale={locale} />
+      </p>
+      <hr class="border-t-2 border-gray-200 dark:border-gray-800 my-10" />
+    </section>
+
+    <div class="relative">
+      <article
+        id="markdown"
+        class="relative prose dark:prose-invert max-w-none prose-a:break-all"
+      >
+        <!-- Floating menu to the left -->
+        <div
+          class="not-prose absolute top-0 left-[-5rem] flex flex-col text-center items-center justify-center"
+        >
+          <FavouriteButton locale={locale} />
+        </div>
+        <Content />
+      </article>
+      <!-- Floating TOC to the right -->
+      <nav
+        class="hidden text-[0.5em] md:flex absolute top-0 right-[-10rem] flex flex-col text-center items-center justify-center max-w-24"
+      >
+        <h2 class="text-gray-500 dark:text-gray-400 text-center text-sm m-0">
+          目次
+        </h2>
+        <ul id="toc"></ul>
+      </nav>
+    </div>
+    <script is:inline lang="ts">
+      const toc = document.getElementById("toc");
+      window.addEventListener("DOMContentLoaded", () => {
+        const markdown = document.getElementById("markdown");
+        const headings = markdown.querySelectorAll("h2, h3, h4, h5, h6");
+        headings.forEach((heading) => {
+          const id = heading.id;
+          const text = heading.textContent;
+          const level = parseInt(heading.tagName[1]);
+          const li = document.createElement("li");
+          const a = document.createElement("a");
+          a.href = `#${id}`;
+          a.textContent = text;
+          a.classList.add(`text-gray-${level * 100}`);
+          li.appendChild(a);
+          toc.appendChild(li);
+        });
+      });
+    </script>
+  </main>
+</Layout>
