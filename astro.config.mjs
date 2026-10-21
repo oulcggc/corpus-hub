@@ -2,8 +2,6 @@ import { defineConfig } from "astro/config";
 import tailwind from "@astrojs/tailwind";
 import paraglide from "@inlang/paraglide-astro";
 import icon from "astro-icon";
-// import Icons from "unplugin-icons";
-import svelte from "@astrojs/svelte";
 
 import mdx from "@astrojs/mdx";
 
@@ -16,8 +14,5 @@ export default defineConfig({
   integrations: [tailwind(), paraglide({
     project: "./project.inlang",
     outdir: "./src/paraglide"
-  }), icon(), svelte(), mdx()]
-  // vite: {
-  //   plugins: [Icons({ compiler: "svelte" })],
-  // },
+  }), icon(), mdx()]
 });
