@@ -1,0 +1,10 @@
+---
+import Corpora from "../../../contents/Corpora.astro";
+import { LOCALES } from "../../../lib/i18n";
+
+export function getStaticPaths() {
+  return LOCALES.map((locale) => ({ params: { locale } }));
+}
+---
+
+<Corpora />

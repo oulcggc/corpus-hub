@@ -1,4 +1,6 @@
 ---
+import { localePath } from "../lib/i18n";
+import { languageTag } from "../paraglide/runtime";
 import Layout from "../layouts/Layout.astro";
 
 import * as m from "../paraglide/messages";
@@ -15,7 +17,7 @@ const corpora = await getCorpora();
     {
       corpora.map((corpus) => (
         <li>
-          <a href={`/corpora/${corpus.id}`}>{corpus.name.en}</a>
+          <a href={localePath(languageTag(), `corpora/${corpus.id}`)}>{corpus.name.en}</a>
         </li>
       ))
     }

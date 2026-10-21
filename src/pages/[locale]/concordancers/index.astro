@@ -1,0 +1,10 @@
+---
+import Concordancers from "../../../contents/Concordancers.astro";
+import { LOCALES } from "../../../lib/i18n";
+
+export function getStaticPaths() {
+  return LOCALES.map((locale) => ({ params: { locale } }));
+}
+---
+
+<Concordancers />
