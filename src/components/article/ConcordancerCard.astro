@@ -3,9 +3,8 @@ import Card from "../ConcordancerCard.astro";
 
 const { id } = Astro.props;
 
-import { db } from "astro:db";
 import { getConcordancer } from "../../data";
-const concordancer = await getConcordancer(db, id);
+const concordancer = await getConcordancer(id);
 ---
 
 {
