@@ -1,12 +1,19 @@
 ---
 import { Icon } from "astro-icon/components";
 import * as m from "../../paraglide/messages";
+import type { Locale } from "../../lib/i18n";
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
 ---
 
 <button
   id="favourite-button"
   type="button"
-  aria-label={m.like()}
+  aria-label={m.like({}, { locale })}
   aria-pressed="false"
   class="border border-gray-200 dark:border-gray-800 rounded-full p-2 disabled:cursor-default"
 >
