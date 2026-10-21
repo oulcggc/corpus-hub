@@ -5,7 +5,7 @@
   "datasets": "Datasets",
   "dictionaries": "Dictionaries",
   "slogan": "The Corpus of All Corpora",
-  "description": "<code>CorpusHub</code> is aiming to be a community-contributed meta-database of all natural language resources, including  <strong>concordancers</strong>, <strong>corpora</strong>, <strong>dictionaries</strong>, <strong>databases</strong>, <strong>databases</strong>, <strong>texts</strong> and other language resources of either major or minor languages, for ease of access and use by the academic community.",
+  "description": "<code>CorpusHub</code> is a community-maintained directory of language resources — <strong>concordancers</strong>, <strong>corpora</strong>, <strong>dictionaries</strong>, and <strong>datasets</strong> — for major and minor languages alike.",
   "welcome": "Welcome to {name}",
   "concordancersDesc": "A concordancer can show word usage in context, often with search.",
   "corporaDesc": "A corpus is a collection of texts, often with metadata and annotations.",
