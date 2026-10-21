@@ -1,9 +1,9 @@
 import { defineConfig } from "astro/config";
-import tailwind from "@astrojs/tailwind";
 import paraglide from "@inlang/paraglide-astro";
 import icon from "astro-icon";
 
 import mdx from "@astrojs/mdx";
+import tailwindcss from "@tailwindcss/vite";
 
 // https://astro.build/config
 export default defineConfig({
@@ -11,8 +11,11 @@ export default defineConfig({
     locales: ["en", "ja", "zh"],
     defaultLocale: "en"
   },
-  integrations: [tailwind(), paraglide({
+  integrations: [paraglide({
     project: "./project.inlang",
     outdir: "./src/paraglide"
-  }), icon(), mdx()]
+  }), icon(), mdx()],
+  vite: {
+    plugins: [tailwindcss()],
+  },
 });
