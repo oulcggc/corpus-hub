@@ -1,6 +1,6 @@
 {
   "$schema": "https://inlang.com/schema/inlang-message-format",
-  "concordancers": "語料索引",
+  "concordancers": "語料索引工具",
   "corpora": "語料庫",
   "datasets": "數據集",
   "dictionaries": "詞典",
