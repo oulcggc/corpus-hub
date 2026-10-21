@@ -1,51 +1,77 @@
 import { getCollection, getEntry, type CollectionEntry } from "astro:content";
 
+type Resource = CollectionEntry<"resources">;
+type Tool = CollectionEntry<"tools">;
+
 async function getAuthor(id: string): Promise<Author> {
-  const entry = await getEntry("authors", id);
-  if (!entry) throw new Error(`Unknown author: ${id}`);
-  return entry.data;
+  const entry = await getEntry("organizations", id);
+  if (!entry) throw new Error(`Unknown organization: ${id}`);
+  const { name, abbr, link, location } = entry.data;
+  return { name, abbr: abbr ?? name, link, location };
 }
 
-async function toCorpus(entry: CollectionEntry<"corpora">): Promise<Corpus> {
-  const { author, ...data } = entry.data;
-  return { id: entry.id, ...data, author: await getAuthor(author.id) };
-}
-
-async function toConcordancer(
-  entry: CollectionEntry<"concordancers">,
-): Promise<Concordancer> {
-  const { author, corpora, ...data } = entry.data;
+async function toCorpus(entry: Resource): Promise<Corpus> {
+  const { langs, name, abbr, organization, link, modality, period, tags } =
+    entry.data;
   return {
     id: entry.id,
-    ...data,
-    author: await getAuthor(author.id),
+    lang: langs[0]!,
+    name,
+    abbr: abbr ?? name,
+    author: await getAuthor(organization.id),
+    link,
+    tags: [...(modality ? [modality] : []), ...(period ?? []), ...tags],
+  };
+}
+
+async function toConcordancer(entry: Tool): Promise<Concordancer> {
+  const { langs, name, abbr, organization, link, access, serves } = entry.data;
+  return {
+    id: entry.id,
+    lang: langs[0]!,
+    name,
+    abbr: abbr ?? name,
+    author: await getAuthor(organization.id),
+    link,
+    usage: {
+      online: access.delivery === "web",
+      free: access.cost !== "paid",
+      freemium: access.cost === "freemium",
+      registration: access.registration !== "none",
+      application: access.registration === "application",
+    },
     corpora: await Promise.all(
-      corpora.map(async ({ id }) => {
-        const corpus = await getEntry("corpora", id);
-        if (!corpus) throw new Error(`Unknown corpus: ${id}`);
-        return toCorpus(corpus);
+      serves.map(async ({ id }) => {
+        const resource = await getEntry("resources", id);
+        if (!resource) throw new Error(`Unknown resource: ${id}`);
+        return toCorpus(resource);
       }),
     ),
   };
 }
 
+const corpusEntries = async () =>
+  (await getCollection("resources")).filter((r) => r.data.kind === "corpus");
+const concordancerEntries = async () =>
+  (await getCollection("tools")).filter((t) => t.data.kind === "concordancer");
+
 async function concordancerIdsOf(corpusId: string): Promise<string[]> {
-  return (await getCollection("concordancers"))
-    .filter((c) => c.data.corpora.some(({ id }) => id === corpusId))
+  return (await concordancerEntries())
+    .filter((c) => c.data.serves.some(({ id }) => id === corpusId))
     .map((c) => c.id);
 }
 
 export async function getConcordancers(
   limit: number | undefined = undefined,
 ): Promise<Concordancer[]> {
-  const entries = (await getCollection("concordancers")).slice(0, limit);
+  const entries = (await concordancerEntries()).slice(0, limit);
   return Promise.all(entries.map(toConcordancer));
 }
 
 export async function getCorpora(
   limit: number | undefined = undefined,
 ): Promise<(Corpus & { concordancerIds: string[] })[]> {
-  const entries = (await getCollection("corpora")).slice(0, limit);
+  const entries = (await corpusEntries()).slice(0, limit);
   return Promise.all(
     entries.map(async (entry) => ({
       ...(await toCorpus(entry)),
@@ -57,12 +83,17 @@ export async function getCorpora(
 export async function getCorpus(
   id: string,
 ): Promise<(Corpus & { concordancerIds: string[] }) | null> {
-  const entry = await getEntry("corpora", id);
-  if (!entry) return null;
-  return { ...(await toCorpus(entry)), concordancerIds: await concordancerIdsOf(id) };
+  const entry = await getEntry("resources", id);
+  if (!entry || entry.data.kind !== "corpus") return null;
+  return {
+    ...(await toCorpus(entry)),
+    concordancerIds: await concordancerIdsOf(id),
+  };
 }
 
 export async function getConcordancer(id: string): Promise<Concordancer | null> {
-  const entry = await getEntry("concordancers", id);
-  return entry ? toConcordancer(entry) : null;
+  const entry = await getEntry("tools", id);
+  return entry && entry.data.kind === "concordancer"
+    ? toConcordancer(entry)
+    : null;
 }
