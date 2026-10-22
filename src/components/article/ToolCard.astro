@@ -1,9 +1,9 @@
 ---
 import { getEntry } from "astro:content";
-import CatalogCard from "../CatalogCard.astro";
-import { resolveTool } from "../../lib/catalog";
-import { toolCard } from "../../lib/display";
-import type { Locale } from "../../lib/i18n";
+import CatalogCard from "@components/CatalogCard.astro";
+import { resolveTool } from "@lib/catalog";
+import { toolCard } from "@lib/display";
+import type { Locale } from "@lib/i18n";
 
 interface Props {
   id: string;

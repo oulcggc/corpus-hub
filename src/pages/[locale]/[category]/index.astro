@@ -1,15 +1,15 @@
 ---
-import Layout from "../../../layouts/Layout.astro";
-import CatalogCard from "../../../components/CatalogCard.astro";
-import * as m from "../../../paraglide/messages";
-import { LOCALES, type Locale } from "../../../lib/i18n";
+import Layout from "@layouts/Layout.astro";
+import CatalogCard from "@components/CatalogCard.astro";
+import * as m from "@paraglide/messages";
+import { LOCALES, type Locale } from "@lib/i18n";
 import {
   CATEGORIES,
   getResourcesByKind,
   getToolsByKind,
   type Category,
-} from "../../../lib/catalog";
-import { resourceCard, toolCard, type CardProps } from "../../../lib/display";
+} from "@lib/catalog";
+import { resourceCard, toolCard, type CardProps } from "@lib/display";
 
 export function getStaticPaths() {
   return LOCALES.flatMap((locale) =>
