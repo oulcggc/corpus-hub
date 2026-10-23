@@ -86,6 +86,20 @@ export const labelAnnotation = (v: string, l: Locale) =>
 export const labelTag = (v: string, l: Locale) => label(TAG_LABELS, v, l);
 export const labelAccess = (v: string, l: Locale) => label(ACCESS_LABELS, v, l);
 
+/** Every text form of an entry, for the list pages' client-side filter. */
+export function searchText(
+  entry: ResolvedResource | ResolvedTool,
+): string {
+  const values = [
+    entry.id,
+    ...Object.values(entry.data.name),
+    ...Object.values(entry.data.abbr ?? {}),
+    ...Object.values(entry.organization.data.name),
+    ...Object.values(entry.organization.data.abbr ?? {}),
+  ];
+  return values.filter(Boolean).join(" ").toLowerCase();
+}
+
 export interface CardProps {
   locale: Locale;
   title: string;
