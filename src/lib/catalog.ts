@@ -21,6 +21,7 @@ export const CATEGORIES = {
   dictionaries: { collection: "resources", kinds: ["dictionary"] },
   archives: { collection: "resources", kinds: ["text-archive"] },
   concordancers: { collection: "tools", kinds: ["concordancer"] },
+  tools: { collection: "tools", kinds: ["converter", "analyzer"] },
 } as const;
 
 export type Category = keyof typeof CATEGORIES;
