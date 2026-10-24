@@ -1,7 +1,7 @@
-import { externalAction } from "./service";
 import * as m from "../paraglide/messages";
 import { pickLocalized, nativeForm, localePath, type Locale } from "./i18n";
 import type { ResolvedResource, ResolvedTool, Tool } from "./catalog";
+import { externalAction } from "./service";
 
 const KIND_TO_CATEGORY: Record<string, string> = {
   corpus: "corpora",
