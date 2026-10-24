@@ -1,0 +1,5 @@
+kind: dataset
+langs: [ja]
+name:
+  ja: 資料横断的な漢字音・漢語音データベース （日本漢字音）
+link: https://dhsjr.w.waseda.jp/
