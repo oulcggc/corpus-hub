@@ -5,3 +5,5 @@ name:
 link: http://mhdb.mh.sinica.edu.tw/
 description:
   ja: 収録されている英華字典の全文検索
+  en: "Full-text search of the English–Chinese dictionaries in its collection."
+  zh: "可全文檢索所收錄的英華字典。"
