@@ -1,5 +1,6 @@
 ---
 import { getCollection, render } from "astro:content";
+import { groupArticleVersions } from "../../../lib/articles";
 import Layout from "../../../layouts/Layout.astro";
 import * as m from "../../../paraglide/messages";
 import VisitorCounter from "../../../components/VisitorCounter.astro";
@@ -9,18 +10,23 @@ import type { CollectionEntry } from "astro:content";
 
 export async function getStaticPaths() {
   const articles = await getCollection("articles");
+  const groups = groupArticleVersions(articles);
   return articles.map((article) => ({
-    params: { locale: article.data.locale, id: article.id },
-    props: { article },
+    params: {
+      locale: article.data.locale,
+      id: article.data.slug,
+    },
+    props: { article, versions: groups.get(article.data.slug)!.map((version) => version.data.locale) },
   }));
 }
 
 interface Props {
   article: CollectionEntry<"articles">;
+  versions: Locale[];
 }
 
 const locale = Astro.params.locale as Locale;
-const { article } = Astro.props;
+const { article, versions } = Astro.props;
 const { Content } = await render(article);
 
 const dateFormat = new Intl.DateTimeFormat(locale, {
@@ -35,7 +41,7 @@ const dateFormat = new Intl.DateTimeFormat(locale, {
   title={article.data.title}
   locale={locale}
   description={article.data.description}
-  alternates={[locale]}
+  alternates={versions}
 >
   <main
     class="mx-auto w-[800px] max-w-[calc(100%-2rem)] py-10 text-ink dark:text-white"
