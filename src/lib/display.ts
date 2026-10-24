@@ -50,6 +50,12 @@ const PERIOD_LABELS: Record<string, Labeler> = {
   diachronic: m.periodDiachronic,
 };
 
+const MODALITY_LABELS: Record<string, Labeler> = {
+  written: m.modalityWritten,
+  spoken: m.modalitySpoken,
+  mixed: m.modalityMixed,
+};
+
 const ANNOTATION_LABELS: Record<string, Labeler> = {
   none: m.annotationNone,
   tokenized: m.annotationTokenized,
@@ -81,6 +87,8 @@ function label(map: Record<string, Labeler>, value: string, locale: Locale) {
 }
 
 export const labelPeriod = (v: string, l: Locale) => label(PERIOD_LABELS, v, l);
+export const labelModality = (v: string, l: Locale) =>
+  label(MODALITY_LABELS, v, l);
 export const labelAnnotation = (v: string, l: Locale) =>
   label(ANNOTATION_LABELS, v, l);
 export const labelTag = (v: string, l: Locale) => label(TAG_LABELS, v, l);
