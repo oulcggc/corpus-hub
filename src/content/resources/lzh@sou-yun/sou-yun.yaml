@@ -1,0 +1,7 @@
+kind: dataset
+langs: [lzh]
+name:
+  zh: 捜韵
+link: https://sou-yun.cn/
+description:
+  ja: 詩詞等韻文特化のサイト。詩詞のデータベース、押韻平仄の検索や検出。
