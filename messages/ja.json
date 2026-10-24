@@ -56,5 +56,15 @@
   "tagParallel": "対訳",
   "archives": "資料アーカイブ",
   "tools": "ツール",
-  "viewAll": "すべて見る"
+  "viewAll": "すべて見る",
+  "serviceClosed": "公開終了",
+  "viewArchive": "アーカイブを見る",
+  "functionalAlternative": "同様の用途で使える資料",
+  "officialSuccessor": "公式の後継サービス",
+  "source": "出典",
+  "closedOn": "公開終了日",
+  "closureDateUnknown": "公開終了日は不明です。",
+  "checkedOn": "最終確認日",
+  "archiveCaptured": "アーカイブ保存日",
+  "formerAddress": "旧URL"
 }

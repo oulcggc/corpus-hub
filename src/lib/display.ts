@@ -1,3 +1,4 @@
+import { externalAction } from "./service";
 import * as m from "../paraglide/messages";
 import { pickLocalized, nativeForm, localePath, type Locale } from "./i18n";
 import type { ResolvedResource, ResolvedTool, Tool } from "./catalog";
@@ -105,10 +106,21 @@ export interface CardProps {
   title: string;
   titleNative: string | undefined;
   detailHref: string;
-  externalHref: string;
+  externalHref: string | undefined;
+  externalLabel: string;
+  statusLabel: string | undefined;
   org: { name: string; href: string } | undefined;
   items: { label: string; href: string }[];
   chips: string[];
+}
+
+function actionProps(entry: ResolvedResource | ResolvedTool, locale: Locale) {
+  const action = externalAction(entry.data);
+  return {
+    externalHref: action?.href,
+    externalLabel: action?.kind === "archive" ? m.viewArchive({}, { locale }) : m.visitSite({}, { locale }),
+    statusLabel: entry.data.service ? m.serviceClosed({}, { locale }) : undefined,
+  };
 }
 
 function orgProp(
@@ -139,7 +151,7 @@ export function resourceCard(
       locale,
       `${categoryOf(resource.data.kind)}/${resource.id}`,
     ),
-    externalHref: resource.data.link,
+    ...actionProps(resource, locale),
     org: orgProp(resource, locale),
     items: resource.tools.map((tool) => ({
       label: pickLocalized(
@@ -165,7 +177,7 @@ export function toolCard(tool: ResolvedTool, locale: Locale): CardProps {
       locale,
       `${categoryOf(tool.data.kind)}/${tool.id}`,
     ),
-    externalHref: tool.data.link,
+    ...actionProps(tool, locale),
     org: orgProp(tool, locale),
     items: tool.resources.map((resource) => ({
       label: pickLocalized(

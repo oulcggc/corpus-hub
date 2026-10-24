@@ -7,7 +7,9 @@ interface Props {
   title: string;
   titleNative?: string | undefined;
   detailHref: string;
-  externalHref: string;
+  externalHref?: string | undefined;
+  externalLabel?: string;
+  statusLabel?: string | undefined;
   org?: { name: string; href: string } | undefined;
   items?: { label: string; href: string }[];
   chips?: string[];
@@ -20,6 +22,8 @@ const {
   titleNative,
   detailHref,
   externalHref,
+  externalLabel = m.visitSite({}, { locale }),
+  statusLabel,
   org,
   items = [],
   chips = [],
@@ -32,6 +36,7 @@ const {
     <div class="catalog-head">
       <div class="catalog-identity">
         <a class="title" href={detailHref}>{title}</a>
+        {statusLabel && <span class="text-sm font-semibold">{statusLabel}</span>}
         {
           titleNative && (
             <span class="native">{titleNative}</span>
@@ -72,14 +77,14 @@ const {
       <a class="btn btn-ghost" href={detailHref}>
         {m.viewDetails({}, { locale })}
       </a>
-      <a
+      {externalHref && <a
         class="btn btn-primary"
         href={externalHref}
         target="_blank"
         rel="noopener noreferrer"
       >
-        {m.visitSite({}, { locale })}
-      </a>
+        {externalLabel}
+      </a>}
     </div>
   </div>
 </div>

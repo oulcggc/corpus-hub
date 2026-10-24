@@ -54,5 +54,15 @@
   "archives": "文獻檔案",
   "tools": "工具",
   "viewAll": "查看全部",
-  "like": "喜歡這篇文章"
+  "like": "喜歡這篇文章",
+  "serviceClosed": "已停止服務",
+  "viewArchive": "查看存檔",
+  "functionalAlternative": "功能相近的資源",
+  "officialSuccessor": "官方後繼服務",
+  "source": "來源",
+  "closedOn": "服務終止日期",
+  "closureDateUnknown": "服務終止日期不明。",
+  "checkedOn": "最後查閱日期",
+  "archiveCaptured": "存檔日期",
+  "formerAddress": "原網址"
 }

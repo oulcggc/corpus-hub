@@ -1,0 +1,26 @@
+---
+import type { Service } from "../lib/service";
+import * as m from "../paraglide/messages";
+import { pickLocalized, type Locale } from "../lib/i18n";
+interface Props { service: Service; locale: Locale; originalUrl: string }
+const { service, locale, originalUrl } = Astro.props;
+---
+<aside class="service-notice" aria-label={m.serviceClosed({}, { locale })}>
+  <strong>{m.serviceClosed({}, { locale })}</strong>
+  <p>{pickLocalized(service.note, locale)}</p>
+  <p>{service.closedAt ? <>{m.closedOn({}, { locale })}: <time datetime={service.closedAt}>{service.closedAt}</time></> : m.closureDateUnknown({}, { locale })}
+    {service.closureSource && <>{" "}<a href={service.closureSource}>{m.source({}, { locale })}</a></>}
+  </p>
+  <p>{m.checkedOn({}, { locale })}: <time datetime={service.checkedAt}>{service.checkedAt}</time>
+    {service.archive && <> · {m.archiveCaptured({}, { locale })}: <time datetime={service.archive.capturedAt}>{service.archive.capturedAt}</time></>}
+  </p>
+  <p>{m.formerAddress({}, { locale })}: <span class="former-address">{originalUrl}</span></p>
+</aside>
+<style>
+.service-notice { margin: 1.5rem 0; padding: 1rem 1.25rem; border: 1px solid var(--color-gray-300); border-radius: var(--radius-md); line-height: 1.7; }
+:global(.dark) .service-notice { border-color: var(--color-gray-700); }
+.service-notice p { margin: 0.5rem 0 0; }
+.service-notice time { white-space: nowrap; }
+.service-notice a { text-decoration: underline; }
+.former-address { overflow-wrap: anywhere; }
+</style>

@@ -1,0 +1,29 @@
+---
+import { getEntry, type CollectionEntry } from "astro:content";
+import * as m from "../paraglide/messages";
+import { pickLocalized, localePath, type Locale } from "../lib/i18n";
+import { categoryOf } from "../lib/display";
+interface Props {
+  relations: CollectionEntry<"resources">["data"]["relatedResources"];
+  locale: Locale;
+}
+const { relations, locale } = Astro.props;
+const resolved = await Promise.all(relations.map(async relation => {
+  const entry = await getEntry(relation.resource);
+  if (!entry) throw new Error(`Unknown related resource: ${relation.resource.id}`);
+  return { relation, entry };
+}));
+---
+{resolved.length > 0 && <ul class="resource-relations">
+  {resolved.map(({ relation, entry }) => <li>
+    <strong>{relation.kind === "alternative" ? m.functionalAlternative({}, { locale }) : m.officialSuccessor({}, { locale })}: </strong>
+    <a href={localePath(locale, `${categoryOf(entry.data.kind)}/${entry.id}`)}>{pickLocalized(entry.data.abbr ?? entry.data.name, locale, entry.data.langs[0])}</a>
+    <p>{pickLocalized(relation.note, locale)}{relation.source && <>{" "}<a href={relation.source} target="_blank" rel="noopener noreferrer">{m.source({}, { locale })}</a></>}</p>
+  </li>)}
+</ul>}
+<style>
+.resource-relations { padding: 0; margin: 1rem 0; list-style: none; line-height: 1.7; }
+.resource-relations li { margin: 0.75rem 0; padding-left: 1rem; border-left: 2px solid var(--color-accent); }
+.resource-relations p { margin: 0.25rem 0 0; }
+.resource-relations a { text-decoration: underline; text-underline-offset: 0.18em; }
+</style>
