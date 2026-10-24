@@ -1,0 +1,15 @@
+---
+import { getEntry } from "astro:content";
+
+interface Props {
+  id: string;
+  collection?: "resources" | "tools";
+}
+
+const { id, collection = "resources" } = Astro.props;
+const entry = await getEntry(collection, id);
+if (!entry) throw new Error(`Unknown ${collection} entry in article: ${id}`);
+const href = entry.data.link;
+---
+
+<a href={href}>{href}</a>
