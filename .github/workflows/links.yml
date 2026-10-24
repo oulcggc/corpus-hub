@@ -9,6 +9,8 @@ on:
       - "src/content/**"
       - ".github/workflows/links.yml"
       - "lychee.toml"
+      - "scripts/link-check-targets.ts"
+      - "tests/link-check.test.ts"
 
 permissions:
   contents: read
@@ -21,22 +23,30 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           fetch-depth: 0
+      - uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6 # v2
+      - run: bun test tests/link-check.test.ts
       # A PR is held to the entries it adds or edits; the weekly run covers the whole catalog.
       - id: files
         env:
           BASE_REF: ${{ github.base_ref }}
         run: |
+          mkdir -p lychee
+          : > lychee/targets.txt
           if [ "${{ github.event_name }}" = pull_request ]; then
             files=$(git diff --name-only --diff-filter=AM "origin/$BASE_REF...HEAD" -- 'src/content/**/*.yaml')
-            # lychee-action evals its args; entry paths only ever use these characters.
+            # Entry paths are passed as shell words to the local parser.
             if printf '%s\n' "$files" | grep -qvE '^([A-Za-z0-9@._/-]+)?$'; then
               echo "::error::Unexpected characters in a changed entry path"; exit 1
             fi
-            files=$(echo $files)
+            if [ -n "$files" ]; then
+              bun scripts/link-check-targets.ts $files > lychee/targets.txt
+            fi
           else
-            files='"src/content/**/*.yaml"'
+            bun scripts/link-check-targets.ts > lychee/targets.txt
           fi
-          echo "files=$files" >> "$GITHUB_OUTPUT"
+          if [ -s lychee/targets.txt ]; then
+            echo "files=lychee/targets.txt" >> "$GITHUB_OUTPUT"
+          fi
       - id: lychee
         if: steps.files.outputs.files != ''
         uses: lycheeverse/lychee-action@e7477775783ea5526144ba13e8db5eec57747ce8 # v2.9.0
@@ -45,7 +55,7 @@ jobs:
           output: lychee/report.md
           fail: ${{ github.event_name == 'pull_request' }}
       - name: Track broken links in one issue
-        if: github.event_name != 'pull_request'
+        if: github.event_name != 'pull_request' && steps.files.outputs.files != ''
         env:
           GH_TOKEN: ${{ github.token }}
           EXIT_CODE: ${{ steps.lychee.outputs.exit_code }}
