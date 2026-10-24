@@ -16,10 +16,9 @@ export type ResolvedTool = Tool & {
 
 /** URL segment ↔ catalog kinds. Every category is a filtered view of one collection. */
 export const CATEGORIES = {
-  corpora: { collection: "resources", kinds: ["corpus"] },
+  corpora: { collection: "resources", kinds: ["corpus", "text-archive"] },
   datasets: { collection: "resources", kinds: ["dataset"] },
   dictionaries: { collection: "resources", kinds: ["dictionary"] },
-  archives: { collection: "resources", kinds: ["text-archive"] },
   concordancers: { collection: "tools", kinds: ["concordancer"] },
   tools: { collection: "tools", kinds: ["converter", "analyzer"] },
 } as const;

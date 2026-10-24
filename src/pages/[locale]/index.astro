@@ -5,7 +5,7 @@ import Card from "../../components/Card.astro";
 import CatalogCard from "../../components/CatalogCard.astro";
 import * as m from "../../paraglide/messages";
 import { LOCALES, localePath, type Locale } from "../../lib/i18n";
-import { getToolsByKinds, SUGGEST_URL } from "../../lib/catalog";
+import { CATEGORIES, getToolsByKinds, SUGGEST_URL, type Resource } from "../../lib/catalog";
 import { toolCard } from "../../lib/display";
 
 export function getStaticPaths() {
@@ -23,9 +23,8 @@ const concordancers = await getToolsByKinds(["concordancer"]);
 const allResources = await getCollection("resources");
 const allTools = await getCollection("tools");
 
-const corpusCount = allResources.filter(
-  (r) => r.data.kind === "corpus",
-).length;
+const corpusKinds: readonly Resource["data"]["kind"][] = CATEGORIES.corpora.kinds;
+const corpusCount = allResources.filter((r) => corpusKinds.includes(r.data.kind)).length;
 const languageCount = new Set(
   [...allResources, ...allTools].flatMap((e) => e.data.langs),
 ).size;
