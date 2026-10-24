@@ -33,12 +33,23 @@ const links = [
       >CorpusHub</a
     >
     <button
+      type="button"
       aria-label="Menu"
+      aria-controls="navbar-menu"
       aria-expanded="false"
-      class="md:hidden p-2"
+      class="group md:hidden p-2"
       id="navigation-toggle"
     >
-      <Icon name="hugeicons:menu-01" class="w-6 h-6" />
+      <Icon
+        name="hugeicons:menu-01"
+        class="w-6 h-6 group-aria-expanded:hidden"
+        aria-hidden="true"
+      />
+      <Icon
+        name="hugeicons:cancel-01"
+        class="hidden w-6 h-6 group-aria-expanded:block"
+        aria-hidden="true"
+      />
     </button>
   </div>
   <div
