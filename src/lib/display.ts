@@ -6,7 +6,7 @@ const KIND_TO_CATEGORY: Record<string, string> = {
   corpus: "corpora",
   dataset: "datasets",
   dictionary: "dictionaries",
-  "text-archive": "archives",
+  "text-archive": "corpora",
   concordancer: "concordancers",
   converter: "tools",
   analyzer: "tools",
