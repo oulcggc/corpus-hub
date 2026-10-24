@@ -1,3 +1,4 @@
+import { languageName, languagePath } from "./languages";
 import * as m from "../paraglide/messages";
 import { pickLocalized, nativeForm, localePath, type Locale } from "./i18n";
 import type { ResolvedResource, ResolvedTool, Tool } from "./catalog";
@@ -19,8 +20,11 @@ export function categoryOf(kind: string): string {
 }
 
 export function languageNames(langs: string[], locale: Locale): string[] {
-  const names = new Intl.DisplayNames([locale], { type: "language" });
-  return langs.map((lang) => names.of(lang) ?? lang);
+  return langs.map((lang) => languageName(lang, locale));
+}
+
+export function languagePaths(langs: string[], locale: Locale): string[] {
+  return langs.map((lang) => languageNames(languagePath(lang), locale).join(" › "));
 }
 
 export function accessChips(access: Tool["data"]["access"], locale: Locale): string[] {
