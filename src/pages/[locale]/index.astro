@@ -1,12 +1,12 @@
 ---
 import { getCollection } from "astro:content";
-import Layout from "../../layouts/Layout.astro";
-import Card from "../../components/Card.astro";
-import CatalogCard from "../../components/CatalogCard.astro";
-import * as m from "../../paraglide/messages";
-import { LOCALES, localePath, type Locale } from "../../lib/i18n";
-import { getToolsByKinds } from "../../lib/catalog";
-import { toolCard } from "../../lib/display";
+import Layout from "@layouts/Layout.astro";
+import Card from "@components/Card.astro";
+import CatalogCard from "@components/CatalogCard.astro";
+import * as m from "@paraglide/messages";
+import { LOCALES, localePath, type Locale } from "@lib/i18n";
+import { getToolsByKinds } from "@lib/catalog";
+import { toolCard } from "@lib/display";
 
 export function getStaticPaths() {
   return LOCALES.map((locale) => ({ params: { locale } }));
