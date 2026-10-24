@@ -2,6 +2,7 @@
 import { Icon } from "astro-icon/components";
 ---
 
+<div class="flex md:order-2">
 <button
   id="theme-toggle"
   type="button"
@@ -11,6 +12,7 @@ import { Icon } from "astro-icon/components";
   <Icon name="hugeicons:moon-02" class="w-5 h-5 dark:hidden" />
   <Icon name="hugeicons:sun-03" class="w-5 h-5 hidden dark:block text-yellow-300" />
 </button>
+</div>
 
 <script is:inline>
   document.getElementById("theme-toggle").addEventListener("click", () => {
