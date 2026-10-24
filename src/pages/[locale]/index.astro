@@ -1,5 +1,6 @@
 ---
 import { getCollection } from "astro:content";
+import { articlePath, articlesForLocale } from "../../lib/articles";
 import Layout from "../../layouts/Layout.astro";
 import Card from "../../components/Card.astro";
 import CatalogCard from "../../components/CatalogCard.astro";
@@ -21,19 +22,7 @@ const [beforeWelcome, afterWelcome] = m
 
 const concordancers = await getToolsByKinds(["concordancer"]);
 
-const slugOf = (id: string) => id.replace(/^[a-z]{2}\//, "");
-const allArticles = await getCollection("articles");
-const bySlug = new Map<string, typeof allArticles>();
-for (const article of allArticles) {
-  const slug = slugOf(article.id);
-  bySlug.set(slug, [...(bySlug.get(slug) ?? []), article]);
-}
-const articles = [...bySlug.values()]
-  .map(
-    (versions) =>
-      versions.find((a) => a.data.locale === locale) ?? versions[0]!,
-  )
-  .sort((a, b) => b.data.published.valueOf() - a.data.published.valueOf());
+const articles = articlesForLocale(await getCollection("articles"), locale);
 
 const languageBadge = (articleLocale: string) =>
   articleLocale === locale
@@ -81,10 +70,7 @@ const categories = [
             {articles.map((article) => (
               <li class="text-center">
                 <a
-                  href={localePath(
-                    article.data.locale,
-                    `articles/${slugOf(article.id)}`,
-                  )}
+                  href={articlePath(article)}
                   class="text-2xl font-bold text-gradient"
                 >
                   {article.data.title}
