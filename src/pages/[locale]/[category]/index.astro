@@ -118,19 +118,18 @@ const SUGGEST_URL = "https://github.com/oulcggc/corpus-hub/issues/new";
           <FilterBar locale={locale} facets={facets} />
           <div
             class="grid gap-4"
-            style="grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));"
+            style="grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));"
           >
             {rows.map(({ card, text, facets: rowFacets }) => (
-              <div
+              <CatalogCard
+                {...card}
                 data-entry
                 data-text={text}
                 data-facet-lang={(rowFacets.lang ?? []).join(" ")}
                 data-facet-period={(rowFacets.period ?? []).join(" ")}
                 data-facet-tag={(rowFacets.tag ?? []).join(" ")}
                 data-facet-access={(rowFacets.access ?? []).join(" ")}
-              >
-                <CatalogCard {...card} />
-              </div>
+              />
             ))}
           </div>
         </>
