@@ -4,7 +4,7 @@
   "corpora": "語料庫",
   "datasets": "數據集",
   "dictionaries": "詞典",
-  "slogan": "語料庫的語料庫",
+  "slogan": "語料庫之庫",
   "description": "<code>CorpusHub</code>是一個由社群維護的語言資源目錄，收錄<strong>語料索引工具</strong>、<strong>語料庫</strong>、<strong>詞典</strong>、<strong>數據集</strong>等資源，大語言與少數語言皆在收錄範圍。",
   "welcome": "歡迎來到{name}",
   "concordancersDesc": "語料索引工具可在語境中檢索並顯示詞語用例。",
