@@ -22,6 +22,7 @@
   "suggest": "Suggest a resource",
   "languages": "Languages",
   "organization": "Provider",
+  "citation": "Citation",
   "tags": "Tags",
   "period": "Period",
   "access": "Access",
@@ -35,6 +36,9 @@
   "accessAccount": "Account required",
   "accessApplication": "Application required",
   "notFound": "Page not found",
+  "search": "Search",
+  "clear": "Clear",
+  "noResults": "No matches",
   "periodContemporary": "Contemporary",
   "periodModern": "Modern",
   "periodEarlyModern": "Early modern",
@@ -50,5 +54,6 @@
   "tagMiddleJapanese": "Middle Japanese",
   "tagClassicalJapanese": "Classical Japanese",
   "tagParallel": "Parallel",
-  "archives": "Text archives"
+  "archives": "Text archives",
+  "tools": "Tools"
 }

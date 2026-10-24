@@ -5,7 +5,7 @@ import Card from "@components/Card.astro";
 import CatalogCard from "@components/CatalogCard.astro";
 import * as m from "@paraglide/messages";
 import { LOCALES, localePath, type Locale } from "@lib/i18n";
-import { getToolsByKind } from "@lib/catalog";
+import { getToolsByKinds } from "@lib/catalog";
 import { toolCard } from "@lib/display";
 
 export function getStaticPaths() {
@@ -19,7 +19,7 @@ const [beforeWelcome, afterWelcome] = m
   .welcome({ name: "{name}" }, { locale })
   .split("{name}");
 
-const concordancers = await getToolsByKind("concordancer");
+const concordancers = await getToolsByKinds(["concordancer"]);
 const articles = (await getCollection("articles")).sort(
   (a, b) => b.data.published.valueOf() - a.data.published.valueOf(),
 );

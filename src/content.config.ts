@@ -32,7 +32,9 @@ const resources = defineCollection({
     langs: z.array(z.string()).min(1),
     name: localized,
     abbr: localized.optional(),
-    organization: reference("organizations"),
+    organization: reference("organizations").optional(),
+    creator: z.string().optional(),
+    description: localized.optional(),
     link: z.url(),
     tags: z.array(z.string()).default([]),
     period: z
@@ -69,7 +71,9 @@ const tools = defineCollection({
     langs: z.array(z.string()).min(1),
     name: localized,
     abbr: localized.optional(),
-    organization: reference("organizations"),
+    organization: reference("organizations").optional(),
+    creator: z.string().optional(),
+    description: localized.optional(),
     link: z.url(),
     access: z.object({
       delivery: z.enum(["web", "download"]),
