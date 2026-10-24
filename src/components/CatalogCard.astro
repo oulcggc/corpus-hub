@@ -12,6 +12,7 @@ interface Props {
   creator?: string | undefined;
   items?: { label: string; href: string }[];
   chips?: string[];
+  [attribute: `data-${string}`]: string | boolean | undefined;
 }
 
 const {
@@ -24,10 +25,11 @@ const {
   creator,
   items = [],
   chips = [],
+  ...dataAttributes
 } = Astro.props;
 ---
 
-<div class="catalog-card">
+<div {...dataAttributes} class="catalog-card">
   <div class="catalog-card-inner">
     <div class="catalog-head">
       <div class="catalog-identity">
