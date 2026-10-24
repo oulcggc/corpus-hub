@@ -6,6 +6,7 @@ export interface Facet {
   key: string;
   label: string;
   options: { value: string; label: string }[];
+  groups?: { label: string; options: { value: string; label: string }[] }[];
 }
 
 interface Props {
@@ -38,6 +39,11 @@ const { locale, facets } = Astro.props;
         <option value="">{facet.label}</option>
         {facet.options.map(({ value, label }) => (
           <option value={value}>{label}</option>
+        ))}
+        {facet.groups?.map(({ label, options }) => (
+          <optgroup label={label}>
+            {options.map(({ value, label }) => <option value={value}>{label}</option>)}
+          </optgroup>
         ))}
       </select>
     ))
