@@ -1,5 +1,6 @@
 ---
 import { getCollection } from "astro:content";
+import { articlePath, articlesForLocale } from "../../lib/articles";
 import Layout from "../../layouts/Layout.astro";
 import Card from "../../components/Card.astro";
 import CatalogCard from "../../components/CatalogCard.astro";
@@ -35,19 +36,7 @@ const stats = [
   { value: languageCount, label: m.languages({}, { locale }) },
 ];
 
-const slugOf = (id: string) => id.replace(/^[a-z]{2}\//, "");
-const allArticles = await getCollection("articles");
-const bySlug = new Map<string, typeof allArticles>();
-for (const article of allArticles) {
-  const slug = slugOf(article.id);
-  bySlug.set(slug, [...(bySlug.get(slug) ?? []), article]);
-}
-const articles = [...bySlug.values()]
-  .map(
-    (versions) =>
-      versions.find((a) => a.data.locale === locale) ?? versions[0]!,
-  )
-  .sort((a, b) => b.data.published.valueOf() - a.data.published.valueOf());
+const articles = articlesForLocale(await getCollection("articles"), locale);
 
 const languageBadge = (articleLocale: string) =>
   articleLocale === locale
@@ -133,10 +122,7 @@ const SUGGEST_URL = "https://github.com/oulcggc/corpus-hub/issues/new";
             {articles.map((article) => (
               <li class="featured-card">
                 <a
-                  href={localePath(
-                    article.data.locale,
-                    `articles/${slugOf(article.id)}`,
-                  )}
+                  href={articlePath(article)}
                 >
                   <span class="flex flex-wrap items-center gap-2">
                     <span class="text-gradient text-xl font-bold md:text-2xl">
