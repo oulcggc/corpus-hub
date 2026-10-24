@@ -8,6 +8,7 @@ import {
   CATEGORIES,
   getResourcesByKinds,
   getToolsByKinds,
+  SUGGEST_URL,
   type Category,
 } from "../../../lib/catalog";
 import {
@@ -103,7 +104,6 @@ const titles: Record<Category, string> = {
   tools: m.tools({}, { locale }),
 };
 
-const SUGGEST_URL = "https://github.com/oulcggc/corpus-hub/issues/new";
 ---
 
 <Layout title={titles[category]} locale={locale}>
