@@ -41,6 +41,6 @@ organization or resource fails the build.
 
 Each article declares `locale` and `slug` in its frontmatter. Translations share the same slug; filenames and folders do not determine the public URL. For example, `locale: ja` and `slug: research/漢語` produce `/ja/articles/research/漢語/`. Renaming the content file leaves this URL unchanged.
 
-Slugs are NFC-normalized URL paths. Empty segments, `.`/`..`, whitespace, control characters, backslashes, percent escapes, query strings, and fragments are rejected. Duplicate locale/slug pairs fail the build. Article links encode each path segment.
+Slugs are NFC-normalized paths made of letters, combining marks, numbers, hyphens, and underscores, with `/` between nonempty segments. This excludes reserved URL punctuation, file extensions such as `.html`, traversal, whitespace, and malformed Unicode. Duplicate locale/slug pairs fail the build. Article links encode each path segment.
 
 The homepage selects the requested language when available, then the first available language in `LOCALES` order (English, Japanese, Chinese). Language alternates include only existing translations.

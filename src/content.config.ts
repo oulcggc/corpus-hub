@@ -95,7 +95,7 @@ const articles = defineCollection({
   schema: z.object({
     title: z.string(),
     locale: z.enum(LOCALES),
-    slug: z.string().refine(isArticleSlug, "Use an NFC URL path without empty segments, traversal, whitespace, escapes, query, or fragment"),
+    slug: z.string().refine(isArticleSlug, "Use an NFC path of letters, numbers, hyphens, or underscores with nonempty segments"),
     description: z.string().optional(),
     published: z.coerce.date(),
     updated: z.coerce.date().optional(),

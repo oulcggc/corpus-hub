@@ -10,7 +10,7 @@ export function isArticleSlug(slug: string): boolean {
   return (
     slug.length > 0 &&
     slug === slug.normalize("NFC") &&
-    !/[\s\p{Cc}\p{Cf}\\%?#]/u.test(slug) &&
+    /^[\p{L}\p{M}\p{N}_/-]+$/u.test(slug) &&
     slug.split("/").every((part) => part !== "" && part !== "." && part !== "..")
   );
 }
