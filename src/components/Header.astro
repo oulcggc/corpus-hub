@@ -1,23 +1,37 @@
 ---
-import { localePath, type Locale } from "../lib/i18n";
 import { Icon } from "astro-icon/components";
-import LanguagePicker from "./LanguagePicker.astro";
-import ThemeSwitcher from "./ThemeSwitch.astro";
 import * as m from "../paraglide/messages";
+import { localePath, type Locale } from "../lib/i18n";
+import LanguagePicker from "./LanguagePicker.astro";
+import ThemeSwitch from "./ThemeSwitch.astro";
 
 interface Props {
   locale: Locale;
 }
 
 const { locale } = Astro.props;
+
+const links = [
+  {
+    path: localePath(locale, "concordancers"),
+    name: m.concordancers({}, { locale }),
+  },
+  { path: localePath(locale, "corpora"), name: m.corpora({}, { locale }) },
+  { path: localePath(locale, "datasets"), name: m.datasets({}, { locale }) },
+  {
+    path: localePath(locale, "dictionaries"),
+    name: m.dictionaries({}, { locale }),
+  },
+];
 ---
 
 <header
-  class="p-6 align-middle flex justify-between md:justify-normal items-center text-[#020305] dark:text-white transition-colors gap-4
-    md:flex-row flex-col"
+  class="p-6 flex flex-col md:flex-row items-center gap-4 text-ink dark:text-white"
 >
   <div class="flex justify-between items-center w-full md:w-auto">
-    <a href={localePath(locale)} class="font-black text-current">CorpusHub</a>
+    <a href={localePath(locale)} class="font-black text-lg text-current"
+      >CorpusHub</a
+    >
     <button
       type="button"
       aria-label="Menu"
@@ -40,37 +54,20 @@ const { locale } = Astro.props;
   </div>
   <div
     id="navbar-menu"
-    class="hidden md:flex flex-col md:flex-row justify-between gap-6 md:gap-4 w-full md:p-0 p-6"
+    class="hidden md:flex flex-col md:flex-row md:items-center md:justify-between gap-6 md:gap-4 w-full"
   >
-    <nav class="flex w-full items-center gap-4 flex-wrap md:flex-nowrap">
-      <ul class="contents list-none m-0 p-0">
+    <nav class="flex w-full items-center">
+      <ul
+        class="flex items-center gap-4 list-none m-0 p-0 flex-wrap md:flex-nowrap"
+      >
         {
-          [
-            {
-              path: localePath(locale, "concordancers"),
-              name: m.concordancers({}, { locale }),
-            },
-            {
-              path: localePath(locale, "corpora"),
-              name: m.corpora({}, { locale }),
-            },
-            {
-              path: localePath(locale, "datasets"),
-              name: m.datasets({}, { locale }),
-            },
-            {
-              path: localePath(locale, "dictionaries"),
-              name: m.dictionaries({}, { locale }),
-            },
-          ].map(({ path, name }) => (
-            <li>
+          links.map(({ path, name }) => (
+            <li class="leading-none">
               <a
                 href={path}
                 class:list={[
-                  {
-                    active: path === Astro.url.pathname,
-                  },
-                  "hover:underline",
+                  { "font-bold": Astro.url.pathname === path },
+                  "hover:underline whitespace-nowrap",
                 ]}
               >
                 {name}
@@ -80,27 +77,19 @@ const { locale } = Astro.props;
         }
       </ul>
     </nav>
-    <div class="flex gap-4 items-center justify-end flex-wrap md:flex-nowrap">
-      <ThemeSwitcher />
+    <div class="flex gap-3 items-center justify-end shrink-0">
       <LanguagePicker locale={locale} />
+      <ThemeSwitch />
     </div>
   </div>
-
-  <script is:inline>
-    document
-      .getElementById("navigation-toggle")
-      .addEventListener("click", () => {
-        const menu = document.getElementById("navbar-menu");
-        const toggle = document.getElementById("navigation-toggle");
-        const open = menu.classList.toggle("hidden") === false;
-        menu.classList.toggle("flex", open);
-        toggle.setAttribute("aria-expanded", String(open));
-      });
-  </script>
 </header>
 
-<style>
-  nav ul li a.active {
-    font-weight: bold;
-  }
-</style>
+<script is:inline>
+  document.getElementById("navigation-toggle").addEventListener("click", () => {
+    const menu = document.getElementById("navbar-menu");
+    const toggle = document.getElementById("navigation-toggle");
+    const open = menu.classList.toggle("hidden") === false;
+    menu.classList.toggle("flex", open);
+    toggle.setAttribute("aria-expanded", String(open));
+  });
+</script>

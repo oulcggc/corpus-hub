@@ -1,14 +1,15 @@
+// @ts-check
 import { defineConfig } from "astro/config";
-import icon from "astro-icon";
-
 import mdx from "@astrojs/mdx";
+import sitemap from "@astrojs/sitemap";
+import icon from "astro-icon";
 import tailwindcss from "@tailwindcss/vite";
 import { paraglideVitePlugin } from "@inlang/paraglide-js";
 
-// https://astro.build/config
 export default defineConfig({
   site: "https://corpora.oulcggc.org",
-  integrations: [icon(), mdx()],
+  output: "static",
+  integrations: [icon(), mdx(), sitemap()],
   vite: {
     plugins: [
       tailwindcss(),

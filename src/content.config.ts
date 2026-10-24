@@ -32,7 +32,9 @@ const resources = defineCollection({
     langs: z.array(z.string()).min(1),
     name: localized,
     abbr: localized.optional(),
-    organization: reference("organizations"),
+    organization: reference("organizations").optional(),
+    creator: z.string().optional(),
+    description: localized.optional(),
     link: z.url(),
     tags: z.array(z.string()).default([]),
     period: z
@@ -69,7 +71,9 @@ const tools = defineCollection({
     langs: z.array(z.string()).min(1),
     name: localized,
     abbr: localized.optional(),
-    organization: reference("organizations"),
+    organization: reference("organizations").optional(),
+    creator: z.string().optional(),
+    description: localized.optional(),
     link: z.url(),
     access: z.object({
       delivery: z.enum(["web", "download"]),
@@ -80,5 +84,28 @@ const tools = defineCollection({
   }),
 });
 
+const articles = defineCollection({
+  loader: glob({
+    pattern: "**/*.mdx",
+    base: "./src/content/articles",
+    generateId: keepPathAsId,
+  }),
+  schema: z.object({
+    title: z.string(),
+    locale: z.enum(["en", "ja", "zh"]),
+    description: z.string().optional(),
+    published: z.coerce.date(),
+    updated: z.coerce.date().optional(),
+    authors: z
+      .array(
+        z.object({
+          name: z.string(),
+          link: z.url().optional(),
+          avatar: z.string().optional(),
+        }),
+      )
+      .default([]),
+  }),
+});
 
-export const collections = { organizations, resources, tools };
+export const collections = { organizations, resources, tools, articles };

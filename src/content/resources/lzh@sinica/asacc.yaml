@@ -1,0 +1,5 @@
+kind: corpus
+langs: [lzh]
+name:
+  zh: 中央研究院古漢語文献語料庫
+link: https://ancientchinese.ling.sinica.edu.tw/ASACC_index/

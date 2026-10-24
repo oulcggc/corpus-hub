@@ -1,19 +1,25 @@
 ---
 import "../styles/global.css";
-import Footer from "../components/Footer.astro";
 import Header from "../components/Header.astro";
-
+import Footer from "../components/Footer.astro";
 import { LOCALES, type Locale } from "../lib/i18n";
 
 interface Props {
   title: string;
   locale: Locale;
+  description?: string;
+  alternates?: readonly Locale[];
   top?: boolean;
 }
 
-const { title: rawTitle, locale, top } = Astro.props;
-
-const title = rawTitle + (top ? "" : " | CorpusHub");
+const {
+  title: rawTitle,
+  locale,
+  description,
+  alternates = LOCALES,
+  top,
+} = Astro.props;
+const title = top ? rawTitle : `${rawTitle} | CorpusHub`;
 
 const localized = /^\/[a-z]{2}(\/|$)/.test(Astro.url.pathname);
 const pathSuffix = Astro.url.pathname.replace(/^\/[a-z]{2}(\/|$)/, "");
@@ -23,6 +29,7 @@ const pathSuffix = Astro.url.pathname.replace(/^\/[a-z]{2}(\/|$)/, "");
 <html lang={locale}>
   <head>
     <meta charset="UTF-8" />
+    {description && <meta name="description" content={description} />}
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
@@ -33,7 +40,7 @@ const pathSuffix = Astro.url.pathname.replace(/^\/[a-z]{2}(\/|$)/, "");
     <meta name="generator" content={Astro.generator} />
     {
       localized &&
-        LOCALES.map((l) => (
+        alternates.map((l) => (
           <link
             rel="alternate"
             hreflang={l}

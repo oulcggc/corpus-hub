@@ -1,0 +1,7 @@
+kind: dictionary
+langs: [zh, en]
+name:
+  zh: 英華字典資料庫
+link: http://mhdb.mh.sinica.edu.tw/
+description:
+  ja: 収録されている英華字典の全文検索
