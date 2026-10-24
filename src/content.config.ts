@@ -2,6 +2,8 @@ import { serviceSchema, resourceRelationSchema } from "./lib/service";
 import { defineCollection, reference } from "astro:content";
 import { z } from "astro/zod";
 import { glob } from "astro/loaders";
+import { isArticleSlug } from "./lib/articles";
+import { LOCALES } from "./lib/i18n";
 
 const keepPathAsId = ({ entry }: { entry: string }) =>
   entry.replace(/\.[^.]+$/, "");
@@ -96,7 +98,8 @@ const articles = defineCollection({
   }),
   schema: z.object({
     title: z.string(),
-    locale: z.enum(["en", "ja", "zh"]),
+    locale: z.enum(LOCALES),
+    slug: z.string().refine(isArticleSlug, "Use an NFC path of letters, numbers, hyphens, or underscores with nonempty segments"),
     description: z.string().optional(),
     published: z.coerce.date(),
     updated: z.coerce.date().optional(),
