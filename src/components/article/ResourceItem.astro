@@ -35,18 +35,20 @@ const detailHref = localePath(locale, `${categoryOf(entry.data.kind)}/${entry.id
 ---
 
 <li class="resource-item">
-  <p class="m-0">
-    {entry.data.creator && <span>{entry.data.creator} — </span>}
-    <a href={detailHref} class="font-bold">{name}</a>
-    {native && <span class="text-gray-500 dark:text-gray-400">（{native}）</span>}
+  <p class="m-0 flex flex-wrap items-baseline gap-x-3 gap-y-1">
+    <span>
+      {entry.data.creator && <span>{entry.data.creator} — </span>}
+      <a href={detailHref} class="font-bold">{name}</a>
+      {native && <span class="text-gray-500 dark:text-gray-400">（{native}）</span>}
+    </span>
     <a
       href={entry.data.link}
       target="_blank"
       rel="noopener noreferrer"
-      class="whitespace-nowrap text-sm"
+      class="inline-flex items-center gap-1.5 whitespace-nowrap text-sm"
     >
-      <Icon name="hugeicons:link-square-02" class="inline w-4 h-4 align-text-bottom" />
-      {new URL(entry.data.link).hostname}
+      <Icon name="hugeicons:link-square-02" class="size-4 shrink-0" aria-hidden="true" />
+      <span>{new URL(entry.data.link).hostname}</span>
     </a>
   </p>
   {
