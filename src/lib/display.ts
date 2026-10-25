@@ -114,6 +114,7 @@ export interface CardProps {
   externalLabel: string;
   statusLabel: string | undefined;
   org: { name: string; href: string } | undefined;
+  creator: string | undefined;
   items: { label: string; href: string }[];
   chips: string[];
 }
@@ -157,6 +158,7 @@ export function resourceCard(
     ),
     ...actionProps(resource, locale),
     org: orgProp(resource, locale),
+    creator: resource.data.creator,
     items: resource.tools.map((tool) => ({
       label: pickLocalized(
         tool.data.abbr ?? tool.data.name,
@@ -183,6 +185,7 @@ export function toolCard(tool: ResolvedTool, locale: Locale): CardProps {
     ),
     ...actionProps(tool, locale),
     org: orgProp(tool, locale),
+    creator: tool.data.creator,
     items: tool.resources.map((resource) => ({
       label: pickLocalized(
         resource.data.name,

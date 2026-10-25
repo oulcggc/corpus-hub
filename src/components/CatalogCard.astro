@@ -11,6 +11,7 @@ interface Props {
   externalLabel?: string;
   statusLabel?: string | undefined;
   org?: { name: string; href: string } | undefined;
+  creator?: string | undefined;
   items?: { label: string; href: string }[];
   chips?: string[];
   [attribute: `data-${string}`]: string | boolean | undefined;
@@ -25,6 +26,7 @@ const {
   externalLabel = m.visitSite({}, { locale }),
   statusLabel,
   org,
+  creator,
   items = [],
   chips = [],
   ...dataAttributes
@@ -43,10 +45,12 @@ const {
           )
         }
         {
-          org && (
+          org ? (
             <a class="provider" href={org.href}>
               {org.name}
             </a>
+          ) : (
+            creator && <span class="provider">{creator}</span>
           )
         }
       </div>
@@ -158,14 +162,14 @@ const {
   :global(.dark) .provider {
     color: var(--color-gray-400);
   }
-  .provider:hover,
-  .provider:focus-visible {
+  a.provider:hover,
+  a.provider:focus-visible {
     color: var(--color-accent-dark);
     text-decoration: underline;
     text-underline-offset: 0.18em;
   }
-  :global(.dark) .provider:hover,
-  :global(.dark) .provider:focus-visible {
+  :global(.dark) a.provider:hover,
+  :global(.dark) a.provider:focus-visible {
     color: var(--color-accent-light);
   }
   .chips {
