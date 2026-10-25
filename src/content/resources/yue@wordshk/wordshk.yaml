@@ -1,0 +1,14 @@
+# Sources: https://words.hk/base/about/ ; https://words.hk/zidin/%E7%94%A8
+kind: dictionary
+langs: [yue]
+name:
+  zh: 粵典
+  en: words.hk Cantonese Dictionary
+  ja: 粵典
+link: https://words.hk/
+period: [contemporary]
+modality: written
+description:
+  en: "A community-written dictionary of Hong Kong Cantonese, with Jyutping readings, Cantonese definitions, English glosses, and usage examples."
+  ja: "利用者が共同で編纂する香港広東語の辞書。粤拼による発音表記、広東語の語釈、英訳、用例を掲載しています。"
+  zh: "由使用者共同編纂的香港粵語詞典，提供粵拼、粵語釋義、英譯與用例。"

@@ -1,0 +1,19 @@
+# Source: https://github.com/fcbond/hkcancor/blob/master/README.md
+kind: corpus
+langs: [yue]
+name:
+  zh: 香港粵語語料庫
+  en: Hong Kong Cantonese Corpus
+  ja: 香港広東語コーパス
+abbr:
+  en: HKCanCor
+link: https://github.com/fcbond/hkcancor
+period: [contemporary]
+modality: spoken
+annotation: [tokenized, pos]
+license: CC BY 4.0
+citation: "Luke, K. K., & Wong, M. L. Y. (2015). The Hong Kong Cantonese Corpus: Design and Uses. Journal of Chinese Linguistics Monograph Series, 25, 312–333."
+description:
+  en: "Transcripts of Cantonese conversations, radio programmes, and a monologue recorded in 1997–1998, with word segmentation, part-of-speech tags, and Jyutping. Transcripts can be downloaded; only sample audio is available."
+  ja: "1997～1998年に収録した広東語の会話、ラジオ番組、独話の書き起こし。分かち書き・品詞タグ・粤拼を付したテキストをダウンロードできます。音声の公開はサンプルのみです。"
+  zh: "收錄1997至1998年的粵語會話、電台節目與一段獨白，轉寫文本附分詞、詞性標記及粵拼，可供下載。音訊僅公開部分樣本。"

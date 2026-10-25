@@ -1,0 +1,16 @@
+# Sources: https://www.chant.org/download/instruction_v3.pdf ; https://cup.cuhk.edu.hk/chinesepress/promotion/chant2019.pdf
+kind: corpus
+langs: [lzh]
+name:
+  zh: 漢達文庫
+  en: CHANT Chinese Ancient Texts Database
+  ja: 漢達文庫
+abbr:
+  en: CHANT
+link: https://www.chant.org/
+period: [classical]
+modality: written
+description:
+  en: "The Chinese University of Hong Kong's collections of ancient Chinese texts, including oracle-bone and bronze inscriptions, bamboo and silk manuscripts, and transmitted works. Full-text search is available by collection. Access requires a subscription login."
+  ja: "香港中文大学による古代中国語の文献データベース。甲骨文・金文・簡帛資料や伝世文献を収録し、資料群ごとに全文検索できます。利用には購読契約とログインが必要です。"
+  zh: "香港中文大學建置的古漢語文獻資料庫，收錄甲骨文、金文、簡帛與傳世典籍，可按資料庫全文檢索。須訂閱並登入使用。"
