@@ -1,4 +1,7 @@
 ---
+import { externalAction } from "@lib/service";
+import ResourceRelations from "@components/ResourceRelations.astro";
+import * as m from "@paraglide/messages";
 import { getEntry } from "astro:content";
 import { Icon } from "astro-icon/components";
 import {
@@ -20,6 +23,7 @@ const { id, collection = "resources", locale } = Astro.props;
 const entry = await getEntry(collection, id);
 if (!entry) throw new Error(`Unknown ${collection} entry in article: ${id}`);
 
+const action = externalAction(entry.data);
 const nativeLang = entry.data.langs[0];
 const name = pickLocalized(entry.data.name, locale, nativeLang);
 const native = nativeForm(entry.data.name, name, nativeLang);
@@ -40,15 +44,16 @@ const detailHref = localePath(locale, `${categoryOf(entry.data.kind)}/${entry.id
       <a href={detailHref} class="font-bold">{name}</a>
       {native && <span class="text-gray-500 dark:text-gray-400">（{native}）</span>}
     </span>
-    <a
-      href={entry.data.link}
+    {entry.data.service && <span class="text-sm font-semibold">{m.serviceClosed({}, { locale })}</span>}
+    {action && <a
+      href={action.href}
       target="_blank"
       rel="noopener noreferrer"
       class="inline-flex items-baseline gap-1.5 whitespace-nowrap text-sm"
     >
       <Icon name="hugeicons:link-square-02" class="size-4 shrink-0 self-center" aria-hidden="true" />
-      <span>{new URL(entry.data.link).hostname}</span>
-    </a>
+      <span>{action.kind === "archive" ? m.viewArchive({}, { locale }) : new URL(action.href).hostname}</span>
+    </a>}
   </p>
   {
     entry.data.creator && (
@@ -64,4 +69,5 @@ const detailHref = localePath(locale, `${categoryOf(entry.data.kind)}/${entry.id
       </p>
     )
   }
+  {"relatedResources" in entry.data && <ResourceRelations relations={entry.data.relatedResources} locale={locale} />}
 </li>

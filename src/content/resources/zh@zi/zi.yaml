@@ -1,0 +1,13 @@
+# Source: https://zi.tools/
+kind: dictionary
+langs: [zh, lzh, yue, ja, ko, vi]
+name:
+  zh: 字統网
+  en: zi.tools
+link: https://zi.tools/
+period: [diachronic]
+modality: written
+description:
+  en: "Look up CJK characters by their components and structure, with character readings and encodings."
+  ja: "漢字を部品や構造から検索し、字音や文字コードを調べられます。"
+  zh: "可依部件與結構查字，並查閱字音及文字編碼。"

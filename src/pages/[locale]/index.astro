@@ -6,7 +6,7 @@ import Card from "@components/Card.astro";
 import CatalogCard from "@components/CatalogCard.astro";
 import * as m from "@paraglide/messages";
 import { LOCALES, localePath, type Locale } from "@lib/i18n";
-import { CATEGORIES, getToolsByKinds, type Resource } from "@lib/catalog";
+import { CATEGORIES, getToolsByKinds, SUGGEST_URL, type Resource } from "@lib/catalog";
 import { toolCard } from "@lib/display";
 
 export function getStaticPaths() {
@@ -72,7 +72,6 @@ const categories = [
   },
 ];
 
-const SUGGEST_URL = "https://github.com/oulcggc/corpus-hub/issues/new";
 ---
 
 <Layout title={`${beforeWelcome}${APP_NAME}${afterWelcome}`} locale={locale} top>

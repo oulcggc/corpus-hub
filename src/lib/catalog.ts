@@ -76,3 +76,7 @@ export async function getToolsByKinds(
   );
   return Promise.all(entries.map(resolveTool));
 }
+
+/** Issue form for proposing a catalog entry (.github/ISSUE_TEMPLATE/suggest-resource.yml). */
+export const SUGGEST_URL =
+  "https://github.com/oulcggc/corpus-hub/issues/new?template=suggest-resource.yml";

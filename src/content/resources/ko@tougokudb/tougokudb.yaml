@@ -3,3 +3,21 @@ langs: [ko]
 name:
   ja: 東国正韻データベース
 link: http://www.tougokudb.jp/index.html
+service:
+  status: closed
+  checkedAt: "2026-10-24"
+  archive:
+    url: https://web.archive.org/web/20210127005342/http://tougokudb.jp/
+    capturedAt: "2021-01-27"
+  note:
+    en: The original website is no longer available. Archived pages preserve the home page and search forms; the search service has not been verified to work in the archive.
+    ja: 元のサイトは利用できなくなっています。トップページと検索フォームはアーカイブに残っていますが、検索機能が使えることは確認できていません。
+    zh: 原網站已無法使用。首頁與搜尋表單仍有存檔，但尚未確認存檔中的搜尋功能能否運作。
+relatedResources:
+  - kind: alternative
+    resource: ko@kohico/kohico
+    source: https://kohico.kr/국어사/1448_동국정운_1
+    note:
+      en: KOHICO provides transcriptions of all six volumes of Dongguk Jeongun, including Hangul readings and tone marks. No official succession from this database has been established.
+      ja: KOHICOでは『東國正韻』全6巻の翻刻を、ハングル表記と声調記号を含めて閲覧できます。このデータベースの公式な後継であることは確認されていません。
+      zh: KOHICO收錄《東國正韻》全六卷的轉寫文本，包含諺文注音與聲調標記。目前未有資料證明它是本資料庫的官方後繼服務。

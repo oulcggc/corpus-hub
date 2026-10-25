@@ -7,8 +7,11 @@ interface Props {
   title: string;
   titleNative?: string | undefined;
   detailHref: string;
-  externalHref: string;
+  externalHref?: string | undefined;
+  externalLabel?: string;
+  statusLabel?: string | undefined;
   org?: { name: string; href: string } | undefined;
+  creator?: string | undefined;
   items?: { label: string; href: string }[];
   chips?: string[];
   [attribute: `data-${string}`]: string | boolean | undefined;
@@ -20,7 +23,10 @@ const {
   titleNative,
   detailHref,
   externalHref,
+  externalLabel = m.visitSite({}, { locale }),
+  statusLabel,
   org,
+  creator,
   items = [],
   chips = [],
   ...dataAttributes
@@ -32,16 +38,19 @@ const {
     <div class="catalog-head">
       <div class="catalog-identity">
         <a class="title" href={detailHref}>{title}</a>
+        {statusLabel && <span class="text-sm font-semibold">{statusLabel}</span>}
         {
           titleNative && (
             <span class="native">{titleNative}</span>
           )
         }
         {
-          org && (
+          org ? (
             <a class="provider" href={org.href}>
               {org.name}
             </a>
+          ) : (
+            creator && <span class="provider">{creator}</span>
           )
         }
       </div>
@@ -72,14 +81,14 @@ const {
       <a class="btn btn-ghost" href={detailHref}>
         {m.viewDetails({}, { locale })}
       </a>
-      <a
+      {externalHref && <a
         class="btn btn-primary"
         href={externalHref}
         target="_blank"
         rel="noopener noreferrer"
       >
-        {m.visitSite({}, { locale })}
-      </a>
+        {externalLabel}
+      </a>}
     </div>
   </div>
 </div>
@@ -153,14 +162,14 @@ const {
   :global(.dark) .provider {
     color: var(--color-gray-400);
   }
-  .provider:hover,
-  .provider:focus-visible {
+  a.provider:hover,
+  a.provider:focus-visible {
     color: var(--color-accent-dark);
     text-decoration: underline;
     text-underline-offset: 0.18em;
   }
-  :global(.dark) .provider:hover,
-  :global(.dark) .provider:focus-visible {
+  :global(.dark) a.provider:hover,
+  :global(.dark) a.provider:focus-visible {
     color: var(--color-accent-light);
   }
   .chips {

@@ -1,6 +1,8 @@
+import { languageName, languagePath } from "@lib/languages";
 import * as m from "@paraglide/messages";
 import { pickLocalized, nativeForm, localePath, type Locale } from "@lib/i18n";
 import type { ResolvedResource, ResolvedTool, Tool } from "@lib/catalog";
+import { externalAction } from "@lib/service";
 
 const KIND_TO_CATEGORY: Record<string, string> = {
   corpus: "corpora",
@@ -19,8 +21,11 @@ export function categoryOf(kind: string): string {
 }
 
 export function languageNames(langs: string[], locale: Locale): string[] {
-  const names = new Intl.DisplayNames([locale], { type: "language" });
-  return langs.map((lang) => names.of(lang) ?? lang);
+  return langs.map((lang) => languageName(lang, locale));
+}
+
+export function languagePaths(langs: string[], locale: Locale): string[] {
+  return langs.map((lang) => languageNames(languagePath(lang), locale).join(" › "));
 }
 
 export function accessChips(access: Tool["data"]["access"], locale: Locale): string[] {
@@ -48,6 +53,12 @@ const PERIOD_LABELS: Record<string, Labeler> = {
   "early-modern": m.periodEarlyModern,
   classical: m.periodClassical,
   diachronic: m.periodDiachronic,
+};
+
+const MODALITY_LABELS: Record<string, Labeler> = {
+  written: m.modalityWritten,
+  spoken: m.modalitySpoken,
+  mixed: m.modalityMixed,
 };
 
 const ANNOTATION_LABELS: Record<string, Labeler> = {
@@ -81,6 +92,8 @@ function label(map: Record<string, Labeler>, value: string, locale: Locale) {
 }
 
 export const labelPeriod = (v: string, l: Locale) => label(PERIOD_LABELS, v, l);
+export const labelModality = (v: string, l: Locale) =>
+  label(MODALITY_LABELS, v, l);
 export const labelAnnotation = (v: string, l: Locale) =>
   label(ANNOTATION_LABELS, v, l);
 export const labelTag = (v: string, l: Locale) => label(TAG_LABELS, v, l);
@@ -105,10 +118,22 @@ export interface CardProps {
   title: string;
   titleNative: string | undefined;
   detailHref: string;
-  externalHref: string;
+  externalHref: string | undefined;
+  externalLabel: string;
+  statusLabel: string | undefined;
   org: { name: string; href: string } | undefined;
+  creator: string | undefined;
   items: { label: string; href: string }[];
   chips: string[];
+}
+
+function actionProps(entry: ResolvedResource | ResolvedTool, locale: Locale) {
+  const action = externalAction(entry.data);
+  return {
+    externalHref: action?.href,
+    externalLabel: action?.kind === "archive" ? m.viewArchive({}, { locale }) : m.visitSite({}, { locale }),
+    statusLabel: entry.data.service ? m.serviceClosed({}, { locale }) : undefined,
+  };
 }
 
 function orgProp(
@@ -139,8 +164,9 @@ export function resourceCard(
       locale,
       `${categoryOf(resource.data.kind)}/${resource.id}`,
     ),
-    externalHref: resource.data.link,
+    ...actionProps(resource, locale),
     org: orgProp(resource, locale),
+    creator: resource.data.creator,
     items: resource.tools.map((tool) => ({
       label: pickLocalized(
         tool.data.abbr ?? tool.data.name,
@@ -165,8 +191,9 @@ export function toolCard(tool: ResolvedTool, locale: Locale): CardProps {
       locale,
       `${categoryOf(tool.data.kind)}/${tool.id}`,
     ),
-    externalHref: tool.data.link,
+    ...actionProps(tool, locale),
     org: orgProp(tool, locale),
+    creator: tool.data.creator,
     items: tool.resources.map((resource) => ({
       label: pickLocalized(
         resource.data.name,

@@ -1,4 +1,5 @@
 ---
+import { languageFilterTokens, LANGUAGE_PARENTS } from "@lib/languages";
 import Layout from "@layouts/Layout.astro";
 import CatalogCard from "@components/CatalogCard.astro";
 import FilterBar, { type Facet } from "@components/FilterBar.astro";
@@ -8,6 +9,7 @@ import {
   CATEGORIES,
   getResourcesByKinds,
   getToolsByKinds,
+  SUGGEST_URL,
   type Category,
 } from "@lib/catalog";
 import {
@@ -46,7 +48,7 @@ if (spec.collection === "resources") {
     card: resourceCard(r, locale),
     text: searchText(r),
     facets: {
-      lang: r.data.langs,
+      lang: languageFilterTokens(r.data.langs),
       period: r.data.period ?? [],
       tag: r.data.tags,
     },
@@ -56,7 +58,7 @@ if (spec.collection === "resources") {
     card: toolCard(t, locale),
     text: searchText(t),
     facets: {
-      lang: t.data.langs,
+      lang: languageFilterTokens(t.data.langs),
       access: [
         t.data.access.delivery,
         t.data.access.cost,
@@ -85,15 +87,24 @@ const labelFor = (key: string, value: string): string => {
 const facets: Facet[] = Object.keys(FACET_LABELS)
   .map((key) => {
     const values = [...new Set(rows.flatMap((row) => row.facets[key] ?? []))];
-    return {
-      key,
-      label: FACET_LABELS[key],
-      options: values
-        .map((value) => ({ value, label: labelFor(key, value) }))
-        .sort((a, b) => a.label.localeCompare(b.label, locale)),
-    };
+    const options = values
+      .map((value) => ({ value, label: labelFor(key, value) }))
+      .sort((a, b) => a.label.localeCompare(b.label, locale));
+    if (key === "lang" && values.includes("zh")) {
+      const children = options.filter(({ value }) => LANGUAGE_PARENTS[value] === "zh");
+      return {
+        key,
+        label: FACET_LABELS[key],
+        options: options.filter(({ value }) => value !== "zh" && !LANGUAGE_PARENTS[value]),
+        groups: [{
+          label: languageNames(["zh"], locale)[0],
+          options: [{ value: "zh", label: m.chineseAllVarieties({}, { locale }) }, ...children],
+        }],
+      };
+    }
+    return { key, label: FACET_LABELS[key], options };
   })
-  .filter((facet) => facet.options.length >= 2);
+  .filter((facet) => facet.options.length + (facet.groups?.reduce((n, group) => n + group.options.length, 0) ?? 0) >= 2);
 
 const titles: Record<Category, string> = {
   corpora: m.corpora({}, { locale }),
@@ -103,7 +114,6 @@ const titles: Record<Category, string> = {
   tools: m.tools({}, { locale }),
 };
 
-const SUGGEST_URL = "https://github.com/oulcggc/corpus-hub/issues/new";
 ---
 
 <Layout title={titles[category]} locale={locale}>
