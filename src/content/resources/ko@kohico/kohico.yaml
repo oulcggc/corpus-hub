@@ -1,0 +1,15 @@
+kind: corpus
+langs: [ko]
+name:
+  ko: 한국어 역사 자료 말뭉치
+  en: Korean Historical Corpus
+  ja: 韓国語歴史資料コーパス
+  zh: 韓語歷史資料語料庫
+abbr:
+  en: KOHICO
+link: https://kohico.kr/
+period: [diachronic]
+description:
+  en: A corpus of historical Korean texts, including transcriptions of all six volumes of Dongguk Jeongun with Hangul readings and tone marks. Access conditions vary by collection. Outside Korea, access is limited to Japan and Taiwan; researchers elsewhere can contact the operator.
+  ja: 朝鮮語の歴史資料を収めたコーパス。『東國正韻』全6巻の翻刻にはハングル表記と声調記号が含まれる。利用条件は資料群によって異なる。韓国外からのアクセスは日本と台湾に限られ、その他の地域から研究目的で利用する場合は運営者への連絡が必要。
+  zh: 收錄韓語歷史文獻的語料庫，包含《東國正韻》全六卷的轉寫文本、諺文注音與聲調標記。各資料集的使用條件有所不同。韓國境外僅開放日本及臺灣存取；其他地區的研究者可聯絡網站管理者。

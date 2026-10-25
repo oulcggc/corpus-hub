@@ -1,4 +1,7 @@
 ---
+import ServiceNotice from "../../../components/ServiceNotice.astro";
+import ResourceRelations from "../../../components/ResourceRelations.astro";
+import { externalAction } from "../../../lib/service";
 import { getCollection } from "astro:content";
 import Layout from "../../../layouts/Layout.astro";
 import * as m from "../../../paraglide/messages";
@@ -58,6 +61,7 @@ interface Props {
 const locale = Astro.params.locale as Locale;
 const { entry, type } = Astro.props;
 
+const action = externalAction(entry.data);
 const nativeLang = entry.data.langs[0];
 const name = pickLocalized(entry.data.name, locale, nativeLang);
 const nameNative = nativeForm(entry.data.name, name, nativeLang);
@@ -179,6 +183,9 @@ if (type === "resource") {
       )
     }
 
+    {entry.data.service && <ServiceNotice service={entry.data.service} originalUrl={entry.data.link} locale={locale} />}
+    {resourceData && <ResourceRelations relations={resourceData.relatedResources} locale={locale} />}
+
     <dl class="entry-meta">
       {
         entry.organization && orgAbbr && (
@@ -228,14 +235,14 @@ if (type === "resource") {
       )
     }
 
-    <a
+    {action && <a
       class="btn btn-primary px-6"
-      href={entry.data.link}
+      href={action.href}
       target="_blank"
       rel="noopener noreferrer"
     >
-      {m.visitSite({}, { locale })}
-    </a>
+      {action.kind === "archive" ? m.viewArchive({}, { locale }) : m.visitSite({}, { locale })}
+    </a>}
 
     {
       jsonLd && (

@@ -1,3 +1,4 @@
+import { serviceSchema, resourceRelationSchema } from "./lib/service";
 import { defineCollection, reference } from "astro:content";
 import { z } from "astro/zod";
 import { glob } from "astro/loaders";
@@ -38,6 +39,8 @@ const resources = defineCollection({
     creator: z.string().optional(),
     description: localized.optional(),
     link: z.url(),
+    service: serviceSchema.optional(),
+    relatedResources: z.array(resourceRelationSchema(reference("resources"))).default([]),
     tags: z.array(z.string()).default([]),
     period: z
       .array(
@@ -77,6 +80,7 @@ const tools = defineCollection({
     creator: z.string().optional(),
     description: localized.optional(),
     link: z.url(),
+    service: serviceSchema.optional(),
     access: z.object({
       delivery: z.enum(["web", "download"]),
       cost: z.enum(["free", "freemium", "paid"]),
