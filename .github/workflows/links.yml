@@ -1,0 +1,72 @@
+name: Link check
+
+on:
+  schedule:
+    - cron: "0 3 * * 1"
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - "src/content/**"
+      - ".github/workflows/links.yml"
+      - "lychee.toml"
+      - "scripts/link-check-targets.ts"
+      - "tests/link-check.test.ts"
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  links:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+      - uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6 # v2
+      - run: bun test tests/link-check.test.ts
+      # A PR is held to the entries it adds or edits; the weekly run covers the whole catalog.
+      - id: files
+        env:
+          BASE_REF: ${{ github.base_ref }}
+        run: |
+          mkdir -p lychee
+          : > lychee/targets.txt
+          if [ "${{ github.event_name }}" = pull_request ]; then
+            files=$(git diff --name-only --diff-filter=AM "origin/$BASE_REF...HEAD" -- 'src/content/**/*.yaml')
+            # Entry paths are passed as shell words to the local parser.
+            if printf '%s\n' "$files" | grep -qvE '^([A-Za-z0-9@._/-]+)?$'; then
+              echo "::error::Unexpected characters in a changed entry path"; exit 1
+            fi
+            if [ -n "$files" ]; then
+              bun scripts/link-check-targets.ts $files > lychee/targets.txt
+            fi
+          else
+            bun scripts/link-check-targets.ts > lychee/targets.txt
+          fi
+          if [ -s lychee/targets.txt ]; then
+            echo "files=lychee/targets.txt" >> "$GITHUB_OUTPUT"
+          fi
+      - id: lychee
+        if: steps.files.outputs.files != ''
+        uses: lycheeverse/lychee-action@e7477775783ea5526144ba13e8db5eec57747ce8 # v2.9.0
+        with:
+          args: --config lychee.toml --no-progress ${{ steps.files.outputs.files }}
+          output: lychee/report.md
+          fail: ${{ github.event_name == 'pull_request' }}
+      - name: Track broken links in one issue
+        if: github.event_name != 'pull_request' && steps.files.outputs.files != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+          EXIT_CODE: ${{ steps.lychee.outputs.exit_code }}
+        run: |
+          issue=$(gh issue list --label link-rot --state open --json number --jq '.[0].number // empty')
+          if [ "$EXIT_CODE" != 0 ]; then
+            if [ -n "$issue" ]; then
+              gh issue edit "$issue" --body-file lychee/report.md
+            else
+              gh issue create --title "Broken catalog links" --label link-rot --body-file lychee/report.md
+            fi
+          elif [ -n "$issue" ]; then
+            gh issue close "$issue" --comment "All catalog links resolve as of run ${{ github.run_id }}."
+          fi
