@@ -18,13 +18,13 @@ This guide collects search sites for research on Japanese vocabulary and Sino-Ja
 
 ## Finding prior research
 
-<ResourceList locale="en" ids={["zh@cnki/cnki", "zh@cnki/kns"]} />
+<ResourceList locale="en" entries={["zh@cnki/cnki", "zh@cnki/kns"]} />
 
 ## Dictionaries
 
 The following sites help when tracing the sources of Sino-Japanese words.
 
-<ResourceList locale="en" ids={[
+<ResourceList locale="en" entries={[
   "zh@zdic/zdic",
   "zh@zi/zi",
   "zh@moe/variants",
@@ -47,7 +47,7 @@ Note: *四库全书电子版* and *台湾中央研究院网站* can be hard to r
 
 ### Taiwan: Academia Sinica corpora
 
-<ResourceList locale="en" ids={[
+<ResourceList locale="en" entries={[
   "lzh@sinica/akiwi",
   "lzh@sinica/dkiwi",
   "lzh@sinica/pkiwi",
@@ -58,11 +58,11 @@ Note: *四库全书电子版* and *台湾中央研究院网站* can be hard to r
 
 ## Document databases
 
-<ResourceList locale="en" ids={["zh@sinica/mh", "zh@sinica/mhdb"]} />
+<ResourceList locale="en" entries={["zh@sinica/mh", "zh@sinica/mhdb"]} />
 
 ## Search and reference sites
 
-<ResourceList locale="en" ids={[
+<ResourceList locale="en" entries={[
   "lzh@kaom/kaom",
   "zh@fudan/ccdc",
   "lzh@sinica/xiaoxue",
@@ -72,7 +72,7 @@ Note: *四库全书电子版* and *台湾中央研究院网站* can be hard to r
 
 ## Dialects
 
-<ResourceList locale="en" ids={[
+<ResourceList locale="en" entries={[
   "nan@dict/twblg",
   "nan@naer/tggl",
   "hak@dict/hakkadict",
@@ -88,7 +88,7 @@ Note: *四库全书电子版* and *台湾中央研究院网站* can be hard to r
 
 ## Premodern texts and excavated documents
 
-<ResourceList locale="en" ids={[
+<ResourceList locale="en" entries={[
   "lzh@bsm/bsm",
   "lzh@fdgwz/fdgwz",
   "lzh@shuge/shuge",
@@ -104,18 +104,16 @@ Note: *四库全书电子版* and *台湾中央研究院网站* can be hard to r
 
 <ResourceList
   locale="en"
-  ids={[
+  entries={[
     "lzh@sou-yun/sou-yun",
     "lzh@ytenx/ytenx",
     "lzh@suzukish/database",
     "lzh@wiktionary/baxter-sagart",
     "ja@waseda/dhsjr",
-  ]}
-  tools={[
-    "lzh@nk2028/qieyun-autoderiver",
-    "lzh@nk2028/pyanxchet",
-    "lzh@nk2028/qieyun-tools",
-    "lzh@suzukish/inkyo",
+    { id: "lzh@nk2028/qieyun-autoderiver", collection: "tools" },
+    { id: "lzh@nk2028/pyanxchet", collection: "tools" },
+    { id: "lzh@nk2028/qieyun-tools", collection: "tools" },
+    { id: "lzh@suzukish/inkyo", collection: "tools" },
   ]}
 />
 

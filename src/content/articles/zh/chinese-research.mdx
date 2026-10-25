@@ -18,13 +18,13 @@ import ResourceList from '@components/article/ResourceList.astro'
 
 ## 先行研究檢索
 
-<ResourceList locale="zh" ids={["zh@cnki/cnki", "zh@cnki/kns"]} />
+<ResourceList locale="zh" entries={["zh@cnki/cnki", "zh@cnki/kns"]} />
 
 ## 字辭典
 
 查考漢語詞出典時，下列網站可供參考。
 
-<ResourceList locale="zh" ids={[
+<ResourceList locale="zh" entries={[
   "zh@zdic/zdic",
   "zh@zi/zi",
   "zh@moe/variants",
@@ -47,7 +47,7 @@ import ResourceList from '@components/article/ResourceList.astro'
 
 ### 臺灣：中央研究院語料庫
 
-<ResourceList locale="zh" ids={[
+<ResourceList locale="zh" entries={[
   "lzh@sinica/akiwi",
   "lzh@sinica/dkiwi",
   "lzh@sinica/pkiwi",
@@ -58,11 +58,11 @@ import ResourceList from '@components/article/ResourceList.astro'
 
 ## 文獻資料庫
 
-<ResourceList locale="zh" ids={["zh@sinica/mh", "zh@sinica/mhdb"]} />
+<ResourceList locale="zh" entries={["zh@sinica/mh", "zh@sinica/mhdb"]} />
 
 ## 檢索・辭書網站
 
-<ResourceList locale="zh" ids={[
+<ResourceList locale="zh" entries={[
   "lzh@kaom/kaom",
   "zh@fudan/ccdc",
   "lzh@sinica/xiaoxue",
@@ -72,7 +72,7 @@ import ResourceList from '@components/article/ResourceList.astro'
 
 ## 方言
 
-<ResourceList locale="zh" ids={[
+<ResourceList locale="zh" entries={[
   "nan@dict/twblg",
   "nan@naer/tggl",
   "hak@dict/hakkadict",
@@ -88,7 +88,7 @@ import ResourceList from '@components/article/ResourceList.astro'
 
 ## 古籍・出土文獻
 
-<ResourceList locale="zh" ids={[
+<ResourceList locale="zh" entries={[
   "lzh@bsm/bsm",
   "lzh@fdgwz/fdgwz",
   "lzh@shuge/shuge",
@@ -104,18 +104,16 @@ import ResourceList from '@components/article/ResourceList.astro'
 
 <ResourceList
   locale="zh"
-  ids={[
+  entries={[
     "lzh@sou-yun/sou-yun",
     "lzh@ytenx/ytenx",
     "lzh@suzukish/database",
     "lzh@wiktionary/baxter-sagart",
     "ja@waseda/dhsjr",
-  ]}
-  tools={[
-    "lzh@nk2028/qieyun-autoderiver",
-    "lzh@nk2028/pyanxchet",
-    "lzh@nk2028/qieyun-tools",
-    "lzh@suzukish/inkyo",
+    { id: "lzh@nk2028/qieyun-autoderiver", collection: "tools" },
+    { id: "lzh@nk2028/pyanxchet", collection: "tools" },
+    { id: "lzh@nk2028/qieyun-tools", collection: "tools" },
+    { id: "lzh@suzukish/inkyo", collection: "tools" },
   ]}
 />
 

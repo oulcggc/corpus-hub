@@ -16,21 +16,26 @@ interface Props {
   id: string;
   collection?: "resources" | "tools";
   locale: Locale;
+  description?: string | null;
+  creator?: string;
 }
 
-const { id, collection = "resources", locale } = Astro.props;
+const { id, collection = "resources", locale, description: articleDescription, creator: articleCreator } = Astro.props;
 
 const entry = await getEntry(collection, id);
 if (!entry) throw new Error(`Unknown ${collection} entry in article: ${id}`);
 
 const action = externalAction(entry.data);
+const creator = articleCreator ?? entry.data.creator;
 const nativeLang = entry.data.langs[0];
 const name = pickLocalized(entry.data.name, locale, nativeLang);
 const native = nativeForm(entry.data.name, name, nativeLang);
-const description = entry.data.description
-  ? (entry.data.description[locale] ?? entry.data.description["ja"])
-  : undefined;
-const descriptionLang = entry.data.description
+const description = articleDescription !== undefined
+  ? articleDescription
+  : entry.data.description?.[locale] ?? entry.data.description?.["ja"];
+const descriptionLang = articleDescription !== undefined
+  ? locale
+  : entry.data.description
   ? entry.data.description[locale]
     ? locale
     : "ja"
@@ -56,9 +61,9 @@ const detailHref = localePath(locale, `${categoryOf(entry.data.kind)}/${entry.id
     </a>}
   </p>
   {
-    entry.data.creator && (
+    creator && (
       <p class="resource-creator m-0 mt-1 font-serif text-sm text-gray-600 dark:text-gray-400">
-        {entry.data.creator}
+        {creator}
       </p>
     )
   }

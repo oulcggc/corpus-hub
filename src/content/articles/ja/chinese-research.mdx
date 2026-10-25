@@ -12,29 +12,30 @@ authors:
     link: https://yocjyet.dev/
 ---
 import ToolCard from '@components/article/ToolCard.astro'
-import ResourceLink from '@components/article/ResourceLink.astro'
+import ResourceList from '@components/article/ResourceList.astro'
 
 本特集は、日本語語彙研究・漢語研究のために、特に中国で作成されている検索サイトを一望・一覧して容易に検索作業ができるようにするために、関連サイトを収載して一覧にしたものである。
 
 ## 中国語での中国語研究の先行研究を検索するためのサイト
 
-- 中国知网 <ResourceLink id="zh@cnki/cnki" /><br/>
-  キーワードを入力すれば研究雑誌で中国で刊行された論文は基本的には調べられます。
-- 中国知网文献检索 CNKIのCAJ <ResourceLink id="zh@cnki/kns" />
-  登録制の論文検索サイト中国の主要雑誌の全文を収録したデータベースです。
+<ResourceList locale="ja" entries={[
+  "zh@cnki/cnki",
+  "zh@cnki/kns",
+]} />
 
 ## 中国語の辞書・コーパス・資料サイト
 
 ### 辞書・字典
 漢語の出典を調べる場合は以下のサイトが参考になります。
-- 汉典网 <ResourceLink id="zh@zdic/zdic" />
-- 字統网（zi.tools） <ResourceLink id="zh@zi/zi" /><br/>
-  漢字を部品や構造から検索し、字音や文字コードを調べられます。
-- 教育部『異體字字典』 <ResourceLink id="zh@moe/variants" /><br/>
-  漢字の正字と異体字を収録。部首・画数・字形の構造・音から検索できます。
-- 四库全书电子版 <ResourceLink id="lzh@onlinedown/siku" />
-- 台湾中央研究院网站 <ResourceLink id="zh@sinica/mhdb-portal" />
-- 英華字典資料庫 http://mhdb.mh.sinica.edu.tw/<br/>収録されている英華字典の全文検索
+
+<ResourceList locale="ja" entries={[
+  { id: "zh@zdic/zdic", description: null },
+  "zh@zi/zi",
+  "zh@moe/variants",
+  "lzh@onlinedown/siku",
+  "zh@sinica/mhdb-portal",
+  "zh@sinica/ecdict",
+]} />
 
 ※ 「*四库全书电子版*」と「*台湾中央研究院网站*」はつながりにくい場合があります。　
 
@@ -49,88 +50,80 @@ import ResourceLink from '@components/article/ResourceLink.astro'
 
 #### 台湾：中央研究院コーパス
 
-- 中央研究院上古漢語標記語料庫 <ResourceLink id="lzh@sinica/akiwi" />
-- 中央研究院中古漢語標記語料庫 <ResourceLink id="lzh@sinica/dkiwi" />
-- 中央研究院近代漢語標記語料庫 <ResourceLink id="lzh@sinica/pkiwi" />
-- 中央研究院現代漢語標記語料庫 <ResourceLink id="zh@sinica/mkiwi" />
-- 中央研究院古漢語文献語料庫 <ResourceLink id="lzh@sinica/asacc" />
-- 中央研究院中国語話し言葉コーパス <ResourceLink id="zh@sinica/spoken" /><br/>
-  会話、社会音声学調査のインタビュー、幼児の発話、音韻発達の資料を収めています。書き起こしや注釈の内容はコーパスごとに異なります。検索には利用登録が必要で、一部のデータには別途学術利用の許諾が必要です。
+<ResourceList locale="ja" entries={[
+  "lzh@sinica/akiwi",
+  "lzh@sinica/dkiwi",
+  "lzh@sinica/pkiwi",
+  "zh@sinica/mkiwi",
+  "lzh@sinica/asacc",
+  { id: "zh@sinica/spoken", description: "会話、社会音声学調査のインタビュー、幼児の発話、音韻発達の資料を収めています。書き起こしや注釈の内容はコーパスごとに異なります。検索には利用登録が必要で、一部のデータには別途学術利用の許諾が必要です。" },
+]} />
 
 ### 資料データベース
-- 台湾の中央研究院近代史研究所 <ResourceLink id="zh@sinica/mh" /> 
-- 台湾の近代史數位資料庫 http://mhdb.mh.sinica.edu.tw/
+
+<ResourceList locale="ja" entries={[
+  "zh@sinica/mh",
+  "zh@sinica/mhdb",
+]} />
 
 ### 検索・辞書サイト
 
-- 顧國林 - 古音小鏡 <ResourceLink id="lzh@kaom/kaom" /><br/>
-  中国語の専門家も激賞するサイトで、恐らく現在ネット上関係分野の一番豊富な検索ツールです。中国歴史言語学を研究する上で、必要な古典籍などの資料をまとめたサイトで、韻書、字書検索をはじめ、中国方言学、古代音韻（中古音14家、上古音7家の学者の再構音、詩経の押韻資料、日韓越の漢字音）、文字学（簡牘原文）、歴史言語学（同源字典、西蔵、蒙古、満州、侗泰、苗語などの周辺言語）、地名学など様々な分野の資料がこのサイトに蒐集されております。また、IPA Input Method や統計など有用なツールも備わっています。
-- 复旦大学中华文明数据中心・复旦大学东亚语言数据中心 <ResourceLink id="zh@fudan/ccdc" />  <br/>
-  中古音・上古音などはもちろん、方言地図は特色で、ユーザーで作る機能も持っている故、興味深い方言地図が多数存在する。また、言語調査の詳細データもあります。
-- 郭家寶（BYVoid）- 韻典網 <ResourceLink id="lzh@ytenx/ytenx" /> <br/>
-  『廣韻』『中原音韻』 『洪武正韻牋』『 分韻撮要』など音韻学必須古典籍の写真データや再構音があり、検索もとても便利です。
-- 小學堂 <ResourceLink id="lzh@sinica/xiaoxue" /> <br/>
-  臺灣の複数の機関によって創設されたサイトで、文字、音韻、訓詁学資料の検索ができます。
-- 国学大师 <ResourceLink id="zh@guoxuedashi/guoxuedashi" /> <br/>使用には登録が必要。有料無料不明。
-  二万種以上の中国古典籍の集成と六十種辞書（現代辞書から書道字典）で二十万以上の漢字の検索が　できる、中国インターネット上一番豊富な辞書と古典籍サイトです。
-- 漢語多功能字庫 <ResourceLink id="zh@cuhk/lexi-mf" /> 
+<ResourceList locale="ja" entries={[
+  "lzh@kaom/kaom",
+  "zh@fudan/ccdc",
+  "lzh@ytenx/ytenx",
+  "lzh@sinica/xiaoxue",
+  { id: "zh@guoxuedashi/guoxuedashi", description: "使用には登録が必要。有料無料不明。 二万種以上の中国古典籍の集成と六十種辞書（現代辞書から書道字典）で二十万以上の漢字の検索が　できる、中国インターネット上一番豊富な辞書と古典籍サイトです。" },
+  "zh@cuhk/lexi-mf",
+]} />
 
 ### 方言関係
 
-- 臺灣閩南語常用詞辭典 <ResourceLink id="nan@dict/twblg" />  
-- 臺灣台語語料庫應用檢索系統 <ResourceLink id="nan@naer/tggl" /><br/>
-  台湾語の口語転写・教科書・辞書用例・歴史資料を、漢字や台羅で検索できます。一部の用例では音声を直接ダウンロードできます。語料の一括ダウンロードには申請が必要です。
-- 臺灣客家語常用詞辭典  <ResourceLink id="hak@dict/hakkadict" />  
-- 客家委員會 - 客語認證詞彙資料庫 <ResourceLink id="hak@hakka/hakka" />
-- 臺灣客語語料庫 <ResourceLink id="hak@hakka/corpus" /><br/>
-  台湾の客家語六方言の書き言葉・話し言葉を収録し、用例検索やN-gramの照会ができます。語料検索にはログインが必要です。
-- 粵語審音配詞字庫 <ResourceLink id="yue@cuhk/lexi-can" />
-- 粵典 <ResourceLink id="yue@wordshk/wordshk" /><br/>
-  利用者が共同で編纂する香港広東語の辞書。粤拼、広東語の語釈、英訳、用例を掲載しています。
-- 香港広東語コーパス（HKCanCor） <ResourceLink id="yue@hkcancor/hkcancor" /><br/>
-  広東語の会話・ラジオ番組・独話の書き起こし。分かち書き・品詞タグ・粤拼付きのテキストをダウンロードできます。音声の公開はサンプルのみです。
-- 粤拼資料庫 <ResourceLink id="yue@iso10646hk/jyutping" />  
-- 吴音小字典・吴语小词典 <ResourceLink id="wuu@wu-chinese/minidict" />  
-- 東国正韻データベース <ResourceLink id="ko@tougokudb/tougokudb" />
+<ResourceList locale="ja" entries={[
+  "nan@dict/twblg",
+  { id: "nan@naer/tggl", description: "台湾語の口語転写・教科書・辞書用例・歴史資料を、漢字や台羅で検索できます。一部の用例では音声を直接ダウンロードできます。語料の一括ダウンロードには申請が必要です。" },
+  "hak@dict/hakkadict",
+  { id: "hak@hakka/hakka", creator: "客家委員會" },
+  { id: "hak@hakka/corpus", description: "台湾の客家語六方言の書き言葉・話し言葉を収録し、用例検索やN-gramの照会ができます。語料検索にはログインが必要です。" },
+  "yue@cuhk/lexi-can",
+  { id: "yue@wordshk/wordshk", description: "利用者が共同で編纂する香港広東語の辞書。粤拼、広東語の語釈、英訳、用例を掲載しています。" },
+  { id: "yue@hkcancor/hkcancor", description: "広東語の会話・ラジオ番組・独話の書き起こし。分かち書き・品詞タグ・粤拼付きのテキストをダウンロードできます。音声の公開はサンプルのみです。" },
+  "yue@iso10646hk/jyutping",
+  "wuu@wu-chinese/minidict",
+  "ko@tougokudb/tougokudb",
+]} />
 
 ### その他
 
-- 國學大師http://www.guoxuedashi.net/
-- 総合資料サイト。
-- 捜韵<ResourceLink id="lzh@sou-yun/sou-yun" />
-- 詩詞等韻文特化のサイト。詩詞のデータベース、押韻平仄の検索や検出。
-- 韻典網https://ytenx.org/
-- 韻書検索サイト。『広韻』書影あり。上古・中古・近古音の検索。
-- 漢典https://www.zdic.net/
-- 総合辞書サイト。現代中国語情報多め。
-- 武漢大學簡帛研究中心 簡帛網<ResourceLink id="lzh@bsm/bsm" />
-- 復旦大学出土文献与古文字研究中心<ResourceLink id="lzh@fdgwz/fdgwz" />
-- 以觀書法 <ResourceLink id="zh@ygsf/ygsf" />
-- 文津検索 中国国家図書館<ResourceLink id="zh@nlc/nlc" />
-- 書格<ResourceLink id="lzh@shuge/shuge" />
-- 識典古籍 <ResourceLink id="lzh@shidianguji/shidianguji" /><br/>
-  漢籍の閲覧・全文検索サイト。時代や分類で絞り込み、本文と書影を対照できます。
-- 中國哲學書電子化計劃 <ResourceLink id="lzh@ctext/ctext" /><br/>
-  中国古典の全文検索サイト。字書や他の文献の類似箇所、底本の画像も参照できます。
-- 漢達文庫 <ResourceLink id="lzh@cuhk/chant" /><br/>
-  香港中文大学による古代中国語の文献データベース。甲骨文・金文・簡帛資料や伝世文献を全文検索できます。利用には購読契約とログインが必要です。
-- CBETAオンライン版 <ResourceLink id="lzh@cbeta/cbeta" /><br/>
-  漢文仏典の閲覧・全文検索サイト。経典番号や巻次、校勘情報を確認できます。
-
+<ResourceList locale="ja" entries={[
+  { id: "zh@guoxuedashi/guoxuedashi", description: "総合資料サイト。" },
+  "lzh@sou-yun/sou-yun",
+  { id: "lzh@ytenx/ytenx", description: "韻書検索サイト。『広韻』書影あり。上古・中古・近古音の検索。" },
+  "zh@zdic/zdic",
+  "lzh@bsm/bsm",
+  "lzh@fdgwz/fdgwz",
+  "zh@ygsf/ygsf",
+  "zh@nlc/nlc",
+  "lzh@shuge/shuge",
+  "lzh@shidianguji/shidianguji",
+  "lzh@ctext/ctext",
+  { id: "lzh@cuhk/chant", description: "香港中文大学による古代中国語の文献データベース。甲骨文・金文・簡帛資料や伝世文献を全文検索できます。利用には購読契約とログインが必要です。" },
+  "lzh@cbeta/cbeta",
+]} />
 
 ### 音韻（漢字音）
 
-- 捜韵 <ResourceLink id="lzh@sou-yun/sou-yun" />
-  詩詞等韻文特化のサイト。詩詞のデータベース、押韻平仄の検索や検出。
-- 韻典網 https://ytenx.org/
-  韻書検索サイト。『広韻』書影あり。上古・中古・近古音の検索。
-- nk2028 中古音変換　<ResourceLink id="lzh@nk2028/qieyun-autoderiver" collection="tools" />
--	nk2028 自動反切器　<ResourceLink id="lzh@nk2028/pyanxchet" collection="tools" />
--	nk2028 音韻地位查詢器　<ResourceLink id="lzh@nk2028/qieyun-tools" collection="tools" />
--	阪大 鈴木慎吾先生　篇韻データベース<ResourceLink id="lzh@suzukish/database" />
--	Web韻圖（韻鏡）　<ResourceLink id="lzh@suzukish/inkyo" collection="tools" />
-- 原始資料　Baxter-Sagart の上古音再構資料 <ResourceLink id="lzh@wiktionary/baxter-sagart" /> 
-- 資料横断的な漢字音・漢語音データベース （日本漢字音） <ResourceLink id="ja@waseda/dhsjr" />
+<ResourceList locale="ja" entries={[
+  "lzh@sou-yun/sou-yun",
+  { id: "lzh@ytenx/ytenx", description: "韻書検索サイト。『広韻』書影あり。上古・中古・近古音の検索。" },
+  { id: "lzh@nk2028/qieyun-autoderiver", collection: "tools", creator: "nk2028" },
+  { id: "lzh@nk2028/pyanxchet", collection: "tools", creator: "nk2028" },
+  { id: "lzh@nk2028/qieyun-tools", collection: "tools", creator: "nk2028" },
+  { id: "lzh@suzukish/database", description: null, creator: "阪大 鈴木慎吾先生" },
+  { id: "lzh@suzukish/inkyo", collection: "tools", description: null },
+  "lzh@wiktionary/baxter-sagart",
+  "ja@waseda/dhsjr",
+]} />
 
 ## 参考資料
 
