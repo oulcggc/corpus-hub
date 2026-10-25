@@ -1,0 +1,9 @@
+# Link check for catalog entries (.github/workflows/links.yml).
+# Many institutional sites rate-limit or refuse automated clients,
+# so 403 and 429 count as reachable; timeouts and other errors do not.
+accept = ["200..=299", "403", "429"]
+max_retries = 3
+retry_wait_time = 5
+timeout = 30
+max_concurrency = 8
+user_agent = "Mozilla/5.0 (compatible; CorpusHub link check; +https://corpora.oulcggc.org)"
