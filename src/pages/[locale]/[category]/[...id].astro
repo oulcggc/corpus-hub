@@ -20,7 +20,7 @@ import {
   categoryOf,
   labelPeriod,
   labelTag,
-  languageNames,
+  languagePaths,
 } from "../../../lib/display";
 
 export async function getStaticPaths() {
@@ -128,7 +128,7 @@ const citation = resourceData?.citation;
 const rows: { label: string; html?: boolean; value: string }[] = [
   {
     label: m.languages({}, { locale }),
-    value: languageNames(entry.data.langs, locale).join(", "),
+    value: languagePaths(entry.data.langs, locale).join(", "),
   },
 ];
 
