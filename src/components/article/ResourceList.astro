@@ -2,16 +2,23 @@
 import ResourceItem from "@components/article/ResourceItem.astro";
 import type { Locale } from "@lib/i18n";
 
+type ResourceReference = string | {
+  id: string;
+  collection?: "resources" | "tools";
+  description?: string | null;
+  creator?: string;
+};
+
 interface Props {
-  ids: string[];
-  tools?: string[];
+  entries: ResourceReference[];
   locale: Locale;
 }
 
-const { ids = [], tools = [], locale } = Astro.props;
+const { entries, locale } = Astro.props;
 ---
 
 <ul class="not-prose list-none m-0 my-4 p-0 flex flex-col gap-3">
-  {ids.map((id) => <ResourceItem id={id} locale={locale} />)}
-  {tools.map((id) => <ResourceItem id={id} collection="tools" locale={locale} />)}
+  {entries.map((entry) => (
+    <ResourceItem {...typeof entry === "string" ? { id: entry } : entry} locale={locale} />
+  ))}
 </ul>
