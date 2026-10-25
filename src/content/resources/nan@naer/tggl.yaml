@@ -1,0 +1,13 @@
+# Source: https://tggl.naer.edu.tw/instructions
+kind: corpus
+langs: [nan]
+name:
+  zh: 臺灣台語語料庫應用檢索系統
+  en: Taiwanese Hokkien Corpus Search
+  ja: 臺灣台語語料庫應用檢索系統
+link: https://tggl.naer.edu.tw/
+modality: mixed
+description:
+  en: "The National Academy for Educational Research's Taiwanese Hokkien corpus combines speech transcripts, textbooks, dictionary examples, and historical texts. Search in Chinese characters or Tâi-lô and inspect context and collocations. Some examples include downloadable audio; bulk corpus downloads require an application."
+  ja: "台湾の国家教育研究院による台湾語コーパス。音声の書き起こし、教科書、辞書用例、歴史資料を収録しています。漢字・台羅で検索し、文脈や共起語を確認できます。一部の用例では音声を直接ダウンロードできます。語料の一括ダウンロードには申請が必要です。"
+  zh: "國家教育研究院建置的台語語料庫，收錄口語轉寫、教科書、辭典例句與歷史文獻，可用漢字或台羅檢索、查看上下文及搭配詞。部分例句附可直接下載的音檔；整批語料下載須另行申請。"

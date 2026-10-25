@@ -1,0 +1,14 @@
+# Sources: https://corpus.hakka.gov.tw/ ; https://corpus.hakka.gov.tw/corpus/ ; https://language.moe.gov.tw/001/Upload/Files/site_content/M0001/hkknowledge/14/111_031_%E5%AE%A2%E5%AE%B6%E8%AA%9E%E8%AA%9E%E6%96%99%E5%BA%AB%E7%B0%A1%E4%BB%8B%E8%88%87%E9%80%B2%E5%8C%96.pdf
+kind: corpus
+langs: [hak]
+name:
+  zh: 臺灣客語語料庫
+  en: Taiwan Hakka Corpus
+  ja: 臺灣客語語料庫
+link: https://corpus.hakka.gov.tw/
+period: [contemporary]
+modality: mixed
+description:
+  en: "Written and spoken Hakka from Taiwan, covering Sixian, Hailu, Dapu, Raoping, Zhao'an, and Southern Sixian. Search corpus examples and examine recurring word sequences with the n-gram tool. Corpus search requires login."
+  ja: "台湾の客家語の書き言葉・話し言葉を収録。四縣・海陸・大埔・饒平・詔安・南四縣の六つの方言を扱い、用例検索やN-gramによる語の連続の分析ができます。語料検索にはログインが必要です。"
+  zh: "收錄臺灣客語的書面與口語語料，涵蓋四縣、海陸、大埔、饒平、詔安及南四縣六腔，提供用例檢索與N-gram查詢。語料檢索須登入。"

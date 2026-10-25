@@ -1,0 +1,14 @@
+# Sources: https://tmc.ling.sinica.edu.tw/corpus_list_en/ ; https://tmc.ling.sinica.edu.tw/signin_en/ ; https://tmc.ling.sinica.edu.tw/corpus_resource_en/
+kind: corpus
+langs: [zh]
+name:
+  zh: 中央研究院中文口語語料庫
+  en: ILAS Chinese Spoken Language Resources
+  ja: 中央研究院中国語話し言葉コーパス
+link: https://tmc.ling.sinica.edu.tw/index/
+period: [contemporary]
+modality: spoken
+description:
+  en: "A portal to Academia Sinica's Mandarin speech collections, including conversations, sociophonetic interviews, child speech, and phonological development data. Transcripts and annotations vary by collection. Search requires an account; some datasets have separate academic licences."
+  ja: "中央研究院の中国語音声資料への入口。会話、社会音声学調査のインタビュー、幼児の発話、音韻発達の資料を収めています。書き起こしや注釈の内容はコーパスごとに異なります。検索には利用登録が必要で、一部のデータには別途学術利用の許諾が必要です。"
+  zh: "中央研究院的華語口語資料入口，包含會話、社會語音學訪談、兒童語言及音韻發展語料。各語料庫的轉寫與標注內容有所不同。檢索須註冊帳號，部分資料須另行取得學術使用授權。"
