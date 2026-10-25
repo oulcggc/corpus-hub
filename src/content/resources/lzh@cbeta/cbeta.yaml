@@ -1,0 +1,14 @@
+# Sources: https://cbetaonline.dila.edu.tw/ and https://cbetaonline.dila.edu.tw/doc/zh/
+kind: corpus
+langs: [lzh]
+name:
+  zh: CBETA線上閱讀
+  en: CBETA Online
+  ja: CBETAオンライン版
+link: https://cbetaonline.dila.edu.tw/
+period: [diachronic]
+modality: written
+description:
+  en: "Read and search Chinese Buddhist texts, with canonical references and textual variants."
+  ja: "漢文仏典の閲覧・全文検索サイト。経典番号や巻次、校勘情報を確認できます。"
+  zh: "提供漢文佛典閱讀與全文檢索，可查看經號、卷次及校勘資訊。"
