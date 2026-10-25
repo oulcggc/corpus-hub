@@ -1,0 +1,77 @@
+name: Suggest a resource
+description: Propose a corpus, dataset, dictionary, text archive, or tool for the catalog.
+title: "[Suggest] "
+labels: [suggestion]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Fill in what you know; maintainers complete the rest.
+        日本語でも記入できます。中文填写亦可。
+  - type: input
+    id: name
+    attributes:
+      label: Name
+      description: The resource's own name, in its original language. Add an English name after a slash if one exists.
+      placeholder: 現代日本語書き言葉均衡コーパス / Balanced Corpus of Contemporary Written Japanese
+    validations:
+      required: true
+  - type: input
+    id: link
+    attributes:
+      label: Link
+      description: The official page, not a mirror or a paper about it.
+      placeholder: https://clrd.ninjal.ac.jp/bccwj/
+    validations:
+      required: true
+  - type: dropdown
+    id: kind
+    attributes:
+      label: Kind
+      options:
+        - Corpus
+        - Dataset
+        - Dictionary
+        - Text archive
+        - Concordancer (search interface)
+        - Converter
+        - Analyzer
+    validations:
+      required: true
+  - type: input
+    id: languages
+    attributes:
+      label: Languages
+      description: Language names or BCP 47 codes, e.g. "Japanese" or "ja, lzh".
+    validations:
+      required: true
+  - type: input
+    id: publisher
+    attributes:
+      label: Publisher or creator
+      description: The institution or person who maintains it.
+  - type: checkboxes
+    id: access
+    attributes:
+      label: Access
+      options:
+        - label: Usable online in a browser
+        - label: Downloadable
+        - label: Free of charge
+        - label: Requires an account
+        - label: Requires an application or contract
+  - type: input
+    id: license
+    attributes:
+      label: License
+      description: As stated by the publisher, if any.
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: What it contains (period, genre, size, annotation) and what it is good for.
+  - type: textarea
+    id: source
+    attributes:
+      label: Source
+      description: Where the details above come from, such as the official page, a paper, or your own use.
