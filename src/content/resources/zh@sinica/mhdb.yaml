@@ -1,5 +1,9 @@
 kind: dataset
 langs: [zh]
 name:
-  zh: 台湾の近代史數位資料庫
+  zh: 近代史數位資料庫
+  en: Modern History Databases
+abbr:
+  en: MHDB
+  zh: MHDB
 link: http://mhdb.mh.sinica.edu.tw/
