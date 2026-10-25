@@ -1,15 +1,15 @@
 ---
-import Layout from "../../../layouts/Layout.astro";
-import CatalogCard from "../../../components/CatalogCard.astro";
-import FilterBar, { type Facet } from "../../../components/FilterBar.astro";
-import * as m from "../../../paraglide/messages";
-import { LOCALES, type Locale } from "../../../lib/i18n";
+import Layout from "@layouts/Layout.astro";
+import CatalogCard from "@components/CatalogCard.astro";
+import FilterBar, { type Facet } from "@components/FilterBar.astro";
+import * as m from "@paraglide/messages";
+import { LOCALES, type Locale } from "@lib/i18n";
 import {
   CATEGORIES,
   getResourcesByKinds,
   getToolsByKinds,
   type Category,
-} from "../../../lib/catalog";
+} from "@lib/catalog";
 import {
   labelAccess,
   labelPeriod,
@@ -19,7 +19,7 @@ import {
   searchText,
   toolCard,
   type CardProps,
-} from "../../../lib/display";
+} from "@lib/display";
 
 export function getStaticPaths() {
   return LOCALES.flatMap((locale) =>

@@ -1,6 +1,6 @@
-import * as m from "../paraglide/messages";
-import { pickLocalized, nativeForm, localePath, type Locale } from "./i18n";
-import type { ResolvedResource, ResolvedTool, Tool } from "./catalog";
+import * as m from "@paraglide/messages";
+import { pickLocalized, nativeForm, localePath, type Locale } from "@lib/i18n";
+import type { ResolvedResource, ResolvedTool, Tool } from "@lib/catalog";
 
 const KIND_TO_CATEGORY: Record<string, string> = {
   corpus: "corpora",

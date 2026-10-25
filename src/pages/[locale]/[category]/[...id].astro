@@ -1,27 +1,27 @@
 ---
 import { getCollection } from "astro:content";
-import Layout from "../../../layouts/Layout.astro";
-import * as m from "../../../paraglide/messages";
+import Layout from "@layouts/Layout.astro";
+import * as m from "@paraglide/messages";
 import {
   LOCALES,
   localePath,
   pickLocalized,
   nativeForm,
   type Locale,
-} from "../../../lib/i18n";
+} from "@lib/i18n";
 import {
   resolveResource,
   resolveTool,
   type ResolvedResource,
   type ResolvedTool,
-} from "../../../lib/catalog";
+} from "@lib/catalog";
 import {
   accessChips,
   categoryOf,
   labelPeriod,
   labelTag,
   languageNames,
-} from "../../../lib/display";
+} from "@lib/display";
 
 export async function getStaticPaths() {
   const resources = await Promise.all(

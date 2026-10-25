@@ -1,4 +1,4 @@
-import { isLocale, LOCALES, localePath, type Locale } from "./i18n";
+import { isLocale, LOCALES, localePath, type Locale } from "@lib/i18n";
 
 export interface ArticleIdentity {
   id: string;

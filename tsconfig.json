@@ -1,5 +1,14 @@
 {
   "extends": "astro/tsconfigs/strict",
   "include": [".astro/types.d.ts", "src/**/*"],
-  "exclude": ["dist", "src/paraglide"]
+  "exclude": ["dist", "src/paraglide"],
+  "compilerOptions": {
+    "paths": {
+      "@components/*": ["./src/components/*"],
+      "@layouts/*": ["./src/layouts/*"],
+      "@lib/*": ["./src/lib/*"],
+      "@paraglide/*": ["./src/paraglide/*"],
+      "@styles/*": ["./src/styles/*"]
+    }
+  }
 }

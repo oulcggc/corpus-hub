@@ -1,9 +1,9 @@
 ---
 import { Icon } from "astro-icon/components";
-import * as m from "../paraglide/messages";
-import { localePath, type Locale } from "../lib/i18n";
-import LanguagePicker from "./LanguagePicker.astro";
-import ThemeSwitch from "./ThemeSwitch.astro";
+import * as m from "@paraglide/messages";
+import { localePath, type Locale } from "@lib/i18n";
+import LanguagePicker from "@components/LanguagePicker.astro";
+import ThemeSwitch from "@components/ThemeSwitch.astro";
 
 interface Props {
   locale: Locale;

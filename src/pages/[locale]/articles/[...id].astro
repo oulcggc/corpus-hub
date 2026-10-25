@@ -1,11 +1,11 @@
 ---
 import { getCollection, render } from "astro:content";
-import { groupArticleVersions } from "../../../lib/articles";
-import Layout from "../../../layouts/Layout.astro";
-import * as m from "../../../paraglide/messages";
-import VisitorCounter from "../../../components/VisitorCounter.astro";
-import FavouriteButton from "../../../components/article/FavouriteButton.astro";
-import type { Locale } from "../../../lib/i18n";
+import { groupArticleVersions } from "@lib/articles";
+import Layout from "@layouts/Layout.astro";
+import * as m from "@paraglide/messages";
+import VisitorCounter from "@components/VisitorCounter.astro";
+import FavouriteButton from "@components/article/FavouriteButton.astro";
+import type { Locale } from "@lib/i18n";
 import type { CollectionEntry } from "astro:content";
 
 export async function getStaticPaths() {

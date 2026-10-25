@@ -1,8 +1,8 @@
 import { defineCollection, reference } from "astro:content";
 import { z } from "astro/zod";
 import { glob } from "astro/loaders";
-import { isArticleSlug } from "./lib/articles";
-import { LOCALES } from "./lib/i18n";
+import { isArticleSlug } from "@lib/articles";
+import { LOCALES } from "@lib/i18n";
 
 const keepPathAsId = ({ entry }: { entry: string }) =>
   entry.replace(/\.[^.]+$/, "");
