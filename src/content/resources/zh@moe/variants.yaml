@@ -1,0 +1,14 @@
+# Source: https://dict.variants.moe.edu.tw/index.jsp
+kind: dictionary
+langs: [zh, lzh]
+name:
+  zh: 教育部《異體字字典》
+  en: Dictionary of Chinese Character Variants
+  ja: 教育部『異體字字典』
+link: https://dict.variants.moe.edu.tw/
+period: [diachronic]
+modality: written
+description:
+  en: "Chinese standard and variant characters, searchable by radical, stroke count, structure, or pronunciation."
+  ja: "漢字の正字と異体字を収録。部首・画数・字形の構造・音から検索できます。"
+  zh: "收錄漢字正字與異體字，可依部首、筆畫、字形結構或音讀查詢。"

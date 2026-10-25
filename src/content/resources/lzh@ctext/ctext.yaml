@@ -1,0 +1,14 @@
+# Source: https://ctext.org/introduction
+kind: corpus
+langs: [lzh]
+name:
+  zh: 中國哲學書電子化計劃
+  en: Chinese Text Project
+  ja: 中國哲學書電子化計劃
+link: https://ctext.org/
+period: [diachronic]
+modality: written
+description:
+  en: "Searchable premodern Chinese texts with linked dictionaries, parallel passages, and scans of source editions."
+  ja: "中国古典の全文検索サイト。字書や他の文献の類似箇所、底本の画像も参照できます。"
+  zh: "收錄歷代漢文典籍，提供全文檢索、字典、相似段落比對與底本書影。"
