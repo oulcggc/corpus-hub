@@ -1,6 +1,7 @@
 ---
 import * as m from "@paraglide/messages";
 import type { Locale } from "@lib/i18n";
+import { SUGGEST_URL } from "@lib/catalog";
 
 interface Props {
   locale: Locale;
@@ -8,7 +9,6 @@ interface Props {
 
 const { locale } = Astro.props;
 
-const SUGGEST_URL = "https://github.com/oulcggc/corpus-hub/issues/new";
 ---
 
 <footer

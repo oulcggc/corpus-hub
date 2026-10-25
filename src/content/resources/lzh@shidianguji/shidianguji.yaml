@@ -1,0 +1,14 @@
+# Source: https://www.kvlab.org/project/shidianguji/
+kind: corpus
+langs: [lzh]
+name:
+  zh: 識典古籍
+  en: Shidianguji
+  ja: 識典古籍
+link: https://www.shidianguji.com/
+period: [diachronic]
+modality: written
+description:
+  en: "Read and search premodern Chinese books, with filters by period and subject and images alongside transcribed text."
+  ja: "漢籍の閲覧・全文検索サイト。時代や分類で絞り込み、本文と書影を対照できます。"
+  zh: "提供古籍閱讀與全文檢索，可依時代、部類篩選，並對照文本與書影。"

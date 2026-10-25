@@ -27,7 +27,8 @@ interface Props {
 
 const locale = Astro.params.locale as Locale;
 const { article, versions } = Astro.props;
-const { Content } = await render(article);
+const { Content, headings } = await render(article);
+const contents = headings.filter((h) => h.depth >= 2 && h.depth <= 4);
 
 const dateFormat = new Intl.DateTimeFormat(locale, {
   year: "numeric",
@@ -98,9 +99,27 @@ const dateFormat = new Intl.DateTimeFormat(locale, {
       <hr class="border-t-2 border-gray-200 dark:border-gray-800 my-10" />
     </section>
 
+    <details
+      class="xl:hidden mb-8 rounded-lg border border-gray-200 dark:border-gray-800 px-4 py-2 text-sm"
+    >
+      <summary class="cursor-pointer text-gray-500 dark:text-gray-400">
+        {m.contents({}, { locale })}
+      </summary>
+      <ol class="mt-2 mb-1 space-y-1.5">
+        {
+          contents.map((h) => (
+            <li style={`padding-left: ${(h.depth - 2) * 0.75}rem`}>
+              <a class="hover:text-accent" href={`#${h.slug}`}>
+                {h.text}
+              </a>
+            </li>
+          ))
+        }
+      </ol>
+    </details>
+
     <div class="relative">
       <article
-        id="markdown"
         class="relative prose dark:prose-invert max-w-none prose-a:break-all"
       >
         <!-- Floating menu to the left -->
@@ -111,34 +130,35 @@ const dateFormat = new Intl.DateTimeFormat(locale, {
         </div>
         <Content />
       </article>
-      <!-- Floating TOC to the right -->
       <nav
-        class="hidden text-[0.5em] md:flex absolute top-0 right-[-10rem] flex flex-col text-center items-center justify-center max-w-24"
+        aria-labelledby="contents"
+        class="hidden xl:block absolute top-0 bottom-0 left-full ml-8 w-48"
       >
-        <h2 class="text-gray-500 dark:text-gray-400 text-center text-sm m-0">
-          目次
-        </h2>
-        <ul id="toc"></ul>
+        <div class="sticky top-8 text-sm">
+          <h2
+            id="contents"
+            class="mb-3 text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400"
+          >
+            {m.contents({}, { locale })}
+          </h2>
+          <ol
+            class="space-y-1.5 border-l border-gray-200 dark:border-gray-800 leading-snug"
+          >
+            {
+              contents.map((h) => (
+                <li style={`padding-left: ${0.75 + (h.depth - 2) * 0.75}rem`}>
+                  <a
+                    class="block text-gray-600 dark:text-gray-400 hover:text-accent"
+                    href={`#${h.slug}`}
+                  >
+                    {h.text}
+                  </a>
+                </li>
+              ))
+            }
+          </ol>
+        </div>
       </nav>
     </div>
-    <script is:inline lang="ts">
-      const toc = document.getElementById("toc");
-      window.addEventListener("DOMContentLoaded", () => {
-        const markdown = document.getElementById("markdown");
-        const headings = markdown.querySelectorAll("h2, h3, h4, h5, h6");
-        headings.forEach((heading) => {
-          const id = heading.id;
-          const text = heading.textContent;
-          const level = parseInt(heading.tagName[1]);
-          const li = document.createElement("li");
-          const a = document.createElement("a");
-          a.href = `#${id}`;
-          a.textContent = text;
-          a.classList.add(`text-gray-${level * 100}`);
-          li.appendChild(a);
-          toc.appendChild(li);
-        });
-      });
-    </script>
   </main>
 </Layout>
