@@ -1,0 +1,12 @@
+# Sources: https://www.ancientbooks.cn/ ; https://www.lib.polyu.edu.hk/node/26677 (PolyU Library database note) ; https://news.ifeng.com/c/8Lek6eR7ydi (search scope)
+kind: corpus
+langs: [lzh]
+name:
+  zh: 中华经典古籍库
+link: https://jingdian.ancientbooks.cn/
+period: [diachronic]
+modality: written
+description:
+  en: "Punctuated editions of premodern Chinese books from Zhonghua Book Company and partner presses, searchable by main text, commentary, and proper names. Access requires a subscription."
+  ja: "中華書局などが刊行した古籍の点校本を、本文・注・固有名詞に分けて全文検索できます。利用には購読契約が必要です。"
+  zh: "收錄中華書局及合作出版社的古籍整理本，可全文檢索正文、注文與專名。須訂閱使用。"
