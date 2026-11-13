@@ -1,0 +1,12 @@
+# Sources: https://guji.cckb.cn/ ; https://www.tsinghua.edu.cn/info/1182/124342.htm (Guangming Daily via Tsinghua News)
+kind: text-archive
+langs: [lzh]
+name:
+  zh: 典津
+link: https://guji.cckb.cn/
+period: [diachronic]
+modality: written
+description:
+  en: "Search digitized premodern Chinese books from hundreds of library image databases worldwide in one place. Developed by Tsinghua University's digital humanities team."
+  ja: "世界各地の数百の画像データベースで公開されている漢籍を一括検索できます。清華大学のデジタル人文学チームが開発。"
+  zh: "一站檢索全球數百個資料庫公開的漢籍影像。由清華大學數字人文團隊研發。"

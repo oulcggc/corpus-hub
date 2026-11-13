@@ -1,0 +1,16 @@
+# Source: https://21dzk.l.u-tokyo.ac.jp/SAT/
+kind: corpus
+langs: [lzh]
+name:
+  ja: SAT大正新脩大藏經テキストデータベース
+  en: SAT Daizōkyō Text Database
+abbr:
+  en: SAT
+  ja: SAT
+link: https://21dzk.l.u-tokyo.ac.jp/SAT/
+period: [diachronic]
+modality: written
+description:
+  en: "Full-text search of the Taishō canon (vols. 1–85) with IIIF page images, run by the University of Tokyo."
+  ja: "『大正新脩大藏經』全85巻の全文検索サイト。IIIF対応の版面画像も参照できます。東京大学を拠点に運営。"
+  zh: "《大正新脩大藏經》全八十五冊的全文檢索網站，可對照IIIF版面影像。以東京大學為據點營運。"

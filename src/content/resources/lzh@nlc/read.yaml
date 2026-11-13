@@ -1,0 +1,12 @@
+# Sources: http://read.nlc.cn/user/index (notice of 2021-11-24 on login-free collections) ; https://cn.chinadaily.com.cn/a/202501/10/WS6780e775a310b59111dad436.html
+kind: text-archive
+langs: [lzh, zh]
+name:
+  zh: 国家图书馆读者云门户
+link: http://read.nlc.cn/
+period: [diachronic]
+modality: written
+description:
+  en: "The National Library of China's reading portal. Many of its premodern collections, including rare editions, Dunhuang manuscripts, rubbings, and local gazetteers, can be viewed without logging in."
+  ja: "中国国家図書館の電子資料閲覧サイト。善本、敦煌文献、拓本、地方志など、多くの古籍データベースはログインせずに画像を閲覧できます。"
+  zh: "中國國家圖書館的數字資源閱覽平台。善本、敦煌遺書、碑帖、方志等多個古籍資料庫可免登入閱覽影像。"
