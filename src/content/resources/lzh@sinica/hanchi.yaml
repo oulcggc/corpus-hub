@@ -1,4 +1,4 @@
-# Sources: https://hanchi.ihp.sinica.edu.tw/ ; https://ndlsearch.ndl.go.jp/rnavi/asia/post_159 (NDL Research Navi)
+# Sources: https://hanchi.ihp.sinica.edu.tw/ihp/hanji.htm ; https://ndlsearch.ndl.go.jp/rnavi/db/asialinks/art_chn (NDL Research Navi)
 kind: corpus
 langs: [lzh]
 name:
@@ -8,6 +8,6 @@ link: https://hanchi.ihp.sinica.edu.tw/
 period: [diachronic]
 modality: written
 description:
-  en: "Academia Sinica's full-text database of premodern Chinese texts, strongest in history, including the dynastic histories and the Thirteen Classics. Part of it is free to use."
-  ja: "中央研究院による漢籍の全文データベース。正史や十三経をはじめ史部が充実しています。一部は無料で利用できます。"
+  en: "Academia Sinica's full-text database of premodern Chinese texts, mainly histories, with the dynastic histories, the Thirteen Classics, and more. Part of it is free to use."
+  ja: "中央研究院による漢籍の全文データベース。史部を中心に、正史や十三経などを収録しています。一部は無料で利用できます。"
   zh: "中央研究院建置的漢籍全文資料庫，以史部最為豐富，收錄二十五史、十三經等典籍。部分內容可免費使用。"
