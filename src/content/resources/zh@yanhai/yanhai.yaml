@@ -1,0 +1,11 @@
+# Source: https://www.yanhainav.cn/
+kind: directory
+langs: [zh]
+name:
+  zh: 烟海
+  en: Yanhai
+link: https://www.yanhainav.cn/
+description:
+  en: "A curated directory of digital resources for classical Chinese studies, from full-text databases and dictionaries to corpora and research tools."
+  ja: "中国古典学のデジタル資源を分野別に集めたディレクトリ。全文データベース、辞書、文字学、コーパス、研究ツールなどを収録する。"
+  zh: "中国古典学数字资源导航，按全文检索、辞书、文字学、语料库、研究工具等分类收录。"

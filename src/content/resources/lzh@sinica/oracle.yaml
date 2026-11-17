@@ -1,0 +1,13 @@
+# Sources: https://www.yanhainav.cn/sites/%e7%94%b2%e9%aa%a8%e6%96%87%e6%95%b0%e6%8d%ae%e5%ba%93.html ; https://ndweb.iis.sinica.edu.tw/rub_public/System/Bone/home2.htm
+kind: dataset
+langs: [lzh]
+name:
+  zh: 甲骨文數位典藏
+  en: Oracle Bone Inscriptions Digital Archive
+link: https://ndweb.iis.sinica.edu.tw/rub_public/System/Bone/home2.htm
+period: [classical]
+modality: written
+description:
+  en: "Academia Sinica's digital archive of oracle-bone inscriptions, with a search interface."
+  ja: "中央研究院の甲骨文デジタルアーカイブ。検索インターフェースを備える。"
+  zh: "中央研究院的甲骨文數位典藏，提供檢索介面。"

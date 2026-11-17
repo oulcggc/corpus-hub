@@ -1,0 +1,13 @@
+# Sources: https://www.yanhainav.cn/sites/%e7%88%b1%e5%a6%82%e7%94%9f%e5%85%b8%e6%b5%b7.html ; http://dh.ersjk.com/
+kind: corpus
+langs: [lzh]
+name:
+  zh: 爱如生典海
+  en: Airusheng Dianhai
+link: http://dh.ersjk.com/
+period: [diachronic]
+modality: written
+description:
+  en: "A platform for Airusheng's full-text databases of premodern Chinese books, local gazetteers, and other historical sources. Access is through an institutional subscription."
+  ja: "愛如生が提供する古籍・地方志・史料の全文データベース群をまとめたプラットフォーム。機関契約で利用します。"
+  zh: "爱如生古籍、方志与史料全文数据库的检索平台，供机构订阅使用。"

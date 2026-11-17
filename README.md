@@ -1,15 +1,16 @@
 # CorpusHub | The Corpus of All Corpora
 
 [CorpusHub](https://corpora.oulcggc.org/) is a directory of language resources
-for researchers: corpora, concordancers, dictionaries, and datasets, covering
-major and minor languages.
+for researchers: corpora, concordancers, dictionaries, datasets, and directories
+of further resources, covering major and minor languages.
 
 ## Architecture
 
 - [Astro](https://astro.build/) 7, fully static output. Catalog data lives in
   `src/content/` as YAML entries validated by Zod schemas at build time:
   - `organizations/` — institutions that publish resources
-  - `resources/` — things you search in (corpora, datasets, dictionaries)
+  - `resources/` — things you search in (corpora, datasets, dictionaries, text
+    archives) and resource directories
   - `tools/` — things you search with (concordancers)
   - `articles/` — curated research guides (MDX)
 - UI languages: English, Japanese, Chinese ([Paraglide](https://inlang.com/m/gerre34r/library-inlang-paraglideJs)

@@ -1,0 +1,13 @@
+# Sources: https://www.yanhainav.cn/sites/%e6%95%b0%e5%ad%97%e5%8c%96%e3%80%8a%e8%af%b4%e6%96%87%e8%a7%a3%e5%ad%97%e3%80%8b.html ; https://szsw.bnu.edu.cn/
+kind: dictionary
+langs: [lzh]
+name:
+  zh: 数字化《说文解字》
+  en: Shuowen Jiezi Research Platform
+link: https://szsw.bnu.edu.cn/
+period: [classical]
+modality: written
+description:
+  en: "A research platform for the Shuowen Jiezi, with searches by headword, full text, and editorial principles."
+  ja: "『説文解字』の字頭・全文・凡例を検索できる研究プラットフォーム。"
+  zh: "《说文解字》研究与应用平台，提供字头、全文与凡例检索。"

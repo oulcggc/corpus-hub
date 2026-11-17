@@ -1,0 +1,13 @@
+# Sources: https://www.yanhainav.cn/sites/%e4%b9%a1%e9%9f%b3%e5%9c%b0%e5%9b%be.html ; https://phonemica.net/
+kind: dataset
+langs: [zh]
+name:
+  zh: 乡音地图
+  en: Phonemica
+link: https://phonemica.net/
+period: [contemporary]
+modality: spoken
+description:
+  en: "A crowdsourced archive of Chinese dialect recordings, mapped by location with transcripts."
+  ja: "中国各地の方言音声を地図上に集めたクラウドソーシング型アーカイブ。書き起こしを伴う。"
+  zh: "以地图标记收集中国各地方言录音的众包平台，附转写。"

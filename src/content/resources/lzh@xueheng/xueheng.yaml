@@ -1,0 +1,13 @@
+# Sources: https://www.yanhainav.cn/sites/%e5%ad%a6%e8%a1%a1%e6%95%b0%e6%8d%ae.html ; https://www.xueheng.net/
+kind: corpus
+langs: [lzh]
+name:
+  zh: 学衡数据
+  en: Xueheng Data
+link: https://www.xueheng.net/
+period: [diachronic]
+modality: written
+description:
+  en: "A full-text and image library of Chinese classics, including the Wenyuange Siku Quanshu, Zhengtong Daozang, and Sibu Congkan."
+  ja: "文淵閣四庫全書、正統道蔵、四部叢刊などを収める古籍の全文・画像ライブラリ。"
+  zh: "收录文渊阁四库全书、正统道藏、四部丛刊等古籍全文与影像的数据库。"

@@ -1,0 +1,16 @@
+# Sources: https://www.yanhainav.cn/sites/%e5%8f%a4%e8%a9%a9%e6%96%87%e6%96%b7%e5%8f%a5.html ; https://seg.shenshen.wiki/
+kind: analyzer
+langs: [lzh]
+name:
+  zh: 古詩文斷句
+  en: Classical Chinese Sentence Segmentation
+link: https://seg.shenshen.wiki/
+access:
+  delivery: web
+  cost: free
+  registration: none
+serves: []
+description:
+  en: "An automatic sentence-segmentation and punctuation tool for classical Chinese texts, from a Beijing Normal University Chinese information processing team."
+  ja: "北京師範大学の中国語情報処理チームによる、漢文の自動句読点付与ツール。"
+  zh: "北京師範大學中文信息處理團隊開發的古詩文自動斷句與標點工具。"

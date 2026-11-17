@@ -1,0 +1,13 @@
+# Sources: https://www.yanhainav.cn/sites/%e6%b1%89%e5%ad%97%e5%8f%94%e5%8f%94.html ; https://hanziyuan.net/
+kind: dictionary
+langs: [lzh]
+name:
+  zh: 汉字叔叔
+  en: Chinese Etymology
+link: https://hanziyuan.net/
+period: [diachronic]
+modality: written
+description:
+  en: "A character etymology site tracing oracle-bone, bronze, seal, and clerical forms of Chinese characters."
+  ja: "甲骨文・金文・篆書・隷書など、漢字の古い字形と字源をたどれるサイト。"
+  zh: "追溯甲骨文、金文、篆书、隶书等字形与字源的汉字字源网站。"

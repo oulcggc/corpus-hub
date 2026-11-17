@@ -31,7 +31,7 @@ const resources = defineCollection({
     generateId: keepPathAsId,
   }),
   schema: z.object({
-    kind: z.enum(["corpus", "dataset", "dictionary", "text-archive"]),
+    kind: z.enum(["corpus", "dataset", "dictionary", "text-archive", "directory"]),
     langs: z.array(z.string()).min(1),
     name: localized,
     abbr: localized.optional(),

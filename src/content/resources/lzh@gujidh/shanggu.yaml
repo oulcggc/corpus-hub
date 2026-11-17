@@ -1,0 +1,15 @@
+# Sources: https://www.yanhainav.cn/sites/%e5%b0%9a%e5%8f%a4%e6%b1%87%e5%85%b8%c2%b7%e4%b8%8a%e6%b5%b7%e5%8f%a4%e7%b1%8d%e5%87%ba%e7%89%88%e7%a4%be%e5%8f%a4%e7%b1%8d%e6%95%b0%e5%ad%97%e6%9c%8d%e5%8a%a1%e5%b9%b3%e5%8f%b0.html ; https://www.gujidh.com/home
+kind: corpus
+langs: [lzh]
+name:
+  zh: 尚古汇典
+  en: Shanggu Huidian
+abbr:
+  zh: 汇典网
+link: https://www.gujidh.com/home
+period: [diachronic]
+modality: written
+description:
+  en: "Shanghai Classics Publishing House's platform for digitised editions and databases of premodern Chinese texts, with OCR tools."
+  ja: "上海古籍出版社の古籍デジタル化プラットフォーム。古籍データベースとOCR機能を提供します。"
+  zh: "上海古籍出版社的古籍数字化平台，提供古籍数据库与OCR服务。"
