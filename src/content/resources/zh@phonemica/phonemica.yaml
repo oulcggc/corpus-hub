@@ -8,6 +8,6 @@ link: https://phonemica.net/
 period: [contemporary]
 modality: spoken
 description:
-  en: "A crowdsourced archive of Chinese dialect recordings, mapped by location with transcripts."
-  ja: "中国各地の方言音声を地図上に集めたクラウドソーシング型アーカイブ。書き起こしを伴う。"
-  zh: "以地图标记收集中国各地方言录音的众包平台，附转写。"
+  en: "A crowdsourced archive of spoken-language recordings, mapped by location with transcripts."
+  ja: "各地の話し言葉を地図上に集めたクラウドソーシング型アーカイブ。書き起こしを伴う。"
+  zh: "以地图标记收集各地口语录音的众包平台，附转写。"
