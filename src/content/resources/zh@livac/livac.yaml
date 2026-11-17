@@ -1,0 +1,13 @@
+# Sources: https://www.yanhainav.cn/sites/livac.html ; https://www.livac.org/
+kind: corpus
+langs: [zh]
+name:
+  zh: LIVAC
+  en: LIVAC
+link: https://www.livac.org/
+period: [contemporary]
+modality: written
+description:
+  en: "A corpus of Chinese newspaper texts from Beijing, Hong Kong, and Taipei, with comparable samples from 1995–99 and 2015–19 and a concordancer."
+  ja: "北京・香港・台北の中国語新聞を収録したコーパス。1995～99年と2015～19年の比較可能な資料を含み、検索ツールを備える。"
+  zh: "收錄北京、香港、臺北中文報刊語料的語料庫，包含1995–99年與2015–19年的可比樣本，並附檢索工具。"

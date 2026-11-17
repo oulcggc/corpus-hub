@@ -1,0 +1,13 @@
+# Sources: https://www.yanhainav.cn/sites/%e5%8f%a4%e4%bb%8a%e6%96%87%e5%ad%97%e9%9b%86%e6%88%90.html ; https://ccamc.org/
+kind: dictionary
+langs: [lzh]
+name:
+  zh: 古今文字集成
+  en: Gujin Wenzi Jicheng
+link: https://ccamc.org/
+period: [diachronic]
+modality: written
+description:
+  en: "An integrated reference for the forms, meanings, and phonological development of Chinese characters, including oracle-bone, bronze, seal, and excavated scripts."
+  ja: "甲骨文・金文・篆書・出土文字を含め、漢字の字形・字義・音韻の変遷を集成した参照サイト。"
+  zh: "集成甲骨文、金文、篆书、出土文字等字形，以及字义与音韵演变的汉字参照网站。"

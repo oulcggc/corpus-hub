@@ -1,0 +1,13 @@
+# Sources: https://www.yanhainav.cn/sites/%e6%ae%86%e7%9f%a5%e9%98%81.html ; https://daizhige.org/
+kind: corpus
+langs: [lzh]
+name:
+  zh: 殆知阁
+  en: Daizhige
+link: https://daizhige.org/
+period: [diachronic]
+modality: written
+description:
+  en: "A full-text search engine for classical Chinese literature, covering classics, history, philosophy, belles-lettres, poetry, medicine, and Buddhist and Daoist texts."
+  ja: "経史子集のほか詩学・医学・仏道など、中国古典文献を広く収録した全文検索エンジン。"
+  zh: "收录经史子集、诗学、医学、佛道等中国古典文献的全文检索引擎。"

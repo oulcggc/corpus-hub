@@ -1,0 +1,11 @@
+# Sources: https://www.yanhainav.cn/sites/%e5%bc%95%e5%be%97%e5%b8%82.html ; https://www.mebag.com/index/
+kind: dataset
+langs: [lzh]
+name:
+  zh: 引得市
+  en: Yindeshi
+link: https://www.mebag.com/index/
+description:
+  en: "An index of dictionaries, excavated texts, and research papers on Chinese paleography."
+  ja: "辞典・出土文献・文字学論文の索引を提供するサイト。"
+  zh: "提供辞典、出土文献与文字学论文索引的检索站。"

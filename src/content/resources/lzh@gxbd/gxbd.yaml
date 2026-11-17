@@ -1,0 +1,13 @@
+# Sources: https://www.yanhainav.cn/sites/%e5%9b%bd%e5%ad%a6%e5%ae%9d%e5%85%b8.html ; http://www.gxbd.com/
+kind: corpus
+langs: [lzh]
+name:
+  zh: 国学宝典
+  en: Guoxue Baodian
+link: http://www.gxbd.com/
+period: [diachronic]
+modality: written
+description:
+  en: "A full-text search engine for traditional Chinese texts, covering classics, history, philosophy, and belles-lettres."
+  ja: "経史子集にわたる中国の伝統典籍を全文検索できるデータベース。"
+  zh: "收录经史子集等中国传统典籍，提供全文检索。"

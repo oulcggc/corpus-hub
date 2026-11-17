@@ -1,0 +1,13 @@
+# Sources: https://www.yanhainav.cn/sites/%e5%85%88%e7%a7%a6%e7%94%b2%e9%aa%a8%e9%87%91%e6%96%87%e7%b0%a1%e7%89%98%e8%a9%9e%e5%bd%99%e8%b3%87%e6%96%99%e5%ba%ab.html ; https://inscription.asdc.sinica.edu.tw/c_index.php
+kind: dataset
+langs: [lzh]
+name:
+  zh: 先秦甲骨金文簡牘詞彙資料庫
+  en: Lexicon of Pre-Qin Oracle, Bronze Inscriptions and Bamboo Scripts
+link: https://inscription.asdc.sinica.edu.tw/c_index.php
+period: [classical]
+modality: written
+description:
+  en: "A lexical database of words from oracle-bone inscriptions, bronze inscriptions, and bamboo and wooden slips."
+  ja: "甲骨文・金文・簡牘に現れる語彙を収録したデータベース。"
+  zh: "收錄甲骨文、金文與簡牘詞彙的資料庫。"

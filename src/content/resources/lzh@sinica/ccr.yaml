@@ -1,0 +1,13 @@
+# Sources: https://www.yanhainav.cn/sites/%e6%b1%89%e5%ad%97%e5%8f%a4%e4%bb%8a%e9%9f%b3%e8%af%ad%e6%96%99%e5%ba%93.html ; https://xiaoxue.iis.sinica.edu.tw/ccr/
+kind: dataset
+langs: [lzh]
+name:
+  zh: 漢字古今音資料庫
+  en: Database of Historical and Modern Chinese Readings
+link: https://xiaoxue.iis.sinica.edu.tw/ccr/
+period: [diachronic]
+modality: written
+description:
+  en: "A database of Chinese character readings from Old Chinese to modern varieties, including Sino-Japanese, Sino-Korean, and Sino-Vietnamese."
+  ja: "上古音から現代方言、日中韓越の漢字音まで、漢字の古今の音を収録したデータベース。"
+  zh: "收錄漢字古今讀音的資料庫，涵蓋上古音、現代方言及日韓越漢字音。"

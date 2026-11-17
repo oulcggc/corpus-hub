@@ -1,0 +1,13 @@
+# Sources: https://www.yanhainav.cn/sites/%e9%9b%95%e9%be%99%e5%8f%a4%e7%b1%8d%e6%95%b0%e6%8d%ae%e5%ba%93.html ; https://tk.cepiec.com.cn/ancientc/ancientkm
+kind: corpus
+langs: [lzh]
+name:
+  zh: 雕龙古籍数据库
+  en: Diaolong Ancient Books Database
+link: https://tk.cepiec.com.cn/ancientc/ancientkm
+period: [diachronic]
+modality: written
+description:
+  en: "A full-text database of Chinese and Japanese premodern books."
+  ja: "中国と日本の古籍を収録した全文データベース。"
+  zh: "收录中日古籍的全文数据库。"

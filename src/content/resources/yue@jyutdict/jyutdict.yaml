@@ -1,0 +1,13 @@
+# Sources: https://www.yanhainav.cn/sites/%e6%b3%9b%e7%b2%b5%e5%a4%a7%e5%85%b8.html ; https://jyutdict.org/
+kind: dictionary
+langs: [yue]
+name:
+  zh: 泛粵大典
+  en: Jyutdict
+link: https://jyutdict.org/
+period: [diachronic]
+modality: written
+description:
+  en: "A Cantonese dictionary of character readings across regions, with Jyutping, IPA, and comparisons to historical rhyme books."
+  ja: "各地の広東語の字音を収録し、粤拼・IPAと歴史韻書との対照を提供する辞典。"
+  zh: "收錄粵語字音與各地方音的粵拼辭典，提供粵拼、IPA及與歷史韻書的對照。"

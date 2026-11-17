@@ -22,6 +22,10 @@ const links = [
     name: m.dictionaries({}, { locale }),
   },
   { path: localePath(locale, "datasets"), name: m.datasets({}, { locale }) },
+  {
+    path: localePath(locale, "directories"),
+    name: m.directories({}, { locale }),
+  },
   { path: localePath(locale, "tools"), name: m.tools({}, { locale }) },
 ];
 ---

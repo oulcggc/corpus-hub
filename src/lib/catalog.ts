@@ -19,6 +19,7 @@ export const CATEGORIES = {
   corpora: { collection: "resources", kinds: ["corpus", "text-archive"] },
   datasets: { collection: "resources", kinds: ["dataset"] },
   dictionaries: { collection: "resources", kinds: ["dictionary"] },
+  directories: { collection: "resources", kinds: ["directory"] },
   concordancers: { collection: "tools", kinds: ["concordancer"] },
   tools: { collection: "tools", kinds: ["converter", "analyzer"] },
 } as const;

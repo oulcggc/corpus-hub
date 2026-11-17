@@ -1,0 +1,13 @@
+# Sources: https://www.yanhainav.cn/sites/%e7%8e%b0%e4%bb%a3%e6%b1%89%e8%af%ad%e6%9e%84%e5%bc%8f%e6%95%b0%e6%8d%ae%e5%ba%93.html ; https://ccl.pku.edu.cn/ccgd/
+kind: dataset
+langs: [zh]
+name:
+  zh: 现代汉语构式数据库
+  en: Modern Chinese Construction Database
+link: https://ccl.pku.edu.cn/ccgd/
+period: [contemporary]
+modality: written
+description:
+  en: "A database of modern Chinese constructions from Peking University's Center for Chinese Linguistics."
+  ja: "北京大学中国語言学研究センターによる現代中国語の構文データベース。"
+  zh: "北京大学中国语言学研究中心建立的现代汉语构式数据库。"

@@ -110,7 +110,7 @@ const resourceData =
 const jsonLd = resourceData
   ? JSON.stringify({
       "@context": "https://schema.org",
-      "@type": "Dataset",
+      "@type": resourceData.kind === "directory" ? "CollectionPage" : "Dataset",
       name,
       alternateName: Object.values(resourceData.name).filter((v) => v !== name),
       url: resourceData.link,
